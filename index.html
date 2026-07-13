@@ -36,13 +36,11 @@
     <p class="sub">Great question. We're building a free 2-minute quiz that tells you
     exactly where your business stands with AI — and what to do about it.<br><br>
     No jargon. No judgment. No sales pitch.</p>
-    <form name="early-access" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return submitForm(event)">
-      <input type="hidden" name="form-name" value="early-access">
-      <p hidden><input name="bot-field"></p>
-      <input type="email" name="email" id="email" placeholder="Your email" autocomplete="email" required>
-      <button class="btn" type="submit">Tell me when it's live</button>
+    <form onsubmit="return submitForm(event)">
+      <input type="email" id="email" placeholder="Your email" autocomplete="email" required>
+      <button class="btn" id="submitBtn" type="submit">Tell me when it's live</button>
     </form>
-    <p class="fine">One email when we launch. That's it.</p>
+    <p class="fine" id="err">One email when we launch. That's it.</p>
   </div>
   <div id="thanks" class="done">
     <div class="emoji">🎉</div>
@@ -53,14 +51,34 @@
   <p class="footer">Built by someone who was also confused by AI once.</p>
 </div>
 <script>
-function submitForm(e){
+const HS_PORTAL = "246749583";
+const HS_FORM = "af9a98f4-43ae-4f66-b17a-cfb8ea5fbed2";
+function getCookie(n){const m=document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)');return m?m.pop():'';}
+async function submitForm(e){
   e.preventDefault();
   const email = document.getElementById("email").value.trim();
-  const body = new URLSearchParams({"form-name":"early-access", email});
-  fetch("/", {method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body})
-    .catch(()=>{});
-  document.getElementById("signup").style.display = "none";
-  document.getElementById("thanks").style.display = "block";
+  const btn = document.getElementById("submitBtn");
+  const err = document.getElementById("err");
+  if(!/.+@.+\..+/.test(email)){ err.textContent = "Please enter a valid email."; return false; }
+  btn.disabled = true; btn.textContent = "Sending…";
+  const payload = {
+    fields: [{ objectTypeId: "0-1", name: "email", value: email }],
+    context: { pageUri: window.location.href, pageName: document.title }
+  };
+  const hutk = getCookie("hubspotutk");
+  if(hutk) payload.context.hutk = hutk;
+  try {
+    const res = await fetch(
+      "https://api.hsforms.com/submissions/v3/integration/submit/" + HS_PORTAL + "/" + HS_FORM,
+      { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(payload) }
+    );
+    if(!res.ok) throw new Error(await res.text());
+    document.getElementById("signup").style.display = "none";
+    document.getElementById("thanks").style.display = "block";
+  } catch(ex) {
+    btn.disabled = false; btn.textContent = "Tell me when it's live";
+    err.textContent = "Something went wrong — please try again.";
+  }
   return false;
 }
 </script>
