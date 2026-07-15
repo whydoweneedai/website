@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Do We Need AI? — Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --blue:#2563eb; --blue-dark:#1d4ed8; --ink:#0f172a; --sub:#475569;
+    --soft:#eff6ff; --border:#dbeafe; }
+  *{box-sizing:border-box;margin:0;}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);
+    background:linear-gradient(180deg,#f0f7ff,#fff);min-height:100vh;
+    display:flex;align-items:center;justify-content:center;padding:16px;}
+  .app{width:100%;max-width:430px;text-align:center;}
+  .emoji{font-size:52px;margin-bottom:8px;}
+  .logo{width:100%;max-width:360px;height:auto;display:block;margin:0 auto 14px;}
+  h1{font-size:36px;font-weight:900;letter-spacing:-.5px;line-height:1.15;margin-bottom:12px;}
+  .sub{font-size:16.5px;color:var(--sub);line-height:1.55;margin-bottom:26px;}
+  input{width:100%;padding:15px 16px;margin-bottom:12px;border:2px solid var(--border);
+    border-radius:14px;font-size:16px;font-family:inherit;font-weight:600;}
+  input:focus{outline:none;border-color:var(--blue);}
+  .btn{display:block;width:100%;padding:17px;border:none;border-radius:16px;
+    background:var(--blue);color:#fff;font-size:17px;font-weight:800;cursor:pointer;
+    font-family:inherit;box-shadow:0 6px 16px rgba(37,99,235,.28);transition:.12s;}
+  .btn:active{transform:scale(.97);background:var(--blue-dark);}
+  .fine{font-size:13px;color:var(--sub);margin-top:12px;}
+  .footer{font-size:12.5px;color:#94a3b8;margin-top:26px;font-style:italic;}
+  .done{display:none;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="signup">
+    <img class="logo" src="website_logo.png" alt="whydoweneedai.com">
+    <p class="sub">Great question. We're building a free 2-minute quiz that tells you
+    exactly where your business stands with AI — and what to do about it.<br><br>
+    No jargon. No judgment. No sales pitch.</p>
+    <form onsubmit="return submitForm(event)">
+      <input type="email" id="email" placeholder="Your email" autocomplete="email" required>
+      <button class="btn" id="submitBtn" type="submit">Tell me when it's live</button>
+    </form>
+    <p class="fine" id="err">One email when we launch. That's it.</p>
+  </div>
+  <div id="thanks" class="done">
+    <div class="emoji">🎉</div>
+    <h1>You're in.</h1>
+    <p class="sub">We'll ping you the moment the quiz goes live.<br>
+    Until then — no, you're not behind on AI. Everyone just pretends they aren't.</p>
+  </div>
+  <p class="footer">Built by someone who was also confused by AI once.</p>
+</div>
+<script>
+const HS_PORTAL = "246749583";
+const HS_FORM = "af9a98f4-43ae-4f66-b17a-cfb8ea5fbed2";
+function getCookie(n){const m=document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)');return m?m.pop():'';}
+async function submitForm(e){
+  e.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  const btn = document.getElementById("submitBtn");
+  const err = document.getElementById("err");
+  if(!/.+@.+\..+/.test(email)){ err.textContent = "Please enter a valid email."; return false; }
+  btn.disabled = true; btn.textContent = "Sending…";
+  const payload = {
+    fields: [{ objectTypeId: "0-1", name: "email", value: email }],
+    context: { pageUri: window.location.href, pageName: document.title }
+  };
+  const hutk = getCookie("hubspotutk");
+  if(hutk) payload.context.hutk = hutk;
+  try {
+    const res = await fetch(
+      "https://api.hsforms.com/submissions/v3/integration/submit/" + HS_PORTAL + "/" + HS_FORM,
+      { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(payload) }
+    );
+    if(!res.ok) throw new Error(await res.text());
+    document.getElementById("signup").style.display = "none";
+    document.getElementById("thanks").style.display = "block";
+  } catch(ex) {
+    btn.disabled = false; btn.textContent = "Tell me when it's live";
+    err.textContent = "Something went wrong — please try again.";
+  }
+  return false;
+}
+</script>
+</body>
+</html>
