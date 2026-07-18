@@ -226,9 +226,9 @@ function gate(){
     </div>`;
 }
 
-// HubSpot form that captures each lead as a contact
-const HUBSPOT_PORTAL = "246749583";
-const HUBSPOT_FORM = "f3edc7fb-bda6-44e2-b39f-4587480fe1d7";
+// Each lead is appended as a row to a Google Sheet via an Apps Script web app.
+// Paste the deployed web app URL below (see google-sheet-apps-script.gs for setup).
+const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzm1of9hCL1u_AePMuE8O6ZB4a72hyiyurDmYu2EvU-7udV3vistDlnRahiELhu6-eW/exec";
 
 function reveal(){
   const name = document.getElementById("fname").value.trim();
@@ -239,21 +239,25 @@ function reveal(){
     document.getElementById("err").textContent = "Just need your name and a real email 🙂";
     return;
   }
-  const fields = [
-    {name:"firstname", value:name},
-    {name:"lastname", value:lastName},
-    {name:"email", value:email},
-    {name:"ai_readyscore", value:String(finalScore())}
-  ];
-  if(phone) fields.push({name:"phone", value:phone});
-  fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL}/${HUBSPOT_FORM}`, {
+  const payload = {
+    firstName: name,
+    lastName: lastName,
+    email: email,
+    phone: phone,
+    readyScore: finalScore(),
+    persona: (persona() || {}).name || "",
+    pain: state.pain || "",
+    worry: state.worry || "",
+    pageUrl: location.href
+  };
+  // no-cors + text/plain avoids a CORS preflight Apps Script can't answer.
+  // Fire-and-forget: the Sheet itself is the record, so a network hiccup never blocks the reveal.
+  fetch(SHEET_WEBAPP_URL, {
     method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({
-      fields,
-      context:{ pageUri: location.href, pageName: document.title }
-    })
-  }).catch(()=>{}); // don't block the reveal if the network hiccups
+    mode:"no-cors",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body: JSON.stringify(payload)
+  }).catch(e=>console.error("Sheet submit error", e));
   results(name);
 }
 
