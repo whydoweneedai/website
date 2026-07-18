@@ -219,6 +219,7 @@ function gate(){
       <p class="sub">We'll send you your results + one free tip. That's it.</p>
       <input id="fname" placeholder="First name" autocomplete="given-name">
       <input id="flname" placeholder="Last name" autocomplete="family-name">
+      <input id="fcompany" placeholder="Company" autocomplete="organization">
       <input id="femail" type="email" placeholder="Email" autocomplete="email">
       <input id="fphone" type="tel" placeholder="Phone (optional)" autocomplete="tel">
       <button class="btn" onclick="reveal()">Show me my score</button>
@@ -233,6 +234,7 @@ const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzm1of9hCL1u_A
 function reveal(){
   const name = document.getElementById("fname").value.trim();
   const lastName = document.getElementById("flname").value.trim();
+  const company = document.getElementById("fcompany").value.trim();
   const email = document.getElementById("femail").value.trim();
   const phone = document.getElementById("fphone").value.trim();
   if(!name || !lastName || !/.+@.+\..+/.test(email)){
@@ -242,6 +244,7 @@ function reveal(){
   const payload = {
     firstName: name,
     lastName: lastName,
+    company: company,
     email: email,
     phone: phone,
     readyScore: finalScore(),
