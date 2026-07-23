@@ -76,6 +76,7 @@ const pre = {
   firstName: params.get("fn") || params.get("firstName") || "",
   lastName:  params.get("ln") || params.get("lastName") || "",
   email:     params.get("e")  || params.get("email") || "",
+  phone:     params.get("p")  || params.get("phone") || "",
   company:   params.get("c")  || params.get("company") || "",
   readyScore:params.get("s")  || params.get("score") || ""
 };
@@ -93,15 +94,19 @@ function form(){
 
     <div class="section">
       <h2>About you</h2>
-      <div class="hint">So we know who we're building for.</div>
+      <div class="hint">We've filled in what you already told us — just check it's right.</div>
       <div class="row">
         <div><label>First name <span class="req">*</span></label>
           <input id="firstName" autocomplete="given-name" value="${esc(pre.firstName)}"></div>
         <div><label>Last name</label>
           <input id="lastName" autocomplete="family-name" value="${esc(pre.lastName)}"></div>
       </div>
-      <label>Email <span class="req">*</span></label>
-      <input id="email" type="email" autocomplete="email" value="${esc(pre.email)}">
+      <div class="row">
+        <div><label>Email <span class="req">*</span></label>
+          <input id="email" type="email" autocomplete="email" value="${esc(pre.email)}"></div>
+        <div><label>Phone</label>
+          <input id="phone" type="tel" autocomplete="tel" value="${esc(pre.phone)}"></div>
+      </div>
       <div class="row">
         <div><label>Company</label>
           <input id="company" autocomplete="organization" value="${esc(pre.company)}"></div>
@@ -184,6 +189,7 @@ function submit(){
     firstName: firstName,
     lastName: val("lastName"),
     email: email,
+    phone: val("phone"),
     company: val("company"),
     role: val("role"),
     industry: val("industry"),

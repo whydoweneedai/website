@@ -71,6 +71,7 @@ var ASSESSMENT_COLUMNS = [
   { key: 'firstName',         header: 'First name' },
   { key: 'lastName',          header: 'Last name' },
   { key: 'email',             header: 'Email' },
+  { key: 'phone',             header: 'Phone' },
   { key: 'company',           header: 'Company' },
   { key: 'role',              header: 'Role' },
   { key: 'industry',          header: 'Industry' },
@@ -191,6 +192,7 @@ function normalizeAssessment(obj) {
     firstName:         clean(obj.firstName),
     lastName:          clean(obj.lastName),
     email:             clean(obj.email),
+    phone:             clean(obj.phone),
     company:           clean(obj.company),
     role:              clean(obj.role),
     industry:          clean(obj.industry),
@@ -339,6 +341,7 @@ function assessmentUrlFor(data) {
   if (data.firstName) q.push('fn=' + encodeURIComponent(data.firstName));
   if (data.lastName)  q.push('ln=' + encodeURIComponent(data.lastName));
   if (data.email)     q.push('e='  + encodeURIComponent(data.email));
+  if (data.phone)     q.push('p='  + encodeURIComponent(data.phone));
   if (data.company)   q.push('c='  + encodeURIComponent(data.company));
   if (data.readyScore !== '' && data.readyScore != null) {
     q.push('s=' + encodeURIComponent(data.readyScore));
@@ -364,6 +367,7 @@ function quizLeadSummary(data) {
 function assessmentSummary(data) {
   return 'Name: ' + data.firstName + ' ' + data.lastName + '\n' +
     'Email: ' + data.email + '\n' +
+    'Phone: ' + data.phone + '\n' +
     'Company: ' + data.company + '\n' +
     'Role: ' + data.role + '\n' +
     'Industry: ' + data.industry + '\n' +
