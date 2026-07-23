@@ -63,8 +63,6 @@
 }
 </script>
 
-<script>const CALENDLY_URL = "https://calendly.com/admin-whydoweneedai/30min";</script>
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
   :root{ --blue:#2563eb; --blue-dark:#1d4ed8; --ink:#0f172a; --sub:#475569;
@@ -274,17 +272,10 @@ function results(name){
       <span class="badge">${p.emoji} ${p.name}</span>
       <p class="sub" style="margin-bottom:0;">${p.desc}</p>
       <div class="tip"><b>Your quick win:</b> ${tips[state.pain]}</div>
-      <p class="sub" style="margin-bottom:8px;font-weight:800;color:var(--ink);">Book your free deep dive 👇</p>
-      <p class="fine" style="margin-top:0;">30 minutes. Zero pressure. We'll map your first automation together.</p>
-      <div id="cal" style="min-width:300px;height:660px;"></div>
+      <p class="sub" style="margin-bottom:8px;font-weight:800;color:var(--ink);">Check your inbox 📬</p>
+      <p class="fine" style="margin-top:0;">We'll email you a short assessment so we can map your first AI automation together.</p>
       <p class="footer">Built by someone who was also confused by AI once.</p>
     </div>`;
-  const cal = document.getElementById("cal");
-  if(window.Calendly && Calendly.initInlineWidget){
-    Calendly.initInlineWidget({url: CALENDLY_URL, parentElement: cal});
-  } else {
-    cal.innerHTML = `<a href="${CALENDLY_URL}" target="_blank" rel="noopener" style="text-decoration:none;"><button class="btn">Book my free deep dive</button></a>`;
-  }
   let cur = 0;
   const step = Math.max(1, Math.round(s/40));
   const t = setInterval(()=>{
