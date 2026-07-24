@@ -182,6 +182,7 @@ function question(){
   const pct = Math.round(state.i/questions.length*100);
   app.innerHTML = `
     <div class="screen">
+      <img src="website_logo.png" alt="whydoweneedai.com" class="logo-sm">
       <div class="progress">
         ${state.i>0 ? '<button class="back" onclick="goBack()">←</button>' : ''}
         <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
@@ -219,7 +220,7 @@ function gate(){
       <input id="flname" placeholder="Last name" autocomplete="family-name">
       <input id="fcompany" placeholder="Company" autocomplete="organization">
       <input id="femail" type="email" placeholder="Email" autocomplete="email">
-      <input id="fphone" type="tel" placeholder="Phone (optional)" autocomplete="tel">
+      <input id="fphone" type="tel" placeholder="Phone" autocomplete="tel">
       <button class="btn" onclick="reveal()">Show me my score</button>
       <p class="fine" id="err"></p>
     </div>`;
@@ -237,6 +238,10 @@ function reveal(){
   const phone = document.getElementById("fphone").value.trim();
   if(!name || !lastName || !/.+@.+\..+/.test(email)){
     document.getElementById("err").textContent = "Just need your name and a real email 🙂";
+    return;
+  }
+  if(phone.replace(/\D/g,"").length < 7){
+    document.getElementById("err").textContent = "Please add a phone number so we can reach you 🙂";
     return;
   }
   const payload = {
