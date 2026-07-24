@@ -21,6 +21,21 @@
  * 5. The first run asks for authorization (Sheets + send email as you) —
  *    approve it.
  *
+ * EMAIL SENDER (branded "From" via Resend)
+ * ----------------------------------------
+ * By default MailApp sends lead emails from the Gmail account that owns this
+ * script. To send from a branded address at your own domain instead:
+ * 1. Create a Resend account (resend.com) and add + verify your domain
+ *    (add the DNS records Resend gives you — SPF + DKIM).
+ * 2. Create an API key in Resend.
+ * 3. In the Apps Script editor: Project Settings (gear icon) → Script Properties
+ *    → add a property named  RESEND_API_KEY  with the key as its value.
+ *    (Keep the key OUT of this file — this script lives in a public repo.)
+ * 4. Set CONFIG.FROM_EMAIL to an address at your verified domain.
+ * When RESEND_API_KEY is present, emails send via Resend from FROM_EMAIL;
+ * otherwise the script quietly falls back to Gmail, so nothing breaks if the
+ * key isn't set yet.
+ *
  * The front end posts JSON as text/plain (no-cors, fire-and-forget), so this
  * script never blocks the score reveal and returns quickly.
  */
@@ -37,8 +52,13 @@ var CONFIG = {
   // query params so the form prefills for returning leads.
   ASSESSMENT_FORM_URL: 'https://whydoweneedai.com/assessment.html',
 
-  // Shown as the sender name; the address is the account that owns the script.
+  // Shown as the sender name in the "From" line.
   FROM_NAME: 'whydoweneedai.com',
+
+  // Branded "From" address for lead-facing emails. Must be at a domain you've
+  // verified in Resend (see EMAIL SENDER setup below). Falls back to your Gmail
+  // if no Resend API key is set.
+  FROM_EMAIL: 'hello@whydoweneedai.com',
 
   // Reply-to address for the follow-up email (where lead replies should land).
   REPLY_TO: 'admin@whydoweneedai.com',
@@ -284,14 +304,7 @@ function sendFollowUpEmail(data) {
       : 'We\'ll follow up shortly with the assessment.\n\n') +
     'whydoweneedai.com';
 
-  MailApp.sendEmail({
-    to: data.email,
-    subject: subject,
-    htmlBody: htmlBody,
-    body: plainBody,
-    name: CONFIG.FROM_NAME,
-    replyTo: CONFIG.REPLY_TO
-  });
+  sendEmail_(data.email, subject, htmlBody, plainBody);
 }
 
 // Thank-you email once someone completes the assessment form.
@@ -323,8 +336,43 @@ function sendAssessmentReceivedEmail(data) {
     'we\'ll be in touch soon.\n\n' +
     'whydoweneedai.com';
 
+  sendEmail_(data.email, subject, htmlBody, plainBody);
+}
+
+// Sends a lead-facing email. Uses Resend (branded domain sender) when
+// RESEND_API_KEY is set in Script Properties; otherwise falls back to Gmail so
+// the flow keeps working even before Resend is configured.
+function sendEmail_(to, subject, htmlBody, plainBody) {
+  var apiKey = PropertiesService.getScriptProperties().getProperty('RESEND_API_KEY');
+
+  if (apiKey && CONFIG.FROM_EMAIL) {
+    var from = CONFIG.FROM_NAME
+      ? CONFIG.FROM_NAME + ' <' + CONFIG.FROM_EMAIL + '>'
+      : CONFIG.FROM_EMAIL;
+    var payload = {
+      from: from,
+      to: [to],
+      subject: subject,
+      html: htmlBody,
+      text: plainBody
+    };
+    if (CONFIG.REPLY_TO) payload.reply_to = CONFIG.REPLY_TO;
+
+    var res = UrlFetchApp.fetch('https://api.resend.com/emails', {
+      method: 'post',
+      contentType: 'application/json',
+      headers: { Authorization: 'Bearer ' + apiKey },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    });
+    var code = res.getResponseCode();
+    if (code >= 200 && code < 300) return;
+    throw new Error('Resend API ' + code + ': ' + res.getContentText());
+  }
+
+  // Fallback: send through the Gmail account that owns the script.
   MailApp.sendEmail({
-    to: data.email,
+    to: to,
     subject: subject,
     htmlBody: htmlBody,
     body: plainBody,
