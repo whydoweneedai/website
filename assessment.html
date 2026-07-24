@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GLNJLNSFEL');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Your Free AI Assessment | whydoweneedai.com</title>
+<meta name="description" content="Tell us a little about how your business runs and we'll map the highest-ROI ways AI can save you time — no jargon, no sales pitch.">
+<!-- This is the post-quiz intake step, not a page we want ranking. -->
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#2563eb">
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --blue:#2563eb; --blue-dark:#1d4ed8; --ink:#0f172a; --sub:#475569;
+    --soft:#eff6ff; --border:#dbeafe; }
+  *{box-sizing:border-box;margin:0;}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);
+    background:linear-gradient(180deg,#f0f7ff,#fff);min-height:100vh;
+    display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 60px;}
+  .app{width:100%;max-width:560px;}
+  .screen{animation:slide .35s ease;}
+  @keyframes slide{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .logo-sm{display:block;width:100%;max-width:150px;height:auto;margin:0 auto 16px;border-radius:12px;}
+  h1{font-size:30px;font-weight:900;letter-spacing:-.5px;line-height:1.15;margin-bottom:10px;text-align:center;}
+  .sub{font-size:16px;color:var(--sub);line-height:1.5;margin-bottom:8px;text-align:center;}
+  .fine{font-size:13px;color:var(--sub);text-align:center;margin:10px 0 26px;}
+  .section{background:#fff;border:2px solid var(--border);border-radius:20px;
+    padding:20px 18px;margin-bottom:16px;}
+  .section h2{font-size:15px;font-weight:900;color:var(--blue-dark);text-transform:uppercase;
+    letter-spacing:.4px;margin-bottom:4px;}
+  .section .hint{font-size:13px;color:var(--sub);margin-bottom:14px;line-height:1.4;}
+  label{display:block;font-size:15px;font-weight:800;margin:14px 0 6px;}
+  label:first-of-type{margin-top:0;}
+  .req{color:var(--blue);}
+  input,select,textarea{width:100%;padding:14px 15px;border:2px solid var(--border);
+    border-radius:14px;font-size:16px;font-family:inherit;font-weight:600;color:var(--ink);
+    background:#fff;}
+  textarea{resize:vertical;min-height:84px;line-height:1.45;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);}
+  .row{display:flex;gap:12px;}
+  .row > div{flex:1;}
+  .btn{display:block;width:100%;padding:17px;border:none;border-radius:16px;
+    background:var(--blue);color:#fff;font-size:17px;font-weight:800;cursor:pointer;
+    font-family:inherit;box-shadow:0 6px 16px rgba(37,99,235,.28);transition:.12s;margin-top:4px;}
+  .btn:active{transform:scale(.98);background:var(--blue-dark);}
+  .btn[disabled]{opacity:.6;cursor:default;transform:none;}
+  .err{font-size:14px;color:#dc2626;font-weight:700;text-align:center;margin-top:12px;min-height:18px;}
+  .footer{font-size:12.5px;color:#94a3b8;text-align:center;margin-top:22px;font-style:italic;}
+  .center{text-align:center;}
+  .emoji{font-size:52px;text-align:center;margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+<div class="app" id="app"></div>
+
+<script>
+// Each assessment is appended to a Google Sheet via the same Apps Script web app
+// the quiz uses. It routes on the "type" field below.
+const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzm1of9hCL1u_AePMuE8O6ZB4a72hyiyurDmYu2EvU-7udV3vistDlnRahiELhu6-eW/exec";
+
+const app = document.getElementById("app");
+
+// Pull anything the follow-up email passed along so returning leads don't retype it.
+const params = new URLSearchParams(location.search);
+const pre = {
+  firstName: params.get("fn") || params.get("firstName") || "",
+  lastName:  params.get("ln") || params.get("lastName") || "",
+  email:     params.get("e")  || params.get("email") || "",
+  phone:     params.get("p")  || params.get("phone") || "",
+  company:   params.get("c")  || params.get("company") || "",
+  readyScore:params.get("s")  || params.get("score") || ""
+};
+
+function esc(s){ return (s||"").replace(/[&<>"]/g, c => (
+  {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function form(){
+  app.innerHTML = `
+  <div class="screen">
+    <img src="website_logo.png" alt="whydoweneedai.com" class="logo-sm">
+    <h1>Let's map your AI wins</h1>
+    <p class="sub">A few quick questions about how your business runs today. There are no wrong answers — plain language is perfect.</p>
+    <p class="fine">Takes about 5 minutes. We turn it into a ranked list of your highest-ROI AI opportunities.</p>
+
+    <div class="section">
+      <h2>About you</h2>
+      <div class="hint">We've filled in what you already told us — just check it's right.</div>
+      <div class="row">
+        <div><label>First name <span class="req">*</span></label>
+          <input id="firstName" autocomplete="given-name" value="${esc(pre.firstName)}"></div>
+        <div><label>Last name</label>
+          <input id="lastName" autocomplete="family-name" value="${esc(pre.lastName)}"></div>
+      </div>
+      <div class="row">
+        <div><label>Email <span class="req">*</span></label>
+          <input id="email" type="email" autocomplete="email" value="${esc(pre.email)}"></div>
+        <div><label>Phone</label>
+          <input id="phone" type="tel" autocomplete="tel" value="${esc(pre.phone)}"></div>
+      </div>
+      <div class="row">
+        <div><label>Company</label>
+          <input id="company" autocomplete="organization" value="${esc(pre.company)}"></div>
+        <div><label>Your role</label>
+          <input id="role" placeholder="Owner, Manager…"></div>
+      </div>
+      <div class="row">
+        <div><label>Industry</label>
+          <input id="industry" placeholder="e.g. Property mgmt, law, HVAC"></div>
+        <div><label>Team size</label>
+          <select id="teamSize">
+            <option value="">Select…</option>
+            <option>Just me</option>
+            <option>2–5</option>
+            <option>6–20</option>
+            <option>21–50</option>
+            <option>50+</option>
+          </select></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Where your time goes</h2>
+      <div class="hint">The repetitive, manual work is usually where AI pays off fastest.</div>
+      <label>What eats the most time in a typical week? <span class="req">*</span></label>
+      <textarea id="timeEaters" placeholder="e.g. answering the same tenant emails, chasing invoices, writing reports…"></textarea>
+      <label>If you could hand one boring task to an assistant tomorrow, what would it be?</label>
+      <textarea id="handoffTask" placeholder="The task you'd love to never do again."></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Leads &amp; customers</h2>
+      <div class="hint">Where interest turns into revenue — or leaks away.</div>
+      <label>How do new customers usually find you?</label>
+      <input id="leadSource" placeholder="Referrals, Google, social, website…">
+      <label>Where do you lose people between "interested" and "customer"?</label>
+      <textarea id="leadLeak" placeholder="e.g. slow follow-up, no after-hours response, quotes take too long…"></textarea>
+      <label>What questions do prospects or customers ask over and over?</label>
+      <textarea id="repeatedQuestions" placeholder="The FAQs your team answers all day."></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Your data &amp; tools</h2>
+      <div class="hint">AI that plugs into what you already use ships fastest.</div>
+      <label>Where does your business information mostly live?</label>
+      <input id="dataLocation" placeholder="Spreadsheets, a CRM, email, paper, someone's head…">
+      <label>What software do you pay for and use daily?</label>
+      <input id="toolsUsed" placeholder="QuickBooks, a CRM, Google Workspace, Slack…">
+    </div>
+
+    <div class="section">
+      <h2>What a win looks like</h2>
+      <div class="hint">So we recommend the right starting point.</div>
+      <label>If this worked, what would be different in 90 days?</label>
+      <textarea id="goal" placeholder="e.g. 5 hours a week back, faster quotes, no leads slipping through…"></textarea>
+      <label>Anything else we should know?</label>
+      <textarea id="other" placeholder="Optional — anything on your mind."></textarea>
+    </div>
+
+    <button class="btn" id="submitBtn" onclick="submit()">Send my assessment →</button>
+    <p class="err" id="err"></p>
+    <p class="footer">Built by someone who was also confused by AI once.</p>
+  </div>`;
+}
+
+function val(id){ const el = document.getElementById(id); return el ? el.value.trim() : ""; }
+
+function submit(){
+  const firstName = val("firstName");
+  const email = val("email");
+  const timeEaters = val("timeEaters");
+  const err = document.getElementById("err");
+
+  if(!firstName){ err.textContent = "Just need your first name 🙂"; return; }
+  if(!/.+@.+\..+/.test(email)){ err.textContent = "Please add a real email so we can send your assessment."; return; }
+  if(!timeEaters){ err.textContent = "Tell us what eats your time — it's the most important one."; return; }
+
+  const payload = {
+    type: "assessment",
+    firstName: firstName,
+    lastName: val("lastName"),
+    email: email,
+    phone: val("phone"),
+    company: val("company"),
+    role: val("role"),
+    industry: val("industry"),
+    teamSize: val("teamSize"),
+    timeEaters: timeEaters,
+    handoffTask: val("handoffTask"),
+    leadSource: val("leadSource"),
+    leadLeak: val("leadLeak"),
+    repeatedQuestions: val("repeatedQuestions"),
+    dataLocation: val("dataLocation"),
+    toolsUsed: val("toolsUsed"),
+    goal: val("goal"),
+    other: val("other"),
+    readyScore: pre.readyScore,
+    pageUrl: location.href
+  };
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+  err.textContent = "";
+
+  // no-cors + text/plain avoids a CORS preflight Apps Script can't answer.
+  fetch(SHEET_WEBAPP_URL, {
+    method:"POST",
+    mode:"no-cors",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body: JSON.stringify(payload)
+  }).catch(e=>console.error("Assessment submit error", e));
+
+  // no-cors gives us an opaque response, so we can't read status — the Sheet is
+  // the record. Show success after a short beat so the click feels handled.
+  setTimeout(()=>done(firstName), 700);
+}
+
+function done(name){
+  app.innerHTML = `
+  <div class="screen center">
+    <img src="website_logo.png" alt="whydoweneedai.com" class="logo-sm">
+    <div class="emoji">🎉</div>
+    <h1>Thanks, ${esc(name)}!</h1>
+    <p class="sub">We've got your answers. We'll review how your business runs and put together a ranked list of your highest-ROI AI opportunities.</p>
+    <p class="sub">Keep an eye on your inbox — we'll be in touch soon with your assessment.</p>
+    <p class="footer">Built by someone who was also confused by AI once.</p>
+  </div>`;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+form();
+</script>
+</body>
+</html>

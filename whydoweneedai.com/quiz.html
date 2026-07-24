@@ -54,7 +54,6 @@
 }
 </script>
 
-<script>const CALENDLY_URL = "https://calendly.com/admin-whydoweneedai/30min";</script>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
   :root{ --blue:#2563eb; --blue-dark:#1d4ed8; --ink:#0f172a; --sub:#475569;
@@ -257,10 +256,8 @@ function results(name){
       <span class="badge">${p.emoji} ${p.name}</span>
       <p class="sub" style="margin-bottom:0;">${p.desc}</p>
       <div class="tip"><b>Your quick win:</b> ${tips[state.pain]}</div>
-      <a href="${CALENDLY_URL}" style="text-decoration:none;">
-        <button class="btn">Book my free deep dive</button>
-      </a>
-      <p class="fine">30 minutes. Zero pressure. We'll map your first automation together.</p>
+      <p class="sub" style="margin-bottom:0;font-weight:800;color:var(--ink);">Check your inbox 📬</p>
+      <p class="fine">We'll email you a short assessment so we can map your first AI automation together.</p>
       <p class="footer">Built by someone who was also confused by AI once.</p>
     </div>`;
   let cur = 0;
