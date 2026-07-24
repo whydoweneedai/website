@@ -131,8 +131,7 @@ function handleQuizLead(obj) {
   var emailSent = '';
   if (isValidEmail(data.email)) {
     try {
-      sendFollowUpEmail(data);
-      emailSent = 'yes';
+      emailSent = 'yes (' + sendFollowUpEmail(data) + ')';
     } catch (mailErr) {
       emailSent = 'error: ' + mailErr;
       console.error('Follow-up email failed', mailErr);
@@ -158,8 +157,7 @@ function handleAssessment(obj) {
   var emailSent = '';
   if (isValidEmail(data.email)) {
     try {
-      sendAssessmentReceivedEmail(data);
-      emailSent = 'yes';
+      emailSent = 'yes (' + sendAssessmentReceivedEmail(data) + ')';
     } catch (mailErr) {
       emailSent = 'error: ' + mailErr;
       console.error('Assessment confirmation email failed', mailErr);
@@ -306,7 +304,7 @@ function sendFollowUpEmail(data) {
       : 'We\'ll follow up shortly with the assessment.\n\n') +
     'whydoweneedai.com';
 
-  sendEmail_(data.email, subject, htmlBody, plainBody);
+  return sendEmail_(data.email, subject, htmlBody, plainBody);
 }
 
 // Thank-you email once someone completes the assessment form.
@@ -338,12 +336,15 @@ function sendAssessmentReceivedEmail(data) {
     'we\'ll be in touch soon.\n\n' +
     'whydoweneedai.com';
 
-  sendEmail_(data.email, subject, htmlBody, plainBody);
+  return sendEmail_(data.email, subject, htmlBody, plainBody);
 }
 
 // Sends a lead-facing email. Uses Resend (branded domain sender) when
 // RESEND_API_KEY is set in Script Properties; otherwise falls back to Gmail so
 // the flow keeps working even before Resend is configured.
+// Returns which channel actually sent the email: 'resend' or 'gmail'. The
+// caller records this so every Sheet row shows how its email went out, and the
+// same detail is written to the execution log (View → Executions).
 function sendEmail_(to, subject, htmlBody, plainBody) {
   var apiKey = PropertiesService.getScriptProperties().getProperty('RESEND_API_KEY');
 
@@ -368,11 +369,18 @@ function sendEmail_(to, subject, htmlBody, plainBody) {
       muteHttpExceptions: true
     });
     var code = res.getResponseCode();
-    if (code >= 200 && code < 300) return;
-    throw new Error('Resend API ' + code + ': ' + res.getContentText());
+    var respBody = res.getContentText();
+    if (code >= 200 && code < 300) {
+      console.log('EMAIL via RESEND — from "' + from + '" to ' + to +
+        ' — Resend response: ' + respBody);
+      return 'resend';
+    }
+    throw new Error('Resend API ' + code + ': ' + respBody);
   }
 
   // Fallback: send through the Gmail account that owns the script.
+  var reason = !apiKey ? 'no RESEND_API_KEY set' : 'no FROM_EMAIL set';
+  console.log('EMAIL via GMAIL fallback to ' + to + ' (reason: ' + reason + ')');
   MailApp.sendEmail({
     to: to,
     subject: subject,
@@ -381,6 +389,7 @@ function sendEmail_(to, subject, htmlBody, plainBody) {
     name: CONFIG.FROM_NAME,
     replyTo: CONFIG.REPLY_TO
   });
+  return 'gmail';
 }
 
 // Build the assessment form link with the lead's contact fields as query params
