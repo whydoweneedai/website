@@ -180,8 +180,10 @@ function handleAssessment(obj) {
 }
 
 // Lets you open the web app URL in a browser to confirm it's deployed.
+// The "build" tag lets you verify a deployment is running THIS version of the
+// code: open the deployment's /exec URL and check that build === 'resend-v1'.
 function doGet() {
-  return json({ ok: true, service: 'whydoweneedai quiz handler' });
+  return json({ ok: true, service: 'whydoweneedai quiz handler', build: 'resend-v1' });
 }
 
 // ─── HELPERS ───────────────────────────────────────────────────────────────
