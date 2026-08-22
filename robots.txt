@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://whydoweneedai.com/sitemap.xml
