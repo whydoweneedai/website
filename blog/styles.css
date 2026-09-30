@@ -766,3 +766,44 @@ h1 {
     padding: 22px;
   }
 }
+
+
+/* Blog editorial-quality note */
+.editorial-strip {
+  display: flex;
+  margin: 28px 0 0;
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.editorial-strip strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.editorial-strip p {
+  margin: 0;
+  color: var(--sub);
+  font-size: 14px;
+}
+
+.editorial-strip a {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .editorial-strip {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
