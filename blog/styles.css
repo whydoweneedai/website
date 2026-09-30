@@ -606,7 +606,8 @@ h1 {
     gap: 10px;
   }
 
-  .nav-links .home-link {
+  .nav-links .home-link,
+  .nav-links a[href="/about/"] {
     display: none;
   }
 
