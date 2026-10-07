@@ -117,3 +117,13 @@ Ask:
 7. Can a skeptical small-business owner follow the logic without jargon?
 
 If the answer to #2 or #4 is weak, the article is not ready.
+
+
+## Blog index ordering
+
+When publishing or updating `blog/index.html`:
+- list article cards by publication date, newest first
+- make the newest article the featured card and number it 01
+- renumber the remaining cards sequentially
+- keep the `Blog.blogPost` structured-data entries in the same newest-first order
+- preserve the existing Google Analytics, Google AdSense, metadata, navigation, and footer code while editing the index
