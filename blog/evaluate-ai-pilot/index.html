@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GLNJLNSFEL');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3631010450044967" crossorigin="anonymous"></script>
+
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-adsense-account" content="ca-pub-3631010450044967">
+<title>How to Evaluate an AI Pilot: Keep, Fix, or Stop | Why Do We Need AI?</title>
+<meta name="description" content="A small-business AI pilot evaluation guide with quality measures, net-time math, a worked example, and a keep-fix-stop decision rule.">
+<meta name="author" content="whydoweneedai.com"><meta name="robots" content="index, follow"><link rel="canonical" href="https://whydoweneedai.com/blog/evaluate-ai-pilot/">
+<meta property="og:type" content="article"><meta property="og:site_name" content="whydoweneedai.com"><meta property="og:title" content="How to Evaluate an AI Pilot: Keep, Fix, or Stop"><meta property="og:description" content="Judge an AI pilot with evidence: quality, review time, exceptions, safeguards, and cost."><meta property="og:url" content="https://whydoweneedai.com/blog/evaluate-ai-pilot/"><meta property="og:image" content="https://whydoweneedai.com/website_logo.png"><meta property="article:published_time" content="2026-10-07"><meta property="article:modified_time" content="2026-10-07">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How to Evaluate an AI Pilot: Keep, Fix, or Stop"><meta name="twitter:image" content="https://whydoweneedai.com/website_logo.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How to Evaluate an AI Pilot: Keep, Fix, or Stop","description":"A practical small-business pilot evaluation guide.","datePublished":"2026-10-07","dateModified":"2026-10-07","mainEntityOfPage":"https://whydoweneedai.com/blog/evaluate-ai-pilot/","image":"https://whydoweneedai.com/website_logo.png","author":{"@type":"Organization","name":"Why Do We Need AI editorial team","url":"https://whydoweneedai.com/about/"},"publisher":{"@type":"Organization","name":"whydoweneedai.com"}}</script>
+<link rel="stylesheet" href="../styles.css"></head><body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header"><nav class="nav-inner" aria-label="Primary navigation"><a class="brand" href="/">whydoweneedai.com</a><div class="nav-links"><a href="/">Home</a><a href="/blog/" aria-current="page">Blog</a><a href="/about/">About</a><a class="nav-cta" href="/">Get your AI ReadyScore</a></div></nav></header>
+<main class="article-main" id="main-content"><nav class="breadcrumbs"><a href="/blog/">Blog</a> / Evaluate an AI pilot</nav>
+<header class="article-header"><span class="eyebrow">Pilot evaluation</span><h1>How to Evaluate an AI Pilot: Keep, Fix, or Stop</h1><p class="article-dek">A pilot is successful when the workflow becomes measurably better after quality, review time, exceptions, safeguards, and cost are included.</p><div class="article-meta"><time datetime="2026-10-07">October 7, 2026</time><span>•</span><span>8-minute read</span><span>•</span><span>By <a href="/about/">Why Do We Need AI editorial team</a></span></div></header>
+<article class="article-body">
+<p>The awkward part of an AI pilot comes at the end. The tool did useful things, made mistakes, and still needed a person to check the output. Do not decide based on the best demo or the worst miss. Treat the pilot as evidence.</p>
+<div class="callout"><h3>The rule</h3><p><strong>Keep</strong> when required safeguards pass and the workflow creates useful net value. <strong>Fix</strong> when the problem is specific and correctable. <strong>Stop</strong> when the workflow misses a must-have safeguard, quality floor, or value test.</p></div>
+<p>If the workflow itself is not defined, start with the <a href="/blog/what-to-automate-first/">Automation Fit Test</a> and the <a href="/blog/ai-readiness-checklist/">AI readiness checklist</a>.</p>
+
+<h2>The Pilot Evidence Sheet</h2>
+<p>Grade the workflow from input to reviewed result, not how impressive the model feels. Record:</p>
+<div class="checklist"><ul>
+<li><strong>Test volume:</strong> number of representative cases.</li>
+<li><strong>Baseline time:</strong> average handling time before the pilot.</li>
+<li><strong>Pilot time:</strong> average time including review, corrections, and exceptions.</li>
+<li><strong>Quality:</strong> usable as-is, minor edit, major edit, or unusable.</li>
+<li><strong>Exceptions:</strong> cases that left the normal path.</li>
+<li><strong>Safeguard misses:</strong> cases where a required rule did not hold.</li>
+<li><strong>Real cost:</strong> software, usage, maintenance, integration, and human effort.</li>
+</ul></div>
+
+<h2>1. Start with the safeguard gate</h2>
+<p>Some requirements are not tradeoffs. If every outgoing reply must be reviewed before sending, a path that skips review is a failed safeguard even if most drafts are excellent. Do not hide that inside an average score.</p>
+<p>For sensitive information, use the <a href="/blog/data-ai-tools/">AI data-handling guide</a> before continuing.</p>
+
+<h2>2. Measure quality in four buckets</h2>
+<ul><li><strong>Usable as-is:</strong> no meaningful correction.</li><li><strong>Minor edit:</strong> quick cleanup; core result is correct.</li><li><strong>Major edit:</strong> substantial correction or rewriting.</li><li><strong>Unusable:</strong> starting over would be faster or safer.</li></ul>
+<div class="callout warm"><h3>Quality math</h3><p><strong>Usable-output rate = (usable as-is + minor edit) ÷ total cases</strong><br><strong>Major-correction rate = (major edit + unusable) ÷ total cases</strong></p></div>
+<p>There is no universal passing percentage. Set the minimum for the workflow before you look at the final numbers.</p>
+
+<h2>3. Measure net time, not generation speed</h2>
+<p>Include loading information, reviewing output, correcting mistakes, and handling exceptions.</p>
+<div class="callout warm"><h3>Net time saved</h3><p><strong>Baseline handling time − full pilot handling time = net minutes saved per task</strong></p></div>
+<p>If the old process took eight minutes and AI generated a draft in seconds, that does not mean you saved eight minutes. If review and correction take six, the useful saving is about two. Feed the measured number into the <a href="/blog/ai-automation-roi/">AI automation ROI worksheet</a>.</p>
+
+<h2>4. Count exceptions separately</h2>
+<p>Averages hide operational pain. Track missing inputs, ambiguous requests, failed integrations, specialist handoffs, and cases where the system should refuse to continue. A clear handoff is often better than a plausible guess.</p>
+
+<h2>Worked example: inquiry reply drafts</h2>
+<p>This is an illustrative example, not a real company or first-hand test.</p>
+<p>A home-service business tests 40 inquiry replies. A person reviews every AI draft before sending.</p>
+<ul><li><strong>Baseline:</strong> 8 minutes per manual reply.</li><li><strong>Pilot time:</strong> 3.3 minutes including review and correction.</li><li><strong>Quality:</strong> 20 usable as-is, 12 minor edits, 6 major edits, 2 unusable.</li><li><strong>Usable-output rate:</strong> 32 ÷ 40 = 80%.</li><li><strong>Net time saved:</strong> 8 − 3.3 = 4.7 minutes per inquiry.</li><li><strong>Safeguard issue:</strong> one draft included a detail that was not present in the source; the reviewer corrected it.</li></ul>
+<p>The workflow saves time, but the pilot does not justify removing review. At 120 inquiries per month, the measured saving is about 564 minutes, or 9.4 hours, before software and maintenance costs.</p>
+<p>A sensible decision is: <strong>keep the drafting assistant, keep human review, tighten the source rule, and retest the weak cases.</strong></p>
+
+<h2>Keep, Fix, or Stop</h2>
+<div class="checklist"><h3>Keep</h3><ul><li>Must-have safeguards passed.</li><li>The quality floor was met on representative work.</li><li>Net time or another chosen outcome improved.</li><li>Exceptions are manageable.</li><li>Realistic value justifies ongoing cost.</li></ul></div>
+<div class="checklist"><h3>Fix</h3><ul><li>The use case still appears valuable.</li><li>The failure is concentrated in a known part of the workflow.</li><li>A specific change can be tested: better source data, tighter instructions, clearer handoff, stronger review, or narrower scope.</li></ul></div>
+<div class="checklist"><h3>Stop</h3><ul><li>A must-have safeguard cannot be made reliable enough.</li><li>Quality remains below the minimum.</li><li>Review and correction erase the value.</li><li>The workflow works only on cherry-picked easy cases.</li></ul></div>
+<p>Stopping is not a failed pilot. One purpose of a pilot is to discover cheaply that a workflow should not become permanent.</p>
+
+<h2>Copy this decision memo</h2>
+<div class="callout"><p><strong>Workflow:</strong> What job did we test?<br><strong>Baseline:</strong> What did it require before?<br><strong>Sample:</strong> Were the cases representative?<br><strong>Quality:</strong> What were the usable and major-correction rates?<br><strong>Time:</strong> What was full handling time?<br><strong>Exceptions:</strong> What failed or needed a handoff?<br><strong>Safeguards:</strong> Did every must-have rule hold?<br><strong>Cost:</strong> What is the realistic ongoing cost?<br><strong>Decision:</strong> Keep, fix, or stop—and why?</p></div>
+
+<h2>Limits</h2>
+<p>This framework works best for bounded operational workflows where inputs, outputs, review time, and misses can be observed. It is weaker when outcomes take months to appear, samples are tiny, or consequences are difficult to reverse. Higher-stakes work may need specialist review and stricter safeguards before any pilot expands.</p>
+<p>If the pilot ran only on clean examples or with the workflow builder standing nearby, retest under realistic conditions before expanding scope.</p>
+
+<h2>What to do next</h2>
+<p>If the pilot clears the keep threshold, calculate the business case with real pilot numbers using the <a href="/blog/ai-automation-roi/">ROI worksheet</a>. If the product is the problem, return to the <a href="/blog/choose-first-ai-tool/">AI tool buying framework</a> and compare alternatives against the same job and test set.</p>
+<div class="callout warm"><h3>The standard</h3><p>A pilot earns the right to continue when the evidence shows a better workflow—not when the AI produces an impressive moment.</p></div>
+<aside class="inline-cta"><h2>Start with a workflow worth testing</h2><p>Take the free two-minute AI ReadyScore assessment and choose one practical workflow to measure.</p><a class="button" href="/">Get your AI ReadyScore →</a></aside>
+</article><nav class="article-nav"><a href="/blog/data-ai-tools/">← Previous: Data and AI tools</a><a href="/blog/">All articles →</a></nav></main>
+<footer class="site-footer"><div class="footer-inner"><p>Built for small-business owners who want useful AI, not more noise.</p><div class="footer-links"><a href="/">AI ReadyScore</a><a href="/blog/">Blog</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/editorial-policy/">Editorial policy</a><a href="/privacy/">Privacy</a></div></div></footer>
+</body></html>
