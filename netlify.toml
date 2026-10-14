@@ -1,0 +1,66 @@
+# Netlify config for whydoweneedai.com
+#
+# Build command and publish directory are intentionally NOT set here.
+# The live values are configured in the Netlify dashboard and have not been
+# verified; setting them in this file would override the dashboard.
+#
+# Purpose: return 404 for internal repository files that the static deploy
+# would otherwise serve publicly. No pages, assets, ads.txt, robots.txt or
+# sitemap.xml are affected.
+#
+# Netlify rules cannot match a file extension mid-path (no "/**/*.md"), so
+# internal files are listed explicitly. Add new internal files here.
+
+# Editorial / internal docs (root)
+[[redirects]]
+  from = "/EDITORIAL_PLAYBOOK.md"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/EDITORIAL_REFERENCE_VISION_QUEST.md"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/README.md"
+  to = "/404"
+  status = 404
+  force = true
+
+# Article drafts kept beside published pages
+[[redirects]]
+  from = "/blog/:slug/ARTICLE_DRAFT.md"
+  to = "/404"
+  status = 404
+  force = true
+
+# Apps Script source (reference copy only; live script is deployed separately)
+[[redirects]]
+  from = "/google-sheet-apps-script.gs"
+  to = "/404"
+  status = 404
+  force = true
+
+# Stray duplicate copy of an older site version
+[[redirects]]
+  from = "/whydoweneedai.com/*"
+  to = "/404"
+  status = 404
+  force = true
+
+# Unreferenced backup of an old placeholder homepage
+[[redirects]]
+  from = "/index_placeholder_backup.html"
+  to = "/404"
+  status = 404
+  force = true
+
+# This config file itself
+[[redirects]]
+  from = "/netlify.toml"
+  to = "/404"
+  status = 404
+  force = true
