@@ -113,7 +113,7 @@ For factual claims that can change, verify them at publication and make the date
 Do not dump a large batch of thin posts at once. Favor a steady cadence of substantial pieces.
 
 Working target:
-- 2–3 strong reviewable article PRs per week, with quality allowed to reduce the actual publish count
+- two core articles per week, with a third only when it is earned (a defensible angle and enough verified evidence); quality may reduce the actual publish count
 - periodic updates to existing cornerstone guides
 - field tests only when we actually have something worth testing
 - current-news pieces only when there is a defensible editorial angle and enough verified evidence
