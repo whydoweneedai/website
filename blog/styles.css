@@ -460,6 +460,7 @@ h1 {
 .article-body > h2,
 .article-body > h3,
 .article-body > blockquote,
+.article-body > .table-wrap,
 .article-body > .callout,
 .article-body > .checklist,
 .article-body > .inline-cta {
@@ -501,6 +502,49 @@ h1 {
 
 .article-body strong {
   color: var(--ink);
+}
+
+.article-body blockquote {
+  margin-top: 28px;
+  margin-bottom: 28px;
+  padding: 20px 24px;
+  border-left: 4px solid var(--blue);
+  border-radius: 0 14px 14px 0;
+  background: var(--soft);
+  color: var(--sub);
+  font-size: 16px;
+}
+
+.article-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.article-body table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.article-body th,
+.article-body td {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.article-body th {
+  color: var(--ink);
+  background: var(--soft);
+  font-weight: 800;
 }
 
 .callout,
