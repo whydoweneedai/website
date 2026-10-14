@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://whydoweneedai.com/blog/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -37,8 +37,14 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://whydoweneedai.com/blog/lead-follow-up-automation/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whydoweneedai.com/blog/what-to-automate-first/</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -56,7 +62,7 @@
   </url>
   <url>
     <loc>https://whydoweneedai.com/blog/ai-vs-automation/</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -74,7 +80,7 @@
   </url>
   <url>
     <loc>https://whydoweneedai.com/blog/evaluate-ai-pilot/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
