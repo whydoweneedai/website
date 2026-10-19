@@ -582,6 +582,20 @@ h1 {
   margin-bottom: 0;
 }
 
+.callout ul {
+  margin: 12px 0 0;
+  padding-left: 1.35rem;
+  list-style: disc;
+}
+
+.callout li {
+  margin-bottom: 8px;
+}
+
+.callout li:last-child {
+  margin-bottom: 0;
+}
+
 .checklist ul {
   margin: 14px 0 0;
   padding: 0;
