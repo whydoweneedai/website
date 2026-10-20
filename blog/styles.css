@@ -450,6 +450,15 @@ h1 {
   font-weight: 800;
 }
 
+.article-disclosure {
+  max-width: 760px;
+  margin: 10px 0 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
 .article-body {
   padding: 46px 0 64px;
 }
@@ -570,6 +579,20 @@ h1 {
 
 .callout p,
 .checklist p {
+  margin-bottom: 0;
+}
+
+.callout ul {
+  margin: 12px 0 0;
+  padding-left: 1.35rem;
+  list-style: disc;
+}
+
+.callout li {
+  margin-bottom: 8px;
+}
+
+.callout li:last-child {
   margin-bottom: 0;
 }
 
