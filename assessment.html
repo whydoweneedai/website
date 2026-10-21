@@ -1,30 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-GLNJLNSFEL');
-</script>
 <meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<script>
+// Keep old email links usable without retaining personal details in the URL.
+// Run before any page resources; this intake page has no analytics or ad tags.
+const assessmentPrefill = (() => {
+  const cleanUrl = new URL(window.location.href);
+  const params = cleanUrl.searchParams;
+  const prefill = {
+    firstName: params.get("fn") || params.get("firstName") || "",
+    lastName: params.get("ln") || params.get("lastName") || "",
+    email: params.get("e") || params.get("email") || "",
+    phone: params.get("p") || params.get("phone") || "",
+    company: params.get("c") || params.get("company") || "",
+    readyScore: params.get("s") || params.get("score") || ""
+  };
+  cleanUrl.search = "";
+  cleanUrl.hash = "";
+  if (window.location.href !== cleanUrl.href) {
+    try {
+      window.history.replaceState(null, "", cleanUrl.href);
+    } catch (_) {
+      // If history updates are unavailable, reload the clean URL instead.
+      // No prefill is persisted to storage or to browser history state.
+      window.location.replace(cleanUrl.href);
+    }
+  }
+  return Object.freeze(prefill);
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-adsense-account" content="ca-pub-3631010450044967">
 
 <title>Your Free AI Assessment | whydoweneedai.com</title>
-<meta name="description" content="Tell us a little about how your business runs and we'll map the highest-ROI ways AI can save you time — no jargon, no sales pitch.">
+<meta name="description" content="Share how your business runs so we can identify practical AI or automation opportunities to test.">
 <!-- This is the post-quiz intake step, not a page we want ranking. -->
 <meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#2563eb">
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
   :root{ --blue:#2563eb; --blue-dark:#1d4ed8; --ink:#0f172a; --sub:#475569;
     --soft:#eff6ff; --border:#dbeafe; }
   *{box-sizing:border-box;margin:0;}
-  body{font-family:'Nunito',sans-serif;color:var(--ink);
+  body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);
     background:linear-gradient(180deg,#f0f7ff,#fff);min-height:100vh;
     display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 60px;}
   .app{width:100%;max-width:560px;}
@@ -71,16 +90,10 @@ const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxKbhhj9LcoqfG
 
 const app = document.getElementById("app");
 
-// Pull anything the follow-up email passed along so returning leads don't retype it.
-const params = new URLSearchParams(location.search);
-const pre = {
-  firstName: params.get("fn") || params.get("firstName") || "",
-  lastName:  params.get("ln") || params.get("lastName") || "",
-  email:     params.get("e")  || params.get("email") || "",
-  phone:     params.get("p")  || params.get("phone") || "",
-  company:   params.get("c")  || params.get("company") || "",
-  readyScore:params.get("s")  || params.get("score") || ""
-};
+// Legacy prefill was captured in memory before the URL was cleared above.
+// New email links use the plain URL and visitors enter their contact details.
+const pre = assessmentPrefill;
+const hasContactPrefill = [pre.firstName, pre.lastName, pre.email, pre.phone, pre.company].some(Boolean);
 
 function esc(s){ return (s||"").replace(/[&<>"]/g, c => (
   {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
@@ -89,13 +102,13 @@ function form(){
   app.innerHTML = `
   <div class="screen">
     <img src="website_logo.png" alt="whydoweneedai.com" class="logo-sm">
-    <h1>Let's map your AI wins</h1>
+    <h1>Let's explore where AI could help</h1>
     <p class="sub">A few quick questions about how your business runs today. There are no wrong answers — plain language is perfect.</p>
-    <p class="fine">Takes about 5 minutes. We turn it into a ranked list of your highest-ROI AI opportunities.</p>
+    <p class="fine">Takes about 5 minutes. Share your workflows so we can suggest practical opportunities to test.</p>
 
     <div class="section">
       <h2>About you</h2>
-      <div class="hint">We've filled in what you already told us — just check it's right.</div>
+      <div class="hint">${hasContactPrefill ? "We've filled in what you already told us — just check it's right." : "Add your contact details so we can send your assessment."}</div>
       <div class="row">
         <div><label>First name <span class="req">*</span></label>
           <input id="firstName" autocomplete="given-name" value="${esc(pre.firstName)}"></div>
@@ -131,7 +144,7 @@ function form(){
 
     <div class="section">
       <h2>Where your time goes</h2>
-      <div class="hint">The repetitive, manual work is usually where AI pays off fastest.</div>
+      <div class="hint">Start with repetitive tasks and the time they take each week.</div>
       <label>What eats the most time in a typical week? <span class="req">*</span></label>
       <textarea id="timeEaters" placeholder="e.g. answering the same tenant emails, chasing invoices, writing reports…"></textarea>
       <label>If you could hand one boring task to an assistant tomorrow, what would it be?</label>
@@ -151,7 +164,7 @@ function form(){
 
     <div class="section">
       <h2>Your data &amp; tools</h2>
-      <div class="hint">AI that plugs into what you already use ships fastest.</div>
+      <div class="hint">Tell us what you use today so suggestions can fit your existing workflow.</div>
       <label>Where does your business information mostly live?</label>
       <input id="dataLocation" placeholder="Spreadsheets, a CRM, email, paper, someone's head…">
       <label>What software do you pay for and use daily?</label>
@@ -168,14 +181,17 @@ function form(){
     </div>
 
     <button class="btn" id="submitBtn" onclick="submit()">Send my assessment →</button>
-    <p class="err" id="err"></p>
+    <p class="err" id="err" role="alert"></p>
+    <p class="fine">Questions? <a href="/contact/">Contact us</a>. Read how we use your details in our <a href="/privacy/">privacy policy</a>.</p>
     <p class="footer">Built by someone who was also confused by AI once.</p>
   </div>`;
 }
 
 function val(id){ const el = document.getElementById(id); return el ? el.value.trim() : ""; }
 
-function submit(){
+async function submit(){
+  const btn = document.getElementById("submitBtn");
+  if(btn.disabled) return;
   const firstName = val("firstName");
   const email = val("email");
   const timeEaters = val("timeEaters");
@@ -205,35 +221,43 @@ function submit(){
     goal: val("goal"),
     other: val("other"),
     readyScore: pre.readyScore,
-    pageUrl: location.href
+    pageUrl: window.location.origin + window.location.pathname
   };
 
-  const btn = document.getElementById("submitBtn");
   btn.disabled = true;
   btn.textContent = "Sending…";
   err.textContent = "";
 
-  // no-cors + text/plain avoids a CORS preflight Apps Script can't answer.
-  fetch(SHEET_WEBAPP_URL, {
-    method:"POST",
-    mode:"no-cors",
-    headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body: JSON.stringify(payload)
-  }).catch(e=>console.error("Assessment submit error", e));
-
-  // no-cors gives us an opaque response, so we can't read status — the Sheet is
-  // the record. Show success after a short beat so the click feels handled.
-  setTimeout(()=>done(firstName), 700);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  try {
+    // no-cors + text/plain avoids a CORS preflight Apps Script can't answer.
+    // Completion is opaque: it cannot prove that the backend saved the answers.
+    await fetch(SHEET_WEBAPP_URL, {
+      method:"POST",
+      mode:"no-cors",
+      referrerPolicy:"no-referrer",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    done(firstName);
+  } catch (_) {
+    err.textContent = "We could not confirm that your assessment was sent. Your answers are still here. Please try again or email admin@whydoweneedai.com.";
+    btn.disabled = false;
+    btn.textContent = "Send my assessment →";
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function done(name){
   app.innerHTML = `
   <div class="screen center">
     <img src="website_logo.png" alt="whydoweneedai.com" class="logo-sm">
-    <div class="emoji">🎉</div>
-    <h1>Thanks, ${esc(name)}!</h1>
-    <p class="sub">We've got your answers. We'll review how your business runs and put together a ranked list of your highest-ROI AI opportunities.</p>
-    <p class="sub">Keep an eye on your inbox — we'll be in touch soon with your assessment.</p>
+    <h1>Assessment requested</h1>
+    <p class="sub">Thanks, ${esc(name)}. Your browser sent the request, but this page cannot confirm that your answers were received.</p>
+    <p class="sub">If you do not hear back, please <a href="/contact/">contact us</a> or email <a href="mailto:admin@whydoweneedai.com">admin@whydoweneedai.com</a>.</p>
     <p class="footer">Built by someone who was also confused by AI once.</p>
   </div>`;
   window.scrollTo({top:0, behavior:"smooth"});

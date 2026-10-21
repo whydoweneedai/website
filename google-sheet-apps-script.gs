@@ -21,6 +21,15 @@
  * 5. The first run asks for authorization (Sheets + send email as you) —
  *    approve it.
  *
+ * PRIVACY UPDATE
+ * --------------
+ * Follow-up links now use the plain assessment URL, without contact details
+ * in query parameters. Updating this repository does NOT update the live
+ * Apps Script web app: publish a new version of its existing deployment.
+ * The website's assessment page separately supports old prefilled links by
+ * keeping only their supported fields in memory and immediately clearing the
+ * query and fragment. It contains no analytics or advertising tags.
+ *
  * EMAIL SENDER (branded "From" via Resend)
  * ----------------------------------------
  * By default MailApp sends lead emails from the Gmail account that owns this
@@ -48,8 +57,7 @@ var CONFIG = {
   // Tab assessment-form submissions are appended to. Created if missing.
   ASSESSMENT_SHEET_NAME: 'Assessments',
 
-  // Link the follow-up email points the lead to. Contact fields are appended as
-  // query params so the form prefills for returning leads.
+  // Plain link used in follow-up emails. Never append lead details to this URL.
   ASSESSMENT_FORM_URL: 'https://whydoweneedai.com/assessment.html',
 
   // Shown as the sender name in the "From" line.
@@ -179,9 +187,9 @@ function handleAssessment(obj) {
 
 // Lets you open the web app URL in a browser to confirm it's deployed.
 // The "build" tag lets you verify a deployment is running THIS version of the
-// code: open the deployment's /exec URL and check that build === 'resend-v1'.
+// code: open the deployment's /exec URL and check that build === 'privacy-links-v2'.
 function doGet() {
-  return json({ ok: true, service: 'whydoweneedai quiz handler', build: 'resend-v1' });
+  return json({ ok: true, service: 'whydoweneedai quiz handler', build: 'privacy-links-v2' });
 }
 
 // ─── HELPERS ───────────────────────────────────────────────────────────────
@@ -202,7 +210,7 @@ function normalizeQuizLead(obj) {
     persona:    clean(obj.persona),
     pain:       clean(obj.pain),
     worry:      clean(obj.worry),
-    pageUrl:    clean(obj.pageUrl)
+    pageUrl:    cleanPageUrl(obj.pageUrl)
   };
 }
 
@@ -227,7 +235,7 @@ function normalizeAssessment(obj) {
     goal:              clean(obj.goal),
     other:             clean(obj.other),
     readyScore:        obj.readyScore != null ? obj.readyScore : '',
-    pageUrl:           clean(obj.pageUrl)
+    pageUrl:           cleanPageUrl(obj.pageUrl)
   };
 }
 
@@ -247,7 +255,7 @@ function appendRow(sheetName, columns, data) {
 function sendFollowUpEmail(data) {
   var name = data.firstName || 'there';
   var subject = 'Your AI ReadyScore — and your next step, ' + name;
-  var formUrl = assessmentUrlFor(data);
+  var formUrl = assessmentUrlFor();
 
   var cta = '';
   if (formUrl) {
@@ -392,22 +400,10 @@ function sendEmail_(to, subject, htmlBody, plainBody) {
   return 'gmail';
 }
 
-// Build the assessment form link with the lead's contact fields as query params
-// so the form prefills for them. Returns '' if no form URL is configured.
-function assessmentUrlFor(data) {
-  if (!CONFIG.ASSESSMENT_FORM_URL) return '';
-  var q = [];
-  if (data.firstName) q.push('fn=' + encodeURIComponent(data.firstName));
-  if (data.lastName)  q.push('ln=' + encodeURIComponent(data.lastName));
-  if (data.email)     q.push('e='  + encodeURIComponent(data.email));
-  if (data.phone)     q.push('p='  + encodeURIComponent(data.phone));
-  if (data.company)   q.push('c='  + encodeURIComponent(data.company));
-  if (data.readyScore !== '' && data.readyScore != null) {
-    q.push('s=' + encodeURIComponent(data.readyScore));
-  }
-  var sep = CONFIG.ASSESSMENT_FORM_URL.indexOf('?') === -1 ? '?' : '&';
-  return q.length ? CONFIG.ASSESSMENT_FORM_URL + sep + q.join('&')
-                  : CONFIG.ASSESSMENT_FORM_URL;
+// Visitors enter contact details on the form; email links contain no lead data.
+// Strip any query/fragment accidentally included in the configured URL too.
+function assessmentUrlFor() {
+  return cleanPageUrl(CONFIG.ASSESSMENT_FORM_URL);
 }
 
 function quizLeadSummary(data) {
@@ -459,6 +455,11 @@ function isValidEmail(v) {
 
 function clean(v) {
   return (v == null) ? '' : String(v).trim();
+}
+
+// Page URLs are navigation context, not a second copy of contact information.
+function cleanPageUrl(v) {
+  return clean(v).split(/[?#]/)[0];
 }
 
 function escapeHtml(s) {
