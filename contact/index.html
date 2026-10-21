@@ -40,24 +40,26 @@
       <p class="article-dek">Send us a note. We especially want to hear about factual corrections, confusing explanations, and practical AI questions worth covering.</p>
     </header>
     <article class="article-body">
-      <form class="contact-form" name="site-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <p>Email <a href="mailto:admin@whydoweneedai.com">admin@whydoweneedai.com</a> or use the form below.</p>
+      <form class="contact-form" name="site-contact" method="POST" action="/contact/thanks/" data-netlify="true" netlify-honeypot="bot-field" aria-describedby="contact-status contact-privacy">
         <input type="hidden" name="form-name" value="site-contact">
         <p hidden><label>Do not fill this out: <input name="bot-field"></label></p>
         <label>
           Name
-          <input type="text" name="name" autocomplete="name" required>
+          <input type="text" name="name" autocomplete="name" maxlength="120" required>
         </label>
         <label>
           Email
-          <input type="email" name="email" autocomplete="email" required>
+          <input type="email" name="email" autocomplete="email" maxlength="254" required>
         </label>
         <label>
           Message
-          <textarea name="message" required></textarea>
+          <textarea name="message" maxlength="10000" required></textarea>
         </label>
         <button class="button" type="submit">Send message</button>
+        <p id="contact-status" role="status" aria-live="polite"></p>
       </form>
-      <p class="policy-note">Information submitted here is used to respond to your message. See our <a href="/privacy/">privacy policy</a> for details.</p>
+      <p class="policy-note" id="contact-privacy">Information submitted here is used to respond to your message. See our <a href="/privacy/">privacy policy</a> for details.</p>
     </article>
   </main>
   <footer class="site-footer">
@@ -73,5 +75,33 @@
       </div>
     </div>
   </footer>
+  <script>
+    const contactForm = document.querySelector('form[name="site-contact"]');
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const button = contactForm.querySelector('button[type="submit"]');
+      const status = document.getElementById('contact-status');
+      button.disabled = true;
+      status.textContent = 'Sending your message…';
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: new URLSearchParams(new FormData(contactForm)).toString(),
+          signal: controller.signal,
+          referrerPolicy: 'no-referrer'
+        });
+        if (!response.ok) throw new Error('Submission was not accepted');
+        window.location.assign(contactForm.action);
+      } catch (error) {
+        status.textContent = 'We could not confirm that your message was received. Your text is still here. Please email admin@whydoweneedai.com or try again.';
+        button.disabled = false;
+      } finally {
+        clearTimeout(timeout);
+      }
+    });
+  </script>
 </body>
 </html>

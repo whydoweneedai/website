@@ -4,12 +4,49 @@
 # The live values are configured in the Netlify dashboard and have not been
 # verified; setting them in this file would override the dashboard.
 #
-# Purpose: return 404 for internal repository files that the static deploy
-# would otherwise serve publicly. No pages, assets, ads.txt, robots.txt or
-# sitemap.xml are affected.
+# Purpose: redirect retired pages and return 404 for internal repository
+# files that the static deploy would otherwise serve publicly. Current pages,
+# assets, ads.txt, robots.txt and sitemap.xml are unaffected.
 #
 # Netlify rules cannot match a file extension mid-path (no "/**/*.md"), so
 # internal files are listed explicitly. Add new internal files here.
+
+# Retired pages, including clean-URL aliases used by Netlify Pretty URLs
+[[redirects]]
+  from = "/landingpage.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/landingpage"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/landingpage/"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quiz.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quiz"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quiz/"
+  to = "/"
+  status = 301
+  force = true
 
 # Editorial / internal docs (root)
 [[redirects]]

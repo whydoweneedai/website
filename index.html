@@ -20,7 +20,7 @@
 
 <!-- Primary SEO -->
 <title>Free AI Assessment for Small Business | AI ReadyScore Quiz</title>
-<meta name="description" content="Take the free 2-minute AI Assessment for small business. Get your AI ReadyScore and see the highest-ROI ways to use AI and automation in your business — no jargon, no sales pitch.">
+<meta name="description" content="Take the free 2-minute AI readiness self-assessment for small business. Get your AI ReadyScore and a practical next step for testing AI or automation.">
 <meta name="keywords" content="AI assessment, AI assessments, AI readiness assessment, small business AI, AI for small business, AI, artificial intelligence for small business, business automation, AI automation, AI consulting, AI audit, AI ReadyScore, how to use AI in business, small business automation">
 <meta name="author" content="whydoweneedai.com">
 <meta name="robots" content="index, follow">
@@ -31,7 +31,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="whydoweneedai.com">
 <meta property="og:title" content="Free AI Assessment for Small Business | AI ReadyScore Quiz">
-<meta property="og:description" content="Take the free 2-minute AI Assessment for small business. Get your AI ReadyScore and see the highest-ROI ways to use AI and automation — no jargon, no sales pitch.">
+<meta property="og:description" content="Get your AI ReadyScore and a practical next step for testing AI or automation in your small business.">
 <meta property="og:url" content="https://whydoweneedai.com/">
 <meta property="og:image" content="https://whydoweneedai.com/website_logo.png">
 
@@ -52,7 +52,7 @@
       "name": "whydoweneedai.com",
       "url": "https://whydoweneedai.com",
       "logo": "https://whydoweneedai.com/website_logo.png",
-      "description": "Hands-on AI services for small businesses — AI assessments, automation, and managed AI agents that help small businesses implement AI in their operations."
+      "description": "Practical AI guides and a free readiness self-assessment for small-business owners."
     },
     {
       "@type": "WebApplication",
@@ -60,7 +60,7 @@
       "url": "https://whydoweneedai.com/",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
-      "description": "A free 2-minute AI assessment that scores how ready your small business is for AI and automation, and shows your highest-ROI next step.",
+      "description": "A free 2-minute AI readiness self-assessment that organizes your answers and suggests a practical next step to test.",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "publisher": { "@id": "https://whydoweneedai.com/#organization" }
     }
@@ -68,12 +68,16 @@
 }
 </script>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="/website_logo.png" fetchpriority="high">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet"></noscript>
 <style>
   :root{ --blue:#2563eb; --blue-dark:#1d4ed8; --ink:#0f172a; --sub:#475569;
     --soft:#eff6ff; --border:#dbeafe; }
   *{box-sizing:border-box;margin:0;}
-  body{font-family:'Nunito',sans-serif;color:var(--ink);
+  body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
     background:linear-gradient(180deg,#f0f7ff,#fff);min-height:100vh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 16px 20px;}
   .site-nav{position:fixed;z-index:10;top:0;left:0;right:0;height:56px;
@@ -91,6 +95,12 @@
     outline:none;box-shadow:0 0 0 3px rgba(37,99,235,.16);}
   .app{width:100%;max-width:430px;flex:1;display:flex;align-items:center;}
   .app>.screen{width:100%;}
+  .app:focus{outline:none;}
+  .skip-link{position:fixed;left:12px;top:-100px;z-index:20;background:#fff;padding:12px;color:var(--blue-dark);}
+  .skip-link:focus{top:8px;}
+  .field-label{display:block;text-align:left;font-size:14px;font-weight:800;margin-bottom:4px;}
+  .result-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:12px;}
+  .result-links a,.fine a{color:var(--blue-dark);}
   .site-trust{width:100%;max-width:720px;margin-top:18px;text-align:center;color:#64748b;
     font-size:12.5px;line-height:1.5;}
   .site-trust nav{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 16px;margin-bottom:6px;}
@@ -135,9 +145,12 @@
   .emoji{font-size:48px;text-align:center;margin-bottom:6px;}
   .logo{display:block;width:100%;max-width:280px;height:auto;margin:0 auto 14px;border-radius:16px;}
   .logo-sm{display:block;width:100%;max-width:150px;height:auto;margin:0 auto 12px;border-radius:12px;}
+  @media(prefers-reduced-motion:reduce){.screen{animation:none;}*{scroll-behavior:auto!important;}}
 </style>
 </head>
 <body>
+
+<a class="skip-link" href="#app">Skip to content</a>
 
 <nav class="site-nav" aria-label="Primary navigation">
   <a class="brand" href="/" aria-current="page">whydoweneedai.com</a>
@@ -147,16 +160,17 @@
   </div>
 </nav>
 
-<!-- Hidden form so Netlify detects it at deploy time -->
-<form name="readyscore-leads" netlify netlify-honeypot="bot-field" hidden>
-  <input type="text" name="name"><input type="email" name="email">
-  <input type="text" name="phone">
-  <input type="text" name="score"><input type="text" name="persona">
-  <input type="text" name="pain"><input type="text" name="worry">
-  <input type="text" name="answers">
-</form>
-
-<div class="app" id="app"></div>
+<main class="app" id="app" tabindex="-1">
+  <div class="screen center">
+    <img src="/website_logo.png" alt="whydoweneedai.com" class="logo" width="1407" height="768" fetchpriority="high" decoding="async">
+    <h1>Do I Need AI?</h1>
+    <p class="sub">Find out your AI ReadyScore in 2 minutes.<br>A practical starting point for your next small test.</p>
+    <button class="btn" onclick="question()">Let's find out →</button>
+    <p class="fine">This self-assessment uses your answers to suggest a next step. A real pilot will tell you what works.</p>
+    <noscript><p class="fine">The quiz needs JavaScript. You can still use our <a href="/blog/ai-readiness-checklist/">AI readiness checklist</a> and <a href="/blog/">practical guides</a>.</p></noscript>
+    <p class="footer">Built by someone who was also confused by AI once.</p>
+  </div>
+</main>
 
 <footer class="site-trust">
   <nav aria-label="Site information">
@@ -195,16 +209,16 @@ const questions = [
 ];
 
 const tips = {
-  data:"Tools like Zapier + AI can move data between your systems automatically. This is usually the fastest payback of any automation.",
+  data:"Start with one repetitive transfer between your systems. Check whether a standard automation rule can do it, then measure the time saved and errors before adding AI.",
   comms:"An AI assistant can draft replies to common customer questions in your voice — you just review and hit send.",
   sched:"AI scheduling tools can handle the back-and-forth of booking so you never play calendar tennis again.",
   reports:"AI can turn your voice notes or bullet points into finished reports and documents in your format."
 };
 
 const personas = [
-  {min:0,max:40,name:"AI Curious",emoji:"🌱",desc:"You're not behind — you're early. Most small businesses are exactly where you are. The good news: your first win is easier than you think."},
-  {min:41,max:70,name:"AI Ready",emoji:"⚡",desc:"Your foundation is solid. You're one good project away from saving real hours every week. You just need a roadmap."},
-  {min:71,max:100,name:"AI Dangerous",emoji:"🚀",desc:"(In a good way.) You're ahead of 90% of small businesses. Time to turn that head start into a real advantage."}
+  {min:0,max:40,name:"AI Curious",emoji:"🌱",desc:"Your answers suggest starting with one small, repeatable task. Document the process, identify its constraints, and check whether simple automation would help."},
+  {min:41,max:70,name:"AI Ready",emoji:"⚡",desc:"Your answers suggest some foundations for a pilot are in place. Choose one workflow and measure its current time, cost, and errors before testing a change."},
+  {min:71,max:100,name:"AI Ready to Pilot",emoji:"🚀",desc:"Your answers suggest you can plan a focused pilot. Set a clear goal, keep a person responsible for review, and compare the results with your current process."}
 ];
 
 let state = {i:0, score:0, answers:[], pain:null, worry:null};
@@ -217,10 +231,11 @@ function welcome(){
   state = {i:0, score:0, answers:[], pain:null, worry:null};
   app.innerHTML = `
     <div class="screen center">
-      <img src="website_logo.png" alt="whydoweneedai.com" class="logo">
+      <img src="/website_logo.png" alt="whydoweneedai.com" class="logo" width="1407" height="768" fetchpriority="high" decoding="async">
       <h1>Do I Need AI?</h1>
-      <p class="sub">Find out your AI ReadyScore in 2 minutes.<br>No jargon, no judgment, no sales pitch.</p>
+      <p class="sub">Find out your AI ReadyScore in 2 minutes.<br>A practical starting point for your next small test.</p>
       <button class="btn" onclick="question()">Let's find out →</button>
+      <p class="fine">This self-assessment uses your answers to suggest a next step. A real pilot will tell you what works.</p>
       <p class="footer">Built by someone who was also confused by AI once.</p>
     </div>`;
 }
@@ -230,15 +245,16 @@ function question(){
   const pct = Math.round(state.i/questions.length*100);
   app.innerHTML = `
     <div class="screen">
-      <img src="website_logo.png" alt="whydoweneedai.com" class="logo-sm">
+      <img src="/website_logo.png" alt="whydoweneedai.com" class="logo-sm" width="1407" height="768" decoding="async">
       <div class="progress">
-        ${state.i>0 ? '<button class="back" onclick="goBack()">←</button>' : ''}
+        ${state.i>0 ? '<button class="back" aria-label="Previous question" onclick="goBack()">←</button>' : ''}
         <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
         <span class="count">${state.i+1} of ${questions.length}</span>
       </div>
       <h2 class="q">${esc(q.q)}</h2>
       ${q.a.map((p,idx)=>`<button class="card" onclick="answer(${idx})">${esc(p[0])}</button>`).join("")}
     </div>`;
+  app.focus({preventScroll:true});
 }
 
 function goBack(){
@@ -263,15 +279,24 @@ function gate(){
     <div class="screen center">
       <div class="emoji">🎉</div>
       <h1 style="font-size:27px;">Your ReadyScore is ready</h1>
-      <p class="sub">We'll send you your results + one free tip. That's it.</p>
-      <input id="fname" placeholder="First name" autocomplete="given-name">
-      <input id="flname" placeholder="Last name" autocomplete="family-name">
-      <input id="fcompany" placeholder="Company" autocomplete="organization">
-      <input id="femail" type="email" placeholder="Email" autocomplete="email">
-      <input id="fphone" type="tel" placeholder="Phone" autocomplete="tel">
-      <button class="btn" onclick="reveal()">Show me my score</button>
-      <p class="fine" id="err"></p>
+      <p class="sub">See your score here and request an email with your results and a follow-up assessment.</p>
+      <form onsubmit="event.preventDefault(); reveal();">
+        <label class="field-label" for="fname">First name</label>
+        <input id="fname" autocomplete="given-name" required>
+        <label class="field-label" for="flname">Last name</label>
+        <input id="flname" autocomplete="family-name" required>
+        <label class="field-label" for="fcompany">Company (optional)</label>
+        <input id="fcompany" autocomplete="organization">
+        <label class="field-label" for="femail">Email</label>
+        <input id="femail" type="email" autocomplete="email" required>
+        <label class="field-label" for="fphone">Phone for follow-up</label>
+        <input id="fphone" type="tel" autocomplete="tel" required>
+        <button class="btn" type="submit">Show me my score</button>
+        <p class="fine" id="err" role="alert"></p>
+      </form>
+      <p class="fine">We use your contact details to respond about your results. Read our <a href="/privacy/">privacy policy</a>.</p>
     </div>`;
+  app.focus({preventScroll:true});
 }
 
 // Each lead is appended as a row to a Google Sheet via an Apps Script web app.
@@ -302,43 +327,45 @@ function reveal(){
     persona: (persona() || {}).name || "",
     pain: state.pain || "",
     worry: state.worry || "",
-    pageUrl: location.href
+    pageUrl: location.origin + location.pathname
   };
   // no-cors + text/plain avoids a CORS preflight Apps Script can't answer.
-  // Fire-and-forget: the Sheet itself is the record, so a network hiccup never blocks the reveal.
+  // An opaque response cannot prove email delivery. Show the score immediately
+  // and describe only whether the browser could send the request.
+  results(name);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
   fetch(SHEET_WEBAPP_URL, {
     method:"POST",
     mode:"no-cors",
     headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body: JSON.stringify(payload)
-  }).catch(e=>console.error("Sheet submit error", e));
-  results(name);
+    body: JSON.stringify(payload),
+    referrerPolicy:"no-referrer",
+    signal:controller.signal
+  }).then(() => {
+    document.getElementById("delivery-status").textContent = "Email requested. If it does not arrive, you can open the assessment below or contact us.";
+  }).catch(() => {
+    document.getElementById("delivery-status").textContent = "We could not confirm your email request. Your score is shown here; you can open the assessment below or contact us.";
+  }).finally(() => clearTimeout(timeout));
 }
 
 function results(name){
   const s = finalScore(), p = persona();
   app.innerHTML = `
     <div class="screen center">
-      <img src="website_logo.png" alt="whydoweneedai.com" class="logo-sm">
+      <img src="/website_logo.png" alt="whydoweneedai.com" class="logo-sm" width="1407" height="768" decoding="async">
       <p class="sub" style="margin-bottom:0;">${esc(name)}, your AI ReadyScore is</p>
-      <div class="score" id="num">0</div>
+      <div class="score" aria-label="${s} out of 100">${s}</div>
       <span class="badge">${p.emoji} ${p.name}</span>
       <p class="sub" style="margin-bottom:0;">${p.desc}</p>
       <div class="tip"><b>Your quick win:</b> ${tips[state.pain]}</div>
-      <p class="sub" style="margin-bottom:8px;font-weight:800;color:var(--ink);">Check your inbox 📬</p>
-      <p class="fine" style="margin-top:0;">We'll email you a short assessment so we can map your first AI automation together.</p>
+      <p class="fine">Your score reflects this self-assessment. Use a small pilot to test the recommendation.</p>
+      <p class="fine" id="delivery-status" role="status">Sending your email request…</p>
+      <div class="result-links"><a href="/assessment.html">Open the follow-up assessment</a><a href="/contact/">Contact us</a></div>
       <p class="footer">Built by someone who was also confused by AI once.</p>
     </div>`;
-  let cur = 0;
-  const step = Math.max(1, Math.round(s/40));
-  const t = setInterval(()=>{
-    cur = Math.min(cur+step, s);
-    document.getElementById("num").textContent = cur;
-    if(cur >= s) clearInterval(t);
-  }, 28);
+  app.focus({preventScroll:true});
 }
-
-welcome();
 </script>
 </body>
 </html>
