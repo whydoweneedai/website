@@ -5,7 +5,7 @@
 <meta name="referrer" content="no-referrer">
 <script>
 // Keep old email links usable without retaining personal details in the URL.
-// Run before any page resources so the URL can be cleared without retaining PII in the address bar.
+// Run before any page resources; this intake page has no analytics or ad tags.
 const assessmentPrefill = (() => {
   const cleanUrl = new URL(window.location.href);
   const params = cleanUrl.searchParams;
@@ -31,15 +31,6 @@ const assessmentPrefill = (() => {
   return Object.freeze(prefill);
 })();
 </script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-GLNJLNSFEL');
-</script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Your Free AI Assessment | whydoweneedai.com</title>
@@ -47,7 +38,7 @@ const assessmentPrefill = (() => {
 <!-- This is the post-quiz intake step, not a page we want ranking. -->
 <meta name="robots" content="noindex, follow">
 <meta name="twitter:site" content="@whydoweneedai">
-  <meta name="theme-color" content="#2563eb">
+<meta name="theme-color" content="#2563eb">
 
 <style>
   :root{ --blue:#2563eb; --blue-dark:#1d4ed8; --ink:#0f172a; --sub:#475569;
