@@ -36,6 +36,7 @@
 <meta property="og:image" content="https://whydoweneedai.com/website_logo.png">
 
 <!-- Twitter Card -->
+<meta name="twitter:site" content="@whydoweneedai">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Free AI Assessment for Small Business | AI ReadyScore Quiz">
 <meta name="twitter:description" content="Take the free 2-minute AI Assessment for small business and get your AI ReadyScore.">
@@ -178,6 +179,7 @@
     <a href="/contact/">Contact</a>
     <a href="/editorial-policy/">Editorial policy</a>
     <a href="/privacy/">Privacy</a>
+    <a href="https://x.com/whydoweneedai" rel="noopener" target="_blank">Follow on X</a>
   </nav>
   <p>Why Do We Need AI — practical guidance for using AI at work.</p>
 </footer>
@@ -222,6 +224,24 @@ const personas = [
 ];
 
 let state = {i:0, score:0, answers:[], pain:null, worry:null};
+let quizEvents = { started: false, completed: false };
+function trackQuizStart(){
+  if(!quizEvents.started && typeof gtag === "function"){
+    gtag("event", "quiz_start");
+    quizEvents.started = true;
+  }
+}
+function trackQuizStep(stepNumber, stepName){
+  if(typeof gtag === "function"){
+    gtag("event", "quiz_step", { step_number: stepNumber, step_name: stepName });
+  }
+}
+function trackQuizComplete(){
+  if(!quizEvents.completed && typeof gtag === "function"){
+    gtag("event", "quiz_complete");
+    quizEvents.completed = true;
+  }
+}
 const app = document.getElementById("app");
 const esc = s => {const d=document.createElement("div");d.textContent=s;return d.innerHTML;};
 const finalScore = () => Math.round(state.score/18*100);
@@ -241,7 +261,9 @@ function welcome(){
 }
 
 function question(){
+  trackQuizStart();
   const q = questions[state.i];
+  trackQuizStep(state.i + 1, q.q);
   const pct = Math.round(state.i/questions.length*100);
   app.innerHTML = `
     <div class="screen">
@@ -350,6 +372,7 @@ function reveal(){
 }
 
 function results(name){
+  trackQuizComplete();
   const s = finalScore(), p = persona();
   app.innerHTML = `
     <div class="screen center">
