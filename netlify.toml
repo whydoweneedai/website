@@ -31,20 +31,26 @@
   force = true
 
 [[redirects]]
-  from = "/quiz.html"
+  from = "/index.html"
   to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quiz.html"
+  to = "/ai-readyscore/"
   status = 301
   force = true
 
 [[redirects]]
   from = "/quiz"
-  to = "/"
+  to = "/ai-readyscore/"
   status = 301
   force = true
 
 [[redirects]]
   from = "/quiz/"
-  to = "/"
+  to = "/ai-readyscore/"
   status = 301
   force = true
 
