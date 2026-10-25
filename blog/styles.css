@@ -36,7 +36,6 @@ body {
   font-family: "Nunito", sans-serif;
   font-size: 18px;
   line-height: 1.65;
-  overflow-wrap: anywhere;
 }
 
 a {
@@ -91,11 +90,14 @@ img {
   font-weight: 900;
   letter-spacing: -0.35px;
   text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   gap: 22px;
 }
 
@@ -104,6 +106,7 @@ img {
   font-size: 15px;
   font-weight: 800;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav-links a[aria-current="page"] {
@@ -111,11 +114,13 @@ img {
 }
 
 .nav-links .nav-cta {
-  padding: 10px 15px;
+  padding: 7px 11px;
+  border: 1px solid var(--border);
   border-radius: 999px;
-  color: var(--white);
-  background: var(--blue);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+  color: var(--blue-dark);
+  background: var(--white);
+  box-shadow: none;
+  font-size: 14px;
 }
 
 .nav-links a:hover,
@@ -127,9 +132,10 @@ img {
 
 .nav-links .nav-cta:hover,
 .nav-links .nav-cta:focus-visible {
-  color: var(--white);
-  background: var(--blue-dark);
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.16);
+  color: var(--blue-dark);
+  background: var(--soft);
+  border-color: #93c5fd;
+  box-shadow: none;
 }
 
 main {
@@ -469,6 +475,48 @@ h1 {
   text-decoration: none;
 }
 
+/* Publication homepage: articles above the fold */
+.home-hero {
+  grid-template-columns: 1fr;
+  gap: 0;
+  padding: 28px 0 18px;
+  align-items: start;
+}
+
+.home-hero .hero-brand-card {
+  display: none;
+}
+
+.home-hero h1 {
+  max-width: none;
+  margin-bottom: 12px;
+  font-size: clamp(30px, 5vw, 48px);
+}
+
+.home-hero .eyebrow {
+  margin-bottom: 10px;
+}
+
+.home-hero .hero-copy > p {
+  max-width: 40em;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.home-latest .section-heading {
+  margin-bottom: 16px;
+}
+
+.home-latest .section-heading h2 {
+  margin-bottom: 0;
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+.home-latest .section-heading .eyebrow {
+  margin-bottom: 8px;
+}
+
 .quiz-cta-secondary {
   width: min(720px, 100%);
   margin: 0 auto 72px;
@@ -489,6 +537,8 @@ h1 {
 /* Article pages */
 .article-main {
   width: min(860px, calc(100% - 40px));
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .breadcrumbs {
@@ -545,6 +595,7 @@ h1 {
   max-width: 72ch;
   margin-left: auto;
   margin-right: auto;
+  overflow-wrap: anywhere;
 }
 
 .article-body > p,
@@ -795,10 +846,12 @@ h1 {
 
   .nav-inner {
     min-height: 62px;
+    gap: 12px;
   }
 
   .brand {
-    font-size: 15px;
+    font-size: 14px;
+    letter-spacing: -0.45px;
   }
 
   .nav-links {
@@ -814,8 +867,30 @@ h1 {
     font-size: 13px;
   }
 
+  .nav-links .nav-cta {
+    padding: 6px 9px;
+    font-size: 12px;
+  }
+
   .cta-wide {
     display: none;
+  }
+
+  .home-hero {
+    padding: 14px 0 10px;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(26px, 7vw, 34px);
+    margin-bottom: 8px;
+  }
+
+  .home-hero .hero-copy > p {
+    font-size: 16px;
+  }
+
+  .home-latest .section-heading {
+    margin-bottom: 12px;
   }
 
   .hero {
@@ -1004,5 +1079,29 @@ h1 {
   .editorial-strip {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-inner {
+    gap: 8px;
+  }
+
+  .brand {
+    font-size: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links {
+    gap: 6px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+
+  .nav-links .nav-cta {
+    padding: 5px 8px;
+    font-size: 11px;
   }
 }
