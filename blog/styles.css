@@ -777,6 +777,13 @@ h1 {
   vertical-align: top;
 }
 
+.article-body .table-wrap th,
+.article-body .table-wrap td {
+  overflow-wrap: normal;
+  word-break: normal;
+  min-width: 8rem;
+}
+
 .article-body th {
   color: var(--ink);
   background: var(--soft);
@@ -863,6 +870,10 @@ h1 {
 .our-take p:not(.our-take-label) {
   margin: 0;
   color: var(--ink);
+}
+
+.our-take p + p {
+  margin-top: 0.75em;
 }
 
 .callout,
