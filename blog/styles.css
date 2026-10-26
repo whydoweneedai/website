@@ -1,3 +1,10 @@
+/*
+  Article callout snippets — full copy in blog/_template-notes.md
+
+  Short answer:  <div class="short-answer"><p><strong>The short answer:</strong> …</p></div>
+  Our take:      <div class="our-take"><p class="our-take-label">Our take</p><p>…</p></div>
+*/
+
 :root {
   --blue: #2563eb;
   --blue-dark: #1d4ed8;
@@ -517,6 +524,83 @@ h1 {
   margin-bottom: 8px;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.home-featured {
+  margin-bottom: 36px;
+}
+
+.home-featured .section-heading {
+  margin-bottom: 12px;
+}
+
+.home-featured-card {
+  padding: 22px 24px;
+  border: 2px solid var(--blue);
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--soft) 0%, var(--white) 100%);
+  box-shadow: var(--shadow);
+}
+
+.home-featured-card h3 {
+  margin: 0 0 12px;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.home-featured-card h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.home-featured-card h3 a:hover,
+.home-featured-card h3 a:focus-visible {
+  color: var(--blue-dark);
+  outline: none;
+}
+
+.home-featured-card .post-meta {
+  margin-bottom: 8px;
+}
+
+.home-featured-thesis {
+  margin: 0 0 16px;
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.home-featured-card .read-link {
+  font-size: 16px;
+}
+
+.home-topic-section {
+  margin-bottom: 40px;
+}
+
+.home-topic-section .section-heading h2 {
+  margin-bottom: 8px;
+  font-size: clamp(22px, 3.2vw, 30px);
+}
+
+.home-topic-intro {
+  margin: 0 0 16px;
+  max-width: 42em;
+  color: var(--sub);
+  font-size: 17px;
+}
+
 .quiz-cta-secondary {
   width: min(720px, 100%);
   margin: 0 auto 72px;
@@ -732,6 +816,55 @@ h1 {
   background: var(--warm);
 }
 
+/* Factual summary at top of an article (distinct from warm .verdict callouts). */
+.short-answer,
+.article-body > .short-answer,
+.article-body > p.short-answer {
+  margin-top: 0;
+  margin-bottom: 1.75em;
+  padding: 20px 22px 20px 24px;
+  border: 2px solid #93c5fd;
+  border-left-width: 6px;
+  border-radius: 18px;
+  background: var(--soft);
+}
+
+.short-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.article-body > p.verdict.short-answer {
+  border-color: #93c5fd;
+  border-left-width: 6px;
+  background: var(--soft);
+}
+
+/* Editor opinion — visually separate from short answer and .verdict. */
+.our-take,
+.article-body > .our-take {
+  margin-top: 34px;
+  margin-bottom: 34px;
+  padding: 22px 24px;
+  border: 2px dashed #a78bfa;
+  border-radius: 18px;
+  background: #f5f3ff;
+}
+
+.our-take-label {
+  margin: 0 0 10px;
+  color: #5b21b6;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.our-take p:not(.our-take-label) {
+  margin: 0;
+  color: var(--ink);
+}
+
 .callout,
 .checklist {
   margin-top: 34px;
@@ -891,6 +1024,22 @@ h1 {
 
   .home-latest .section-heading {
     margin-bottom: 12px;
+  }
+
+  .home-featured {
+    margin-bottom: 28px;
+  }
+
+  .home-featured-card {
+    padding: 18px 16px;
+  }
+
+  .home-featured-thesis {
+    font-size: 16px;
+  }
+
+  .home-topic-section {
+    margin-bottom: 32px;
   }
 
   .hero {
