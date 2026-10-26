@@ -677,8 +677,6 @@ h1 {
 .article-body {
   padding: 46px 0 64px;
   max-width: 72ch;
-  margin-left: auto;
-  margin-right: auto;
   overflow-wrap: anywhere;
 }
 
@@ -693,11 +691,11 @@ h1 {
 .article-body > .checklist,
 .article-body > .inline-cta,
 .article-body > .verdict,
+.article-body > .short-answer,
+.article-body > .our-take,
 .article-body > details {
   width: 100%;
   max-width: 72ch;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 .article-body p {
