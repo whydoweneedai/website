@@ -872,7 +872,7 @@ h1 {
   color: var(--ink);
 }
 
-.our-take p + p {
+.our-take p:not(.our-take-label) + p:not(.our-take-label) {
   margin-top: 0.75em;
 }
 
