@@ -1,0 +1,128 @@
+[
+  {
+    "title": "ChatGPT, Claude or Gemini: which one is best at what",
+    "dek": "Claude reads your contracts, ChatGPT crunches your numbers and makes images, Gemini and Copilot run your inbox. Which AI to pay for, job by job.",
+    "topic": "Choosing AI tools",
+    "topicSlug": "choosing-ai-tools",
+    "url": "/blog/chatgpt-vs-claude-vs-gemini-vs-copilot/",
+    "date": "Oct 29, 2026",
+    "dateIso": "2026-10-29"
+  },
+  {
+    "title": "Can AI type your invoices into a spreadsheet?",
+    "dek": "We ran 24 invented invoices, including scans and handwriting, through an AI model and a rules script. AI read messy ones better but missed a bad total.",
+    "topic": "Tested",
+    "topicSlug": "tested",
+    "url": "/blog/can-ai-enter-invoices-spreadsheet-test/",
+    "date": "Oct 24, 2026",
+    "dateIso": "2026-10-24"
+  },
+  {
+    "title": "AI vs. simple rules for appointment and payment reminders",
+    "dek": "We ran 30 made-up reminder records through a rules script and an AI model three times each. Rules got every routine case right.",
+    "topic": "Tested",
+    "topicSlug": "tested",
+    "url": "/blog/ai-vs-rules-appointment-payment-reminders/",
+    "date": "Oct 23, 2026",
+    "dateIso": "2026-10-23"
+  },
+  {
+    "title": "We tested our AI readiness checklist on 12 made-up workflows",
+    "dek": "We ran our readiness checklist on 12 invented workflows. It's a good brake and a poor compass.",
+    "topic": "Tested",
+    "topicSlug": "tested",
+    "url": "/blog/ai-readiness-checklist-test/",
+    "date": "Oct 19, 2026",
+    "dateIso": "2026-10-19"
+  },
+  {
+    "title": "We ran 30 invented customer inquiries through an AI follow-up assistant",
+    "dek": "A 30-case synthetic test: stop checks passed, but one draft made unapproved promises.",
+    "topic": "Tested",
+    "topicSlug": "tested",
+    "url": "/blog/ai-lead-follow-up-test/",
+    "date": "Oct 19, 2026",
+    "dateIso": "2026-10-19"
+  },
+  {
+    "title": "Small-business lead follow-up automation: a blueprint",
+    "dek": "A lifecycle map for capture, handoff, follow-up, and closure, with exceptions and stop conditions to write first.",
+    "topic": "ROI & planning",
+    "topicSlug": "roi-planning",
+    "url": "/blog/lead-follow-up-automation/",
+    "date": "Oct 14, 2026",
+    "dateIso": "2026-10-14"
+  },
+  {
+    "title": "AI agents are moving into your business apps",
+    "dek": "Use an Agent Action Contract and a contractor test plan to decide what an assistant may read, draft, propose, and change.",
+    "topic": "Choosing AI tools",
+    "topicSlug": "choosing-ai-tools",
+    "url": "/blog/ai-agents-business-app-permissions/",
+    "date": "Oct 9, 2026",
+    "dateIso": "2026-10-09"
+  },
+  {
+    "title": "How to evaluate an AI pilot: keep, fix, or stop",
+    "dek": "Use a pilot evidence sheet, quality buckets, net-time math, and a worked example to decide whether an AI workflow deserves to continue.",
+    "topic": "ROI & planning",
+    "topicSlug": "roi-planning",
+    "url": "/blog/evaluate-ai-pilot/",
+    "date": "Oct 7, 2026",
+    "dateIso": "2026-10-07"
+  },
+  {
+    "title": "What data should you put into an AI tool?",
+    "dek": "Use a green-yellow-red data framework and a pre-upload checklist before business information enters an AI workflow.",
+    "topic": "Choosing AI tools",
+    "topicSlug": "choosing-ai-tools",
+    "url": "/blog/data-ai-tools/",
+    "date": "Oct 4, 2026",
+    "dateIso": "2026-10-04"
+  },
+  {
+    "title": "How to calculate the ROI of AI automation",
+    "dek": "Use a conservative five-number model to calculate net monthly value, break-even volume, and payback period.",
+    "topic": "ROI & planning",
+    "topicSlug": "roi-planning",
+    "url": "/blog/ai-automation-roi/",
+    "date": "Oct 2, 2026",
+    "dateIso": "2026-10-02"
+  },
+  {
+    "title": "AI vs. automation: when your small business actually needs AI",
+    "dek": "Use the Minimum Intelligence Principle and a four-question decision test to choose between rules, AI, and human judgment.",
+    "topic": "Choosing AI tools",
+    "topicSlug": "choosing-ai-tools",
+    "url": "/blog/ai-vs-automation/",
+    "date": "Sep 30, 2026",
+    "dateIso": "2026-09-30"
+  },
+  {
+    "title": "How to choose your first AI tool without wasting money",
+    "dek": "Compare tools with the same real work, a 35-point scorecard, total-cost math, and a 30-day pilot.",
+    "topic": "Choosing AI tools",
+    "topicSlug": "choosing-ai-tools",
+    "url": "/blog/choose-first-ai-tool/",
+    "date": "Aug 22, 2026",
+    "dateIso": "2026-08-22"
+  },
+  {
+    "title": "The small-business AI readiness checklist",
+    "dek": "Score one workflow with a 20-point readiness check and turn the result into a one-page pilot brief.",
+    "topic": "ROI & planning",
+    "topicSlug": "roi-planning",
+    "url": "/blog/ai-readiness-checklist/",
+    "date": "Aug 22, 2026",
+    "dateIso": "2026-08-22"
+  },
+  {
+    "title": "5 tasks your small business should automate before anything else",
+    "dek": "Use a five-question scorecard, simple ROI math, and a worked example to identify repetitive work worth automating.",
+    "topic": "ROI & planning",
+    "topicSlug": "roi-planning",
+    "url": "/blog/what-to-automate-first/",
+    "date": "Aug 22, 2026",
+    "dateIso": "2026-08-22"
+  }
+]

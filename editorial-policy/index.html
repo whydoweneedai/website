@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-newsletter="off">
 <head>
+  <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
   <script>
@@ -27,23 +30,31 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/blog/styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
-    <nav class="nav-inner" aria-label="Primary navigation">
-      <a class="brand" href="/"><picture class="brand-logo"><source srcset="/images/brand/lockup.webp" type="image/webp"><img src="/images/brand/lockup.png" alt="WhyDoWeNeedAI" width="684" height="128" decoding="async"></picture></a>
+  <nav class="nav-inner" aria-label="Primary navigation">
+    <a class="brand" href="/"><picture>
+      <source type="image/webp" srcset="/images/brand/lockup-128.webp">
+      <img class="brand-lockup" src="/images/brand/lockup-128.png" width="684" height="128" alt="WhyDoWeNeedAI" decoding="async">
+    </picture></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav-panel">Menu</button>
+    <div class="nav-panel" id="site-nav-panel">
       <div class="nav-links">
-        <a class="home-link" href="/">Home</a>
-        <a href="/blog/">Blog</a>
+        <a href="/topics/tested/">Tested</a>
+        <a href="/topics/choosing-ai-tools/">Choosing AI tools</a>
+        <a href="/topics/roi-planning/">ROI &amp; planning</a>
+        <a href="/search/">Search</a>
         <a href="/about/">About</a>
         <a class="nav-cta" href="/ai-readyscore/">AI ReadyScore</a>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
   <main class="article-main" id="main-content">
     <header class="article-header">
       <span class="eyebrow">Editorial standards</span>
@@ -79,17 +90,31 @@
     </article>
   </main>
   <footer class="site-footer">
-    <div class="footer-inner">
-      <p>Practical AI guidance for small-business owners.</p>
-      <div class="footer-links">
-        <a href="/ai-readyscore/">AI ReadyScore</a>
-        <a href="/blog/">Blog</a>
-        <a href="/about/">About</a>
-        <a href="/contact/">Contact</a>
-        <a href="/editorial-policy/">Editorial policy</a>
-        <a href="/privacy/">Privacy</a><a href="https://x.com/whydoweneedai" rel="noopener" target="_blank">Follow on X</a>
-      </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="/website_logo.png" width="1407" height="768" alt="WhyDoWeNeedAI" loading="lazy" decoding="async">
+      <p class="footer-tagline">Practical AI for small business — researched and plainly answered.</p>
+      <p class="footer-copy">© WhyDoWeNeedAI</p>
     </div>
-  </footer>
+    <nav class="footer-nav" aria-label="Footer">
+      <div class="footer-col">
+        <p class="footer-col-title">Topics</p>
+        <a href="/topics/tested/">Tested</a>
+        <a href="/topics/choosing-ai-tools/">Choosing AI tools</a>
+        <a href="/topics/roi-planning/">ROI &amp; planning</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Publication</p>
+        <a href="/blog/">Archive</a>
+        <a href="/about/">About</a>
+        <a href="/editorial-policy/">Editorial policy</a>
+        <a href="/contact/">Contact</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/ai-readyscore/">AI ReadyScore</a>
+      </div>
+    </nav>
+  </div>
+</footer>
+<script src="/blog/site.js" defer></script>
 </body>
 </html>

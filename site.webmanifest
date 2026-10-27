@@ -1,0 +1,14 @@
+{
+  "name": "Why Do We Need AI",
+  "short_name": "WhyDoWeNeedAI",
+  "icons": [
+    {
+      "src": "/images/brand/robot-head-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#1e3a5c",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

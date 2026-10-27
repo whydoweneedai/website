@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-newsletter="off">
 <head>
+  <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
 <script>
@@ -33,14 +36,14 @@
 <meta property="og:title" content="Free AI Assessment for Small Business | AI ReadyScore Quiz">
 <meta property="og:description" content="Get your AI ReadyScore and a practical next step for testing AI or automation in your small business.">
 <meta property="og:url" content="https://whydoweneedai.com/ai-readyscore/">
-<meta property="og:image" content="https://whydoweneedai.com/website_logo.png">
+<meta property="og:image" content="https://whydoweneedai.com/images/og/ai-readyscore.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:site" content="@whydoweneedai">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Free AI Assessment for Small Business | AI ReadyScore Quiz">
 <meta name="twitter:description" content="Take the free 2-minute AI Assessment for small business and get your AI ReadyScore.">
-<meta name="twitter:image" content="https://whydoweneedai.com/website_logo.png">
+<meta name="twitter:image" content="https://whydoweneedai.com/images/og/ai-readyscore.png">
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -71,7 +74,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/website_logo.png" fetchpriority="high">
+<link rel="preload" as="image" href="/images/brand/logo-mascot.png" fetchpriority="high">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet"></noscript>
 <style>
@@ -81,7 +84,7 @@
   body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
     background:linear-gradient(180deg,#f0f7ff,#fff);min-height:100vh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 16px 20px;}
-  .site-nav{position:fixed;z-index:10;top:0;left:0;right:0;height:56px;
+  .site-nav{position:fixed;z-index:100;top:0;left:0;right:0;height:56px;
     display:flex;align-items:center;justify-content:space-between;padding:0 18px;
     background:rgba(255,255,255,.88);border-bottom:1px solid rgba(219,234,254,.9);
     backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
@@ -97,7 +100,8 @@
   .site-nav .about-link:hover,.site-nav .about-link:focus-visible{color:var(--blue-dark);outline:none;}
   .site-nav .blog-link:hover,.site-nav .blog-link:focus-visible{background:#dbeafe;
     outline:none;box-shadow:0 0 0 3px rgba(37,99,235,.16);}
-  .app{width:100%;max-width:430px;flex:1;display:flex;align-items:center;}
+  .app{width:100%;max-width:430px;flex:1;display:flex;align-items:center;position:relative;z-index:1;}
+  .quiz-mascot{display:block;width:auto;height:clamp(120px,28vw,168px);margin:0 auto 14px;object-fit:contain;}
   .app>.screen{width:100%;}
   .app:focus{outline:none;}
   .skip-link{position:fixed;left:12px;top:-100px;z-index:20;background:#fff;padding:12px;color:var(--blue-dark);}
@@ -157,7 +161,7 @@
 <a class="skip-link" href="#app">Skip to content</a>
 
 <nav class="site-nav" aria-label="Primary navigation">
-  <a class="brand" href="/"><picture class="brand-logo"><source srcset="/images/brand/lockup.webp" type="image/webp"><img src="/images/brand/lockup.png" alt="WhyDoWeNeedAI" width="684" height="128" decoding="async"></picture></a>
+  <a class="brand" href="/"><picture class="brand-logo"><source srcset="/images/brand/lockup-128.webp" type="image/webp"><img src="/images/brand/lockup-128.png" alt="WhyDoWeNeedAI" width="684" height="128" decoding="async"></picture></a>
   <div class="nav-actions">
     <a class="about-link" href="/about/">About</a>
     <a class="blog-link" href="/blog/">Read the blog →</a>
@@ -166,7 +170,7 @@
 
 <main class="app" id="app" tabindex="-1">
   <div class="screen center">
-    <img src="/website_logo.png" alt="whydoweneedai.com" class="logo" width="1407" height="768" fetchpriority="high" decoding="async">
+    <img src="/images/brand/logo-mascot.png" alt="" class="quiz-mascot" width="531" height="522" aria-hidden="true" decoding="async">
     <h1>Do I Need AI?</h1>
     <p class="sub">Find out your AI ReadyScore in 2 minutes.<br>A practical starting point for your next small test.</p>
     <button class="btn" onclick="question()">Let's find out →</button>
@@ -254,7 +258,7 @@ function welcome(){
   state = {i:0, score:0, answers:[], pain:null, worry:null};
   app.innerHTML = `
     <div class="screen center">
-      <img src="/website_logo.png" alt="whydoweneedai.com" class="logo" width="1407" height="768" fetchpriority="high" decoding="async">
+      <img src="/images/brand/logo-mascot.png" alt="" class="quiz-mascot" width="531" height="522" aria-hidden="true" decoding="async">
       <h1>Do I Need AI?</h1>
       <p class="sub">Find out your AI ReadyScore in 2 minutes.<br>A practical starting point for your next small test.</p>
       <button class="btn" onclick="question()">Let's find out →</button>
@@ -270,7 +274,7 @@ function question(){
   const pct = Math.round(state.i/questions.length*100);
   app.innerHTML = `
     <div class="screen">
-      <img src="/website_logo.png" alt="whydoweneedai.com" class="logo-sm" width="1407" height="768" decoding="async">
+      <img src="/images/brand/robot-head.png" alt="" aria-hidden="true" class="logo-sm" width="262" height="174" decoding="async" style="height:52px;width:auto;max-width:110px;margin:0 auto 12px;display:block;object-fit:contain">
       <div class="progress">
         ${state.i>0 ? '<button class="back" aria-label="Previous question" onclick="goBack()">←</button>' : ''}
         <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
@@ -379,7 +383,7 @@ function results(name){
   const s = finalScore(), p = persona();
   app.innerHTML = `
     <div class="screen center">
-      <img src="/website_logo.png" alt="whydoweneedai.com" class="logo-sm" width="1407" height="768" decoding="async">
+      <img src="/images/brand/robot-head.png" alt="" aria-hidden="true" class="logo-sm" width="262" height="174" decoding="async" style="height:52px;width:auto;max-width:110px;margin:0 auto 12px;display:block;object-fit:contain">
       <p class="sub" style="margin-bottom:0;">${esc(name)}, your AI ReadyScore is</p>
       <div class="score" aria-label="${s} out of 100">${s}</div>
       <span class="badge">${p.emoji} ${p.name}</span>
@@ -393,5 +397,6 @@ function results(name){
   app.focus({preventScroll:true});
 }
 </script>
+  <script src="/blog/site.js" defer></script>
 </body>
 </html>

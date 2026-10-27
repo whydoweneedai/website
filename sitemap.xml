@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://whydoweneedai.com/</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -14,9 +14,27 @@
   </url>
   <url>
     <loc>https://whydoweneedai.com/blog/</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://whydoweneedai.com/topics/tested/</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://whydoweneedai.com/topics/choosing-ai-tools/</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://whydoweneedai.com/topics/roi-planning/</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://whydoweneedai.com/about/</loc>
@@ -74,7 +92,7 @@
   </url>
   <url>
     <loc>https://whydoweneedai.com/blog/lead-follow-up-automation/</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
