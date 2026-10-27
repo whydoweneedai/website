@@ -50,9 +50,20 @@ def ensure_newsletter_attr(html: str) -> str:
 
 
 def inject_icons(html: str) -> str:
-    if "favicon.png" in html:
-        return html
-    return html.replace("<head>", f"<head>\n{HEAD_ICONS}", 1)
+    if "favicon.png" not in html:
+        return html.replace("<head>", f"<head>\n{HEAD_ICONS}", 1)
+    if "site.webmanifest" not in html:
+        html = html.replace(
+            'rel="apple-touch-icon"',
+            'rel="apple-touch-icon" sizes="180x180"',
+            1,
+        )
+        html = html.replace(
+            "/apple-touch-icon.png\">",
+            '/apple-touch-icon.png">\n  <link rel="manifest" href="/site.webmanifest">',
+            1,
+        )
+    return html
 
 
 def process(path: Path):

@@ -20,9 +20,13 @@ def run(name):
 
 
 def main():
+    run("build-brand-assets.py")
+    run("make-og-images.py")
+    run("generate-styles.py")
     run("generate-homepage.py")
     run("generate-blog-index.py")
     run("generate-pages.py")
+    run("generate-404.py")
     run("redesign-articles.py")
     subprocess.check_call(["node", str(SCRIPTS / "build-search-index.js")])
     print("Done. Review data/site.json and commit outputs.")

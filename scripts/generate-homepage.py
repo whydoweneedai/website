@@ -12,7 +12,7 @@ from site_chrome import (
     footer_html,
     header_nav,
     html_newsletter_attr,
-    mascot_img,
+    masthead_logo,
     newsletter_home_block,
     readyscore_module,
 )
@@ -59,7 +59,7 @@ def main():
         )
 
     topic_cards = "\n        ".join(topic_card(t, topic_pages) for t in site["raw"]["topics"])
-    og_image = og_image_url(lead)
+    og_image = og_image_url(slug="home")
 
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>
@@ -109,9 +109,8 @@ def main():
   <main class="page-main" id="main-content">
     <header class="masthead">
       <div class="masthead-inner">
-        {mascot_img("lg")}
+        {masthead_logo()}
         <div class="masthead-copy">
-          <p class="eyebrow">Why Do We Need AI</p>
           <h1 class="masthead-tagline">Which AI is worth it for your business, researched and plainly answered.</h1>
           <p class="masthead-sub">Practical AI. No jargon required.</p>
         </div>

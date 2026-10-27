@@ -16,7 +16,8 @@ HEAD_ANALYTICS = """  <!-- Google tag (gtag.js) -->
 """
 
 HEAD_ICONS = """  <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">"""
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">"""
 
 FONT = """  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,18 +30,30 @@ def html_newsletter_attr(active: bool) -> str:
     return ' data-newsletter="on"' if active else ' data-newsletter="off"'
 
 
-def wordmark_img(css_class: str = "brand-wordmark") -> str:
-    return f"""<picture>
-      <source type="image/webp" srcset="/images/brand/logo-wordmark.webp 1x, /images/brand/logo-wordmark@2x.webp 2x">
-      <img class="{css_class}" src="/images/brand/logo-wordmark.png" srcset="/images/brand/logo-wordmark.png 1x, /images/brand/logo-wordmark@2x.png 2x" width="907" height="166" alt="WhyDoWeNeedAI" decoding="async">
+def header_lockup() -> str:
+    return """<picture>
+      <source type="image/webp" srcset="/images/brand/lockup-128.webp">
+      <img class="brand-lockup" src="/images/brand/lockup-128.png" width="684" height="128" alt="WhyDoWeNeedAI" decoding="async">
     </picture>"""
 
 
+def masthead_logo() -> str:
+    return """<img class="masthead-logo" src="/website_logo.png" width="1407" height="768" alt="" aria-hidden="true" decoding="async">"""
+
+
+def footer_logo() -> str:
+    return """<img class="footer-logo" src="/website_logo.png" width="1407" height="768" alt="WhyDoWeNeedAI" loading="lazy" decoding="async">"""
+
+
 def mascot_img(size: str = "md", decorative: bool = True) -> str:
-    """size: sm | md | lg"""
+    """size: sm | md | lg — full robot with bubbles."""
     cls = f"brand-mascot brand-mascot--{size}"
     hidden = ' aria-hidden="true"' if decorative else ""
-    return f"""<img class="{cls}" src="/images/brand/logo-mascot.webp" srcset="/images/brand/logo-mascot.webp 1x, /images/brand/logo-mascot@2x.webp 2x" width="531" height="522" alt=""{hidden} loading="lazy" decoding="async">"""
+    return f"""<img class="{cls}" src="/images/brand/logo-mascot.png" width="531" height="522" alt=""{hidden} loading="lazy" decoding="async">"""
+
+
+def robot_head_img(css_class: str = "brand-robot-head") -> str:
+    return f"""<img class="{css_class}" src="/images/brand/robot-head.png" width="262" height="174" alt="" aria-hidden="true" loading="lazy" decoding="async">"""
 
 
 def header_nav(current_path: str = "") -> str:
@@ -63,7 +76,7 @@ def header_nav(current_path: str = "") -> str:
     nav_topics = "\n        ".join(links)
     return f"""<header class="site-header">
   <nav class="nav-inner" aria-label="Primary navigation">
-    <a class="brand" href="/">{wordmark_img()}</a>
+    <a class="brand" href="/">{header_lockup()}</a>
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav-panel">Menu</button>
     <div class="nav-panel" id="site-nav-panel">
       <div class="nav-links">
@@ -88,7 +101,7 @@ def footer_html() -> str:
     return f"""<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      {mascot_img("sm")}
+      {footer_logo()}
       <p class="footer-tagline">Practical AI for small business — researched and plainly answered.</p>
       <p class="footer-copy">© WhyDoWeNeedAI</p>
     </div>

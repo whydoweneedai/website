@@ -2,40 +2,38 @@
 """Hero and card media markup (typographic default; image modes for future assets)."""
 from site_data import HERO_CAPTION, load_site
 
-LOGO_OG = "https://whydoweneedai.com/website_logo.png"
+SITE_ORIGIN = "https://whydoweneedai.com"
 
 
 def _ship_typographic_only() -> bool:
     return load_site()["raw"].get("settings", {}).get("shipTypographicHeroes", True)
 
 
-MASCOT_MINI = """<img class="hero-plate-mascot" src="/images/brand/logo-mascot.webp" srcset="/images/brand/logo-mascot.webp 1x, /images/brand/logo-mascot@2x.webp 2x" width="531" height="522" alt="" aria-hidden="true" loading="lazy" decoding="async">"""
+ROBOT_HEAD_MARK = """<img class="hero-plate-mark" src="/images/brand/robot-head.png" width="262" height="174" alt="" aria-hidden="true" loading="lazy" decoding="async">"""
 
 
 def typographic_plate(art: dict, variant: str = "article") -> str:
-    """Premium typographic field: topic, headline, brand mascot motif."""
+    """Text-and-color cover with robot-head mark (no illustrations)."""
     topic = art["topicLabel"]
     title = art["searchTitle"]
     if variant == "card":
         return f"""<div class="hero-plate hero-plate--card" aria-hidden="true">
-  {MASCOT_MINI}
   <span class="hero-plate-topic">{topic}</span>
   <span class="hero-plate-title">{title}</span>
+  {ROBOT_HEAD_MARK}
 </div>"""
     if variant == "lead":
         return f"""<div class="hero-plate hero-plate--lead" aria-hidden="true">
-  {MASCOT_MINI}
   <span class="hero-plate-topic">{topic}</span>
   <span class="hero-plate-title">{title}</span>
-  <span class="hero-plate-brand">WhyDoWeNeedAI</span>
+  {ROBOT_HEAD_MARK}
 </div>"""
     alt = art.get("imageAlt") or title
     return f"""<figure class="article-hero article-hero--typographic">
   <div class="hero-plate hero-plate--article" role="img" aria-label="{alt}">
-    {MASCOT_MINI}
     <span class="hero-plate-topic">{topic}</span>
     <span class="hero-plate-title">{title}</span>
-    <span class="hero-plate-brand">WhyDoWeNeedAI</span>
+    {ROBOT_HEAD_MARK}
   </div>
 </figure>"""
 
@@ -88,10 +86,13 @@ def lead_media_link(art: dict) -> str:
     return f'<div class="lead-story-media lead-story-media--typographic"><a href="/blog/{slug}/" class="hero-plate-link">{inner}</a></div>'
 
 
-def og_image_url(art: dict) -> str:
-    if _ship_typographic_only():
-        return LOGO_OG
-    mode = art.get("hero", "typographic")
-    if mode == "typographic":
-        return LOGO_OG
-    return f"https://whydoweneedai.com/images/hero/{art['slug']}-1280.jpg"
+def og_image_url(art=None, slug=None) -> str:
+    """Per-article or special-page OG PNG under /images/og/."""
+    if slug:
+        return f"{SITE_ORIGIN}/images/og/{slug}.png"
+    if art:
+        return f"{SITE_ORIGIN}/images/og/{art['slug']}.png"
+    return f"{SITE_ORIGIN}/images/og/home.png"
+
+
+LOGO_OG = f"{SITE_ORIGIN}/website_logo.png"

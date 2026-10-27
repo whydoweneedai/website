@@ -62,8 +62,9 @@ def topic_page(slug, topic, articles, nl_attr):
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{intro}">
   <meta property="og:url" content="{url}">
-  <meta property="og:image" content="https://whydoweneedai.com/website_logo.png">
+  <meta property="og:image" content="https://whydoweneedai.com/images/og/topic-{slug}.png">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://whydoweneedai.com/images/og/topic-{slug}.png">
   <meta name="twitter:site" content="@whydoweneedai">
   <script type="application/ld+json">{json.dumps(ld)}</script>
 {FONT}

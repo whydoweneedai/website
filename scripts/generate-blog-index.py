@@ -56,7 +56,8 @@ def main():
   <meta property="og:type" content="website">
   <meta property="og:title" content="Archive | Why Do We Need AI?">
   <meta property="og:url" content="https://whydoweneedai.com/blog/">
-  <meta property="og:image" content="https://whydoweneedai.com/website_logo.png">
+  <meta property="og:image" content="https://whydoweneedai.com/images/og/home.png">
+  <meta name="twitter:image" content="https://whydoweneedai.com/images/og/home.png">
   <meta name="twitter:site" content="@whydoweneedai">
   <meta name="twitter:card" content="summary_large_image">
 {FONT}

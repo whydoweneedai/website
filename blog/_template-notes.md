@@ -57,13 +57,13 @@ Styles: [`blog/styles.css`](styles.css). Tokens: [`docs/design-system.md`](../do
 
 ## Hero image modes (`data/site.json`)
 
-**Shipping now:** `settings.shipTypographicHeroes: true` — typographic plates everywhere; **do not commit** files under `/images/hero/` until art is approved. OG/Twitter/JSON-LD use `website_logo.png`.
+**Shipping now:** `settings.shipTypographicHeroes: true` — text-and-color covers with the **robot-head** mark; **no** illustrations or AI art. **Do not commit** files under `/images/hero/` until real screenshots are ready. OG/Twitter/JSON-LD use generated `/images/og/<slug>.png` (see `scripts/make-og-images.py`).
 
 When ready for real art: set `shipTypographicHeroes` to `false`, add files locally, set per-article `hero`, run `python3 scripts/regenerate-site.py`.
 
 | `hero` value | Use |
 |-------|-----|
-| `typographic` | Topic + headline + brand field (current default) |
+| `typographic` | Topic + headline + robot-head mark (current default) |
 | `illustration` | Conceptual 16:9 art in `/images/hero/` (not in repo until chosen) |
 | `screenshot` | Real product UI with honest `figcaption` |
 
@@ -88,7 +88,7 @@ When ready for real art: set `shipTypographicHeroes` to `false`, add files local
 
 ### Typographic fallback
 
-Set `"hero": "typographic"` — no image files required. OG/Twitter image falls back to `website_logo.png`.
+Set `"hero": "typographic"` — no hero image files required. Run `python3 scripts/make-og-images.py` after adding the article to regenerate `/images/og/<slug>.png`.
 
 ## Newsletter (end of article)
 
