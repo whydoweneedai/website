@@ -41,8 +41,14 @@ body {
   color: var(--ink);
   background: linear-gradient(180deg, #f0f7ff 0, #ffffff 460px);
   font-family: "Nunito", sans-serif;
-  font-size: 18px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  body {
+    font-size: 17px;
+  }
 }
 
 a {
@@ -221,8 +227,9 @@ h3 {
 h1 {
   max-width: 780px;
   margin-bottom: 20px;
-  font-size: clamp(42px, 7vw, 68px);
+  font-size: clamp(30px, 5vw, 42px);
   font-weight: 900;
+  line-height: 1.15;
 }
 
 .hero-copy > p {
@@ -306,7 +313,7 @@ h1 {
 
 .section-heading h2 {
   margin-bottom: 6px;
-  font-size: clamp(30px, 4vw, 42px);
+  font-size: clamp(24px, 3.5vw, 32px);
   font-weight: 900;
 }
 
@@ -380,12 +387,13 @@ h1 {
 .post-card h2,
 .post-card h3 {
   margin-bottom: 12px;
-  font-size: clamp(25px, 3vw, 34px);
+  font-size: clamp(20px, 2.8vw, 26px);
   font-weight: 900;
+  line-height: 1.2;
 }
 
 .post-card h3 {
-  font-size: 26px;
+  font-size: clamp(19px, 2.5vw, 24px);
 }
 
 .post-card p {
@@ -483,7 +491,7 @@ h1 {
 
 .home-article-card h3 {
   margin: 0 0 10px;
-  font-size: clamp(22px, 3vw, 28px);
+  font-size: clamp(19px, 2.8vw, 24px);
   font-weight: 900;
   line-height: 1.2;
 }
@@ -533,7 +541,7 @@ h1 {
 .home-hero h1 {
   max-width: none;
   margin-bottom: 12px;
-  font-size: clamp(30px, 5vw, 48px);
+  font-size: clamp(30px, 5vw, 42px);
 }
 
 .home-hero .eyebrow {
@@ -590,9 +598,9 @@ h1 {
 
 .home-featured-card h3 {
   margin: 0 0 12px;
-  font-size: clamp(24px, 4vw, 32px);
+  font-size: clamp(20px, 3.5vw, 26px);
   font-weight: 900;
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .home-featured-card h3 a {
@@ -680,14 +688,15 @@ h1 {
 .article-header h1 {
   max-width: 840px;
   margin-bottom: 20px;
-  font-size: clamp(40px, 7vw, 64px);
+  font-size: clamp(30px, 5vw, 42px);
+  line-height: 1.15;
 }
 
 .article-dek {
   max-width: 760px;
   margin: 0 0 22px;
   color: var(--sub);
-  font-size: 21px;
+  font-size: clamp(17px, 2.5vw, 20px);
   line-height: 1.55;
 }
 
@@ -743,7 +752,7 @@ h1 {
 
 .article-body {
   padding: 46px 0 64px;
-  max-width: 72ch;
+  max-width: 68ch;
   overflow-wrap: anywhere;
 }
 
@@ -762,7 +771,7 @@ h1 {
 .article-body > .our-take,
 .article-body > details {
   width: 100%;
-  max-width: 72ch;
+  max-width: 68ch;
 }
 
 .article-body p {
@@ -773,7 +782,7 @@ h1 {
 .article-body h2 {
   margin-top: 2.25em;
   margin-bottom: 0.65em;
-  font-size: clamp(26px, 4vw, 32px);
+  font-size: clamp(22px, 3.5vw, 26px);
   font-weight: 900;
   line-height: 1.2;
 }
@@ -781,7 +790,7 @@ h1 {
 .article-body h3 {
   margin-top: 1.75em;
   margin-bottom: 0.5em;
-  font-size: clamp(20px, 3vw, 24px);
+  font-size: clamp(18px, 2.2vw, 20px);
   font-weight: 800;
   line-height: 1.25;
 }
@@ -830,7 +839,7 @@ h1 {
   width: 100%;
   min-width: 520px;
   border-collapse: collapse;
-  font-size: 15px;
+  font-size: 0.94em;
   line-height: 1.45;
 }
 
@@ -894,6 +903,7 @@ h1 {
 .article-body > p.short-answer {
   margin-top: 0;
   margin-bottom: 1.75em;
+  font-size: 0.98em;
   padding: 20px 22px 20px 24px;
   border: 2px solid #93c5fd;
   border-left-width: 6px;
@@ -916,6 +926,7 @@ h1 {
 .article-body > .our-take {
   margin-top: 34px;
   margin-bottom: 34px;
+  font-size: 0.98em;
   padding: 22px 24px;
   border: 2px dashed #a78bfa;
   border-radius: 18px;
@@ -1090,7 +1101,6 @@ h1 {
   }
 
   .home-hero h1 {
-    font-size: clamp(26px, 7vw, 34px);
     margin-bottom: 8px;
   }
 
@@ -1124,9 +1134,8 @@ h1 {
     padding: 52px 0 44px;
   }
 
-  .hero-copy > p,
-  .article-dek {
-    font-size: 18px;
+  .hero-copy > p {
+    font-size: 17px;
   }
 
   .hero-brand-card {
@@ -1179,7 +1188,6 @@ h1 {
 
   .article-body h2 {
     margin-top: 44px;
-    font-size: 29px;
   }
 
   .article-nav {
