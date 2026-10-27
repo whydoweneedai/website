@@ -91,11 +91,7 @@ def header_nav(current_path: str = "") -> str:
         if t["slug"] not in topic_pages:
             continue
         href = topic_href(t["slug"], topic_pages)
-        label = t["name"]
-        if t["slug"] == "choosing-ai-tools":
-            label = "Choosing tools"
-        elif t["slug"] == "roi-planning":
-            label = "ROI &amp; planning"
+        label = t["name"].replace("&", "&amp;")
         cur = ' aria-current="page"' if current_path == href else ""
         links.append(f'<a href="{href}"{cur}>{label}</a>')
     nav_topics = "\n        ".join(links)
@@ -123,7 +119,8 @@ def footer_html() -> str:
         if t["slug"] not in topic_pages:
             continue
         href = topic_href(t["slug"], topic_pages)
-        topic_links.append(f'<a href="{href}">{t["name"]}</a>')
+        label = t["name"].replace("&", "&amp;")
+        topic_links.append(f'<a href="{href}">{label}</a>')
     topics_col = "\n        ".join(topic_links)
     return f"""<footer class="site-footer">
   <div class="footer-inner">

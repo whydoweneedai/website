@@ -247,6 +247,15 @@ img { display: block; max-width: 100%; height: auto; }
   display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end;
   gap: var(--space-2) var(--space-4);
 }
+@media (min-width: 901px) and (max-width: 1280px) {
+  .nav-links {
+    flex-wrap: nowrap;
+    gap: var(--space-2) var(--space-3);
+  }
+}
+@media (min-width: 1281px) {
+  .nav-links { flex-wrap: nowrap; }
+}
 .nav-links a {
   color: var(--color-ink-muted); font-size: 0.875rem; font-weight: 500;
   text-decoration: none; white-space: nowrap;
