@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from site_chrome import FONT, footer_html, header_nav
+from site_chrome import FONT, HEAD_ICONS, footer_html, header_nav
 from site_data import load_site
 from site_chrome import html_newsletter_attr
 
@@ -49,9 +49,16 @@ def ensure_newsletter_attr(html: str) -> str:
     return re.sub(r"<html lang=\"en\">", f"<html lang=\"en\"{attr}>", html, count=1)
 
 
+def inject_icons(html: str) -> str:
+    if "favicon.png" in html:
+        return html
+    return html.replace("<head>", f"<head>\n{HEAD_ICONS}", 1)
+
+
 def process(path: Path):
     html = path.read_text()
     html = FONT_OLD.sub(FONT, html)
+    html = inject_icons(html)
     html = HEADER_OLD.sub(header_nav(), html)
     html = FOOTER_OLD.sub(footer_html(), html)
     html = ensure_adsense(html)

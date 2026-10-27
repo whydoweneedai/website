@@ -11,10 +11,12 @@ from hero_markup import hero_markup, og_image_url
 from site_chrome import (
     FONT,
     HEAD_ANALYTICS,
+    HEAD_ICONS,
     footer_html,
     header_nav,
     html_newsletter_attr,
     newsletter_article_block,
+    readyscore_module,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,11 +69,7 @@ def article_extras(slug: str, site):
   </div>
 {more_topic}</section>
 <div class="article-end-modules">
-  <aside class="module-readyscore" aria-labelledby="rs-{slug}">
-    <h2 id="rs-{slug}" class="module-title">AI ReadyScore</h2>
-    <p>Take the free 3-minute self-assessment to see where AI fits your business today.</p>
-    <a class="button button--secondary" href="/ai-readyscore/">Take AI ReadyScore</a>
-  </aside>
+{readyscore_module(f"rs-{slug}", compact=True)}
 {newsletter_article_block(slug)}
 </div>"""
 
@@ -111,6 +109,24 @@ def replace_eyebrow(header: str, topic: str, label: str, topic_pages: set) -> st
     )
 
 
+def clean_article_head(head: str) -> str:
+    """Strip chrome duplicates; keep page metadata and schema."""
+    head = re.sub(r"<!-- Google tag \(gtag\.js\) -->.*?crossorigin=\"anonymous\"></script>\s*", "", head, flags=re.DOTALL)
+    head = re.sub(r"<link rel=\"icon\"[^>]*>\s*", "", head)
+    head = re.sub(r"<link rel=\"apple-touch-icon\"[^>]*>\s*", "", head)
+    head = re.sub(r"<link rel=\"preconnect\"[^>]*>\s*", "", head)
+    head = re.sub(
+        r"<link rel=\"preload\" as=\"style\" href=\"https://fonts.googleapis.com[^\"]*\"[^>]*>\s*",
+        "",
+        head,
+    )
+    head = re.sub(r"<noscript><link href=\"https://fonts.googleapis.com[^\"]*\"[^>]*></noscript>\s*", "", head)
+    head = re.sub(r"<link rel=\"stylesheet\" href=\"(?:\.\./)?styles\.css\">\s*", "", head)
+    head = re.sub(r"<link rel=\"stylesheet\" href=\"/blog/styles\.css\">\s*", "", head)
+    head = head.strip()
+    return f"{head}\n{FONT.strip()}"
+
+
 def process_file(path: Path, site):
     slug = path.parent.name
     art = site["by_slug"].get(slug)
@@ -132,12 +148,7 @@ def process_file(path: Path, site):
     article_nav = m_nav.group(0) if m_nav else ""
 
     head = re.search(r"<head>(.*?)</head>", html, re.DOTALL).group(1)
-    head = re.sub(
-        r"<link rel=\"preconnect\".*?<link rel=\"stylesheet\" href=\"/blog/styles.css\">",
-        FONT.strip(),
-        head,
-        flags=re.DOTALL,
-    )
+    head = clean_article_head(head)
     head = replace_images(head, art)
 
     breadcrumb_short = art["searchTitle"][:40] + ("…" if len(art["searchTitle"]) > 40 else "")
@@ -147,7 +158,7 @@ def process_file(path: Path, site):
     nl_attr = html_newsletter_attr(site["newsletter_active"])
 
     out = f"""<!DOCTYPE html><html lang="en"{nl_attr}><head>
-{HEAD_ANALYTICS}{head}</head><body>
+{HEAD_ANALYTICS}{HEAD_ICONS}{head}</head><body>
 <a class="skip-link" href="#main-content">Skip to content</a>
 {header_nav()}
 <main class="article-main" id="main-content">

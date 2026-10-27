@@ -9,17 +9,22 @@ def _ship_typographic_only() -> bool:
     return load_site()["raw"].get("settings", {}).get("shipTypographicHeroes", True)
 
 
+MASCOT_MINI = """<img class="hero-plate-mascot" src="/images/brand/logo-mascot.webp" srcset="/images/brand/logo-mascot.webp 1x, /images/brand/logo-mascot@2x.webp 2x" width="520" height="446" alt="" aria-hidden="true" loading="lazy" decoding="async">"""
+
+
 def typographic_plate(art: dict, variant: str = "article") -> str:
-    """Premium typographic field: topic, headline, brand."""
+    """Premium typographic field: topic, headline, brand mascot motif."""
     topic = art["topicLabel"]
     title = art["searchTitle"]
     if variant == "card":
         return f"""<div class="hero-plate hero-plate--card" aria-hidden="true">
+  {MASCOT_MINI}
   <span class="hero-plate-topic">{topic}</span>
   <span class="hero-plate-title">{title}</span>
 </div>"""
     if variant == "lead":
         return f"""<div class="hero-plate hero-plate--lead" aria-hidden="true">
+  {MASCOT_MINI}
   <span class="hero-plate-topic">{topic}</span>
   <span class="hero-plate-title">{title}</span>
   <span class="hero-plate-brand">WhyDoWeNeedAI</span>
@@ -27,6 +32,7 @@ def typographic_plate(art: dict, variant: str = "article") -> str:
     alt = art.get("imageAlt") or title
     return f"""<figure class="article-hero article-hero--typographic">
   <div class="hero-plate hero-plate--article" role="img" aria-label="{alt}">
+    {MASCOT_MINI}
     <span class="hero-plate-topic">{topic}</span>
     <span class="hero-plate-title">{title}</span>
     <span class="hero-plate-brand">WhyDoWeNeedAI</span>

@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hero_markup import card_media
 from site_data import load_site, topic_href
-from site_chrome import FONT, HEAD_ANALYTICS, footer_html, header_nav, html_newsletter_attr
+from site_chrome import FONT, HEAD_ANALYTICS, HEAD_ICONS, footer_html, header_nav, html_newsletter_attr, readyscore_module
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -46,6 +46,7 @@ def main():
     gtag('config', 'G-GLNJLNSFEL');
   </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3631010450044967" crossorigin="anonymous"></script>
+{HEAD_ICONS}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-3631010450044967">
@@ -75,11 +76,7 @@ def main():
     <div class="archive-list">
 {items}
     </div>
-    <aside class="module-readyscore" style="margin:2rem 0 3rem">
-      <h2 class="module-title">AI ReadyScore</h2>
-      <p>Free 3-minute self-assessment—see where AI fits your business before another subscription.</p>
-      <a class="button button--secondary" href="/ai-readyscore/">Take AI ReadyScore</a>
-    </aside>
+    {readyscore_module("archive-readyscore", compact=True)}
   </main>
 {footer_html()}
 </body>

@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hero_markup import card_media
 from site_data import load_site
-from site_chrome import FONT, HEAD_ANALYTICS, footer_html, header_nav, html_newsletter_attr
+from site_chrome import FONT, HEAD_ANALYTICS, HEAD_ICONS, footer_html, header_nav, html_newsletter_attr
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -51,6 +51,7 @@ def topic_page(slug, topic, articles, nl_attr):
 <html lang="en"{nl_attr}>
 <head>
 {HEAD_ANALYTICS}
+{HEAD_ICONS}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-3631010450044967">

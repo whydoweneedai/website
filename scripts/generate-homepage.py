@@ -8,10 +8,13 @@ from site_data import load_site, topic_href
 from site_chrome import (
     FONT,
     HEAD_ANALYTICS,
+    HEAD_ICONS,
     footer_html,
     header_nav,
     html_newsletter_attr,
+    mascot_img,
     newsletter_home_block,
+    readyscore_module,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,6 +65,7 @@ def main():
 <html lang="en"{nl_attr}>
 <head>
 {HEAD_ANALYTICS}
+{HEAD_ICONS}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-3631010450044967">
@@ -69,7 +73,7 @@ def main():
   <meta name="description" content="Which AI is worth it for your business—researched and plainly answered. Practical guides, documented tests, and decision tools for small-business owners.">
   <meta name="author" content="whydoweneedai.com">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#2563eb">
+  <meta name="theme-color" content="#1f66b8">
   <link rel="canonical" href="https://whydoweneedai.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Why Do We Need AI">
@@ -104,9 +108,14 @@ def main():
 {header_nav("/")}
   <main class="page-main" id="main-content">
     <header class="masthead">
-      <p class="eyebrow">Why Do We Need AI</p>
-      <h1 class="masthead-tagline">Which AI is worth it for your business, researched and plainly answered.</h1>
-      <p class="masthead-sub">Practical AI. No jargon required.</p>
+      <div class="masthead-inner">
+        {mascot_img("lg")}
+        <div class="masthead-copy">
+          <p class="eyebrow">Why Do We Need AI</p>
+          <h1 class="masthead-tagline">Which AI is worth it for your business, researched and plainly answered.</h1>
+          <p class="masthead-sub">Practical AI. No jargon required.</p>
+        </div>
+      </div>
     </header>
 
     <section class="home-section" aria-labelledby="lead-title">
@@ -134,7 +143,7 @@ def main():
       </div>
     </section>
 
-    <section class="home-section" aria-labelledby="picks-title">
+    <section class="home-section home-section--editors-picks" aria-labelledby="picks-title">
       <div class="section-header">
         <h2 id="picks-title" class="section-title">Editor's picks</h2>
         <p class="section-intro">Start with the pieces readers return to most.</p>
@@ -155,11 +164,7 @@ def main():
     </section>
 
     <section class="home-section" aria-labelledby="readyscore-title">
-      <aside class="module-readyscore">
-        <h2 id="readyscore-title" class="module-title">Take the 3-minute AI ReadyScore</h2>
-        <p>A short self-assessment to see where AI fits your business today—before another subscription or pilot.</p>
-        <a class="button button--secondary" href="/ai-readyscore/">Start AI ReadyScore</a>
-      </aside>
+      {readyscore_module("readyscore-title")}
     </section>
 
 {newsletter_home_block()}

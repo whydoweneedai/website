@@ -15,15 +15,32 @@ HEAD_ANALYTICS = """  <!-- Google tag (gtag.js) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3631010450044967" crossorigin="anonymous"></script>
 """
 
+HEAD_ICONS = """  <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">"""
+
 FONT = """  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/blog/styles.css">"""
 
 
 def html_newsletter_attr(active: bool) -> str:
     return ' data-newsletter="on"' if active else ' data-newsletter="off"'
+
+
+def wordmark_img(css_class: str = "brand-wordmark") -> str:
+    return f"""<picture>
+      <source type="image/webp" srcset="/images/brand/logo-wordmark.webp 1x, /images/brand/logo-wordmark@2x.webp 2x">
+      <img class="{css_class}" src="/images/brand/logo-wordmark.png" srcset="/images/brand/logo-wordmark.png 1x, /images/brand/logo-wordmark@2x.png 2x" width="896" height="146" alt="WhyDoWeNeedAI" decoding="async">
+    </picture>"""
+
+
+def mascot_img(size: str = "md", decorative: bool = True) -> str:
+    """size: sm | md | lg"""
+    cls = f"brand-mascot brand-mascot--{size}"
+    hidden = ' aria-hidden="true"' if decorative else ""
+    return f"""<img class="{cls}" src="/images/brand/logo-mascot.webp" srcset="/images/brand/logo-mascot.webp 1x, /images/brand/logo-mascot@2x.webp 2x" width="520" height="446" alt=""{hidden} loading="lazy" decoding="async">"""
 
 
 def header_nav(current_path: str = "") -> str:
@@ -41,12 +58,12 @@ def header_nav(current_path: str = "") -> str:
             label = "ROI &amp; planning"
         elif t["slug"] == "risk-data":
             label = "Risk &amp; data"
-        cur = f' aria-current="page"' if current_path == href else ""
+        cur = ' aria-current="page"' if current_path == href else ""
         links.append(f'<a href="{href}"{cur}>{label}</a>')
     nav_topics = "\n        ".join(links)
     return f"""<header class="site-header">
   <nav class="nav-inner" aria-label="Primary navigation">
-    <a class="brand" href="/"><img class="brand-logo" src="/website_logo.png" alt="WhyDoWeNeedAI" width="1407" height="768" decoding="async"><span class="brand-text">WhyDoWeNeedAI</span></a>
+    <a class="brand" href="/">{wordmark_img()}</a>
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav-panel">Menu</button>
     <div class="nav-panel" id="site-nav-panel">
       <div class="nav-links">
@@ -71,6 +88,7 @@ def footer_html() -> str:
     return f"""<footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
+      {mascot_img("sm")}
       <p class="footer-tagline">Practical AI for small business — researched and plainly answered.</p>
       <p class="footer-copy">© WhyDoWeNeedAI</p>
     </div>
@@ -99,21 +117,27 @@ NEWSLETTER_COPY = "One useful email when we publish: what we tested, what worked
 
 def newsletter_home_block() -> str:
     return f"""    <section class="home-section newsletter-block" aria-labelledby="newsletter-title">
-      <h2 id="newsletter-title" class="section-title">Newsletter</h2>
-      <p>{NEWSLETTER_COPY}</p>
-      <p class="newsletter-soon" role="status">Newsletter launching soon.</p>
-      <form class="newsletter-form" name="newsletter" aria-hidden="true">
-        <label class="newsletter-label" for="newsletter-email">Email address</label>
-        <div class="newsletter-row">
-          <input id="newsletter-email" type="email" name="email" disabled autocomplete="email" placeholder="you@company.com">
-          <button type="button" class="button" disabled>Subscribe</button>
+      <div class="newsletter-block-inner">
+        {mascot_img("md")}
+        <div>
+          <h2 id="newsletter-title" class="section-title">Newsletter</h2>
+          <p>{NEWSLETTER_COPY}</p>
+          <p class="newsletter-soon" role="status">Newsletter launching soon.</p>
+          <form class="newsletter-form" name="newsletter" aria-hidden="true">
+            <label class="newsletter-label" for="newsletter-email">Email address</label>
+            <div class="newsletter-row">
+              <input id="newsletter-email" type="email" name="email" disabled autocomplete="email" placeholder="you@company.com">
+              <button type="button" class="button" disabled>Subscribe</button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </section>"""
 
 
 def newsletter_article_block(slug: str) -> str:
     return f"""  <aside class="newsletter-compact" aria-labelledby="nl-{slug}">
+    {mascot_img("sm")}
     <h2 id="nl-{slug}" class="module-title">Newsletter</h2>
     <p>{NEWSLETTER_COPY}</p>
     <p class="newsletter-soon" role="status">Newsletter launching soon.</p>
@@ -125,3 +149,17 @@ def newsletter_article_block(slug: str) -> str:
       </div>
     </form>
   </aside>"""
+
+
+def readyscore_module(title_id: str = "readyscore-title", compact: bool = False) -> str:
+    cls = "module-readyscore"
+    if compact:
+        cls += " module-readyscore--compact"
+    return f"""<aside class="{cls}" aria-labelledby="{title_id}">
+  {mascot_img("md")}
+  <div class="module-readyscore-copy">
+    <h2 id="{title_id}" class="module-title">Take the 3-minute AI ReadyScore</h2>
+    <p>A short self-assessment to see where AI fits your business today—before another subscription or pilot.</p>
+    <a class="button button--secondary" href="/ai-readyscore/">Start AI ReadyScore</a>
+  </div>
+</aside>"""
