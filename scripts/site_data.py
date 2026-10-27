@@ -13,7 +13,7 @@ LOGO_OG = "https://whydoweneedai.com/website_logo.png"
 # Short labels for tight cover plates / archive thumbs
 TOPIC_PLATE_LABELS = {
     "tested": "Tested",
-    "choosing-ai-tools": "Choosing tools",
+    "choosing-ai-tools": "Choosing AI tools",
     "roi-planning": "ROI & planning",
 }
 

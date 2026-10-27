@@ -68,7 +68,7 @@
       function fillNav(nav) {
         if (!nav) return;
         nav.innerHTML = "";
-        var list = document.createElement("ol");
+        var list = document.createElement("ul");
         tocHeads.forEach(function (h) {
           var li = document.createElement("li");
           var a = document.createElement("a");

@@ -61,15 +61,14 @@ def main():
         )
 
     def latest_row(a) -> str:
-        thref = topic_href(a["topic"], topic_pages)
-        return f"""<article class="home-latest-item">
+        return f"""<li class="home-latest-item">
           <a class="home-latest-link" href="/blog/{a['slug']}/">
             <span class="topic-label">{a['topicLabel']}</span>
             <h3 class="home-latest-title">{a['searchTitle']}</h3>
             <p class="home-latest-dek">{a['searchDek']}</p>
             <p class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time></p>
           </a>
-        </article>"""
+        </li>"""
 
     latest_rows = "\n".join(latest_row(by[slug]) for slug in latest_slugs)
     pick_cards = [text_card(by[slug], False) for slug in pick_slugs]
@@ -83,6 +82,9 @@ def main():
             f'<span class="lead-rail-title">{a["searchTitle"]}</span></a></li>'
         )
     lead_rail = "\n          ".join(rail_items)
+    lead_rail_block = f"""<ol class="lead-rail-list">
+          {lead_rail}
+          </ol>"""
 
     topic_cards = "\n        ".join(
         topic_card(t, topic_pages) for t in site["raw"]["topics"] if t["slug"] in topic_pages
@@ -135,14 +137,12 @@ def main():
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 {header_nav("/")}
-  <div class="pub-dateline-bar" aria-hidden="false">
-    <p class="pub-dateline" id="pub-dateline">{built_dateline}</p>
-  </div>
   <main class="page-main" id="main-content">
     <header class="masthead masthead--front">
       <div class="masthead-inner masthead-inner--front">
         {masthead_logo()}
         <div class="masthead-copy">
+          <p class="pub-dateline masthead-dateline" id="pub-dateline">{built_dateline}</p>
           <h1 class="masthead-tagline">Which AI is worth it for your business, researched and plainly answered.</h1>
           <p class="masthead-sub">Practical AI. No jargon required.</p>
         </div>
@@ -157,12 +157,14 @@ def main():
           <p class="lead-dek">{lead['searchDek']}</p>
           <p class="lead-byline post-meta"><span>By <a href="/about/">Ross C</a></span><span aria-hidden="true">·</span><time datetime="{lead['date']}">{lead['dateDisplay']}</time></p>
           <p class="lead-cta"><a class="read-link" href="/blog/{lead['slug']}/">Read the story</a></p>
+          <div class="lead-story-rail-mobile" aria-labelledby="lead-rail-mobile-title">
+            <h2 id="lead-rail-mobile-title" class="lead-rail-heading">Latest headlines</h2>
+            {lead_rail_block}
+          </div>
         </article>
         <aside class="lead-story-rail" aria-labelledby="lead-rail-title">
           <h2 id="lead-rail-title" class="lead-rail-heading">Latest headlines</h2>
-          <ol class="lead-rail-list">
-          {lead_rail}
-          </ol>
+          {lead_rail_block}
         </aside>
       </div>
     </section>
@@ -171,9 +173,9 @@ def main():
       <div class="section-header">
         <h2 id="latest-title" class="section-title">Latest</h2>
       </div>
-      <div class="home-latest-list">
+      <ol class="home-latest-list">
         {latest_rows}
-      </div>
+      </ol>
     </section>
 
     <section class="home-section home-section--editors-picks" aria-labelledby="picks-title">
