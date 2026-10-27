@@ -52,17 +52,26 @@ def main():
     rail_slugs = [s for s in ordered_slugs if s != lead_slug][:3]
     rail_set = set(rail_slugs)
 
-    latest_slugs = [s for s in hp["latestSlugs"] if s != lead_slug and s not in rail_set]
-    latest_cards = [text_card(by[slug], True) for slug in latest_slugs]
+    latest_slugs = list(hp["latestSlugs"])
+    pick_slugs = list(hp["editorsPickSlugs"])
+    home_slugs = {lead_slug} | set(rail_slugs) | set(latest_slugs) | set(pick_slugs)
+    if len(home_slugs) != len(site["articles"]):
+        raise SystemExit(
+            f"homepage must list each article once (got {len(home_slugs)}, expected {len(site['articles'])})"
+        )
 
-    above_picks = {lead_slug} | rail_set | set(latest_slugs)
-    pick_slugs = [s for s in hp["editorsPickSlugs"] if s not in above_picks]
-    for slug in ordered_slugs:
-        if len(pick_slugs) >= len(hp["editorsPickSlugs"]):
-            break
-        if slug in above_picks or slug in pick_slugs:
-            continue
-        pick_slugs.append(slug)
+    def latest_row(a) -> str:
+        thref = topic_href(a["topic"], topic_pages)
+        return f"""<article class="home-latest-item">
+          <a class="home-latest-link" href="/blog/{a['slug']}/">
+            <span class="topic-label">{a['topicLabel']}</span>
+            <h3 class="home-latest-title">{a['searchTitle']}</h3>
+            <p class="home-latest-dek">{a['searchDek']}</p>
+            <p class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time></p>
+          </a>
+        </article>"""
+
+    latest_rows = "\n".join(latest_row(by[slug]) for slug in latest_slugs)
     pick_cards = [text_card(by[slug], False) for slug in pick_slugs]
 
     rail_items = []
@@ -162,8 +171,8 @@ def main():
       <div class="section-header">
         <h2 id="latest-title" class="section-title">Latest</h2>
       </div>
-      <div class="card-grid">
-        {chr(10).join(latest_cards)}
+      <div class="home-latest-list">
+        {latest_rows}
       </div>
     </section>
 

@@ -14,9 +14,7 @@ LOGO_OG = "https://whydoweneedai.com/website_logo.png"
 TOPIC_PLATE_LABELS = {
     "tested": "Tested",
     "choosing-ai-tools": "Choosing tools",
-    "automation-workflows": "Automation",
     "roi-planning": "ROI & planning",
-    "risk-data": "Risk & data",
 }
 
 

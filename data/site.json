@@ -8,17 +8,18 @@
   "homepage": {
     "leadSlug": "chatgpt-vs-claude-vs-gemini-vs-copilot",
     "latestSlugs": [
-      "can-ai-enter-invoices-spreadsheet-test",
-      "ai-vs-rules-appointment-payment-reminders",
-      "ai-lead-follow-up-test",
-      "lead-follow-up-automation"
+      "ai-readiness-checklist-test",
+      "lead-follow-up-automation",
+      "ai-agents-business-app-permissions",
+      "evaluate-ai-pilot",
+      "data-ai-tools",
+      "ai-vs-automation",
+      "ai-readiness-checklist"
     ],
     "editorsPickSlugs": [
-      "can-ai-enter-invoices-spreadsheet-test",
-      "ai-lead-follow-up-test",
-      "ai-readiness-checklist-test",
-      "ai-vs-rules-appointment-payment-reminders",
-      "chatgpt-vs-claude-vs-gemini-vs-copilot"
+      "what-to-automate-first",
+      "choose-first-ai-tool",
+      "ai-automation-roi"
     ]
   },
   "topics": [
@@ -106,7 +107,7 @@
     },
     {
       "slug": "lead-follow-up-automation",
-      "topic": "automation-workflows",
+      "topic": "roi-planning",
       "date": "2026-10-14",
       "dateModified": "2026-10-14",
       "readMin": 14,
@@ -117,7 +118,7 @@
     },
     {
       "slug": "what-to-automate-first",
-      "topic": "automation-workflows",
+      "topic": "roi-planning",
       "date": "2026-08-22",
       "dateModified": "2026-10-14",
       "readMin": 12,
@@ -172,7 +173,7 @@
     },
     {
       "slug": "data-ai-tools",
-      "topic": "risk-data",
+      "topic": "choosing-ai-tools",
       "date": "2026-10-04",
       "dateModified": "2026-10-04",
       "readMin": 9,
@@ -194,7 +195,7 @@
     },
     {
       "slug": "ai-agents-business-app-permissions",
-      "topic": "risk-data",
+      "topic": "choosing-ai-tools",
       "date": "2026-10-09",
       "dateModified": "2026-10-09",
       "readMin": 11,

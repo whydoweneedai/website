@@ -49,6 +49,12 @@ FONT_BLOCK_RE = re.compile(
 def inject_font(html: str) -> str:
     """Idempotent: one canonical FONT block immediately before </head>."""
     html = FONT_BLOCK_RE.sub("", html)
+    html = re.sub(
+        r'<link rel="stylesheet" href="/blog/styles\.css">\s*',
+        "",
+        html,
+        flags=re.IGNORECASE,
+    )
     return html.replace("</head>", f"{FONT}\n</head>", 1)
 
 

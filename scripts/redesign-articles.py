@@ -7,7 +7,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_data import load_site, topic_href
-from hero_markup import hero_markup, og_image_url
+from hero_markup import og_image_url
 from site_chrome import (
     FONT,
     FONT_BLOCK_RE,
@@ -216,7 +216,6 @@ def process_file(path: Path, site):
 
     breadcrumb_short = art["searchTitle"][:40] + ("…" if len(art["searchTitle"]) > 40 else "")
     thref = topic_href(art["topic"], site["topic_pages"])
-    hero = hero_markup(art)
     extras = article_extras(slug, site)
     nl_attr = html_newsletter_attr(site["newsletter_active"])
 
@@ -229,7 +228,6 @@ def process_file(path: Path, site):
 <div class="article-layout">
 <div class="article-layout-main">
 {article_header}
-{hero}
 <details class="article-toc-fold" id="article-toc-fold" hidden>
   <summary>In this article</summary>
   <nav class="article-toc article-toc--fold" id="article-toc" aria-label="Table of contents" hidden></nav>

@@ -153,12 +153,68 @@ img { display: block; max-width: 100%; height: auto; }
   height: auto;
   flex-shrink: 0;
 }
-@media (max-width: 767px) {
-  .masthead--front { padding: var(--space-1) 0 var(--space-2); }
-  .masthead-inner--front { justify-content: center; }
-  .masthead--front .masthead-copy { display: none; }
-  .masthead--front .masthead-logo { width: min(124px, 50vw); max-height: 68px; object-fit: contain; }
-  .home-section--lead { padding-top: var(--space-3); }
+@media (max-width: 639px) {
+  .masthead--front { display: none; }
+  .home-section--lead { padding-top: var(--space-4); }
+}
+@media (min-width: 640px) {
+  .masthead--front {
+    padding: var(--space-4) 0 var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .masthead-inner--front {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    flex-wrap: nowrap;
+  }
+  .masthead--front .masthead-logo {
+    width: auto;
+    height: 64px;
+    max-width: min(280px, 34vw);
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .masthead--front .masthead-tagline {
+    margin: 0;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    line-height: 1.2;
+    max-width: none;
+  }
+  .masthead--front .masthead-sub { display: none; }
+}
+.home-latest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #d6dee8;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-paper);
+}
+.home-latest-item {
+  border-bottom: 1px solid var(--color-border);
+}
+.home-latest-item:last-child { border-bottom: none; }
+.home-latest-link {
+  display: block;
+  padding: var(--space-4) var(--space-5);
+  color: inherit;
+  text-decoration: none;
+}
+.home-latest-link:hover .home-latest-title { color: var(--color-accent-dark); }
+.home-latest-title {
+  margin: var(--space-1) 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+.home-latest-dek {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink-muted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
 }
 .footer-logo {
   display: block;
