@@ -116,13 +116,13 @@ img {
 .brand-logo img {
   display: block;
   width: auto;
-  height: 28px;
+  height: 34px;
   max-width: none;
 }
 
 @media (max-width: 639px) {
   .brand-logo img {
-    height: 24px;
+    height: 28px;
   }
 }
 
