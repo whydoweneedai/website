@@ -59,5 +59,31 @@ Optional article components (documented in `blog/_template-notes.md`): `.pull-qu
 ## JavaScript
 
 - `blog/site.js` — nav toggle, share copy, optional TOC from `h2[id]` (&lt;10KB)
-- Search page — inline filter on `search/search-index.json`
+- Search page — inline filter on `search/search-index.json` (noindex; not in sitemap)
 - Regenerate index: `node scripts/build-search-index.js`
+
+## Editorial data (`data/site.json`)
+
+Single source for provisional topics, per-article `topic`, homepage `leadSlug`, `latestSlugs`, `editorsPickSlugs`, and per-article `hero` mode (`illustration`, `typographic`, or `screenshot`).
+
+After editing, run:
+
+```bash
+python3 scripts/regenerate-site.py
+```
+
+Topic hub pages are generated only when a topic has **3 or more** articles; thinner topics stay as labels linking to `/blog/`.
+
+## Newsletter (inactive by default)
+
+Signup UI is visible but does not collect email until you turn it on.
+
+1. In `data/site.json`, set `"newsletter": { "active": true }`.
+2. Run `python3 scripts/regenerate-site.py`.
+3. Update `scripts/site_chrome.py` newsletter blocks to match your provider. For **Netlify Forms**, use:
+   - `method="POST"` `action="/subscribe/thanks/"` `data-netlify="true"` `netlify-honeypot="bot-field"`
+   - hidden `form-name`, enable inputs/button, remove `disabled`
+   - Add the privacy-policy sentence for newsletter collection when you go live.
+4. Set `data-newsletter="on"` on `<html>` (regenerator does this when `active` is true). CSS hides the form when `data-newsletter="off"` and shows **Newsletter launching soon.**
+
+Hero illustrations use alt text starting with `Illustration:` and figcaption **Illustration: WhyDoWeNeedAI**. Product comparisons use `hero: "typographic"` until real screenshots are ready (`hero: "screenshot"`).

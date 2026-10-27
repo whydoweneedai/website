@@ -1,6 +1,6 @@
 # Article template notes
 
-Styles live in [`blog/styles.css`](styles.css). Design tokens are documented in [`docs/design-system.md`](../docs/design-system.md).
+Styles: [`blog/styles.css`](styles.css). Tokens: [`docs/design-system.md`](../docs/design-system.md). **Editorial mapping:** [`data/site.json`](../data/site.json) — then `python3 scripts/regenerate-site.py`.
 
 ## Short answer (factual summary)
 
@@ -9,8 +9,6 @@ Styles live in [`blog/styles.css`](styles.css). Design tokens are documented in 
   <p><strong>The short answer:</strong> One or two sentences that state what the test or guide supports, with limits.</p>
 </div>
 ```
-
-You may also use `class="verdict short-answer"` on a leading paragraph when the article already uses that pattern.
 
 ## Our take (editor opinion)
 
@@ -50,44 +48,44 @@ You may also use `class="verdict short-answer"` on a leading paragraph when the 
 
 ```html
 <figure class="article-figure">
-  <img src="…" width="…" height="…" alt="…" loading="lazy" decoding="async">
-  <figcaption>Caption text.</figcaption>
+  <img src="…" width="…" height="…" alt="Illustration: …" loading="lazy" decoding="async">
+  <figcaption>Illustration: WhyDoWeNeedAI</figcaption>
 </figure>
 ```
 
-**Table of contents** — add `id` attributes to `h2` elements; `blog/site.js` builds a TOC when there are three or more `h2[id]`.
+**Table of contents** — add `id` on `h2`; `blog/site.js` builds a TOC when there are three or more `h2[id]`.
 
-## Hero image for a new post
+## Hero image modes (`data/site.json` → `hero`)
 
-1. Export **16:9** images at **480**, **960**, and **1280** px wide (WebP) plus **1280×720 JPG** for Open Graph.
-2. Save as `/images/hero/<slug>-480.webp`, `-960.webp`, `-1280.webp`, and `-1280.jpg`.
-3. Place this block after `</header>` and before `<article class="article-body">`:
+| Value | Use |
+|-------|-----|
+| `illustration` | Conceptual 16:9 art in `/images/hero/` |
+| `typographic` | Brand title card (comparisons awaiting real screenshots) |
+| `screenshot` | Real product UI — use honest caption in `figcaption` |
+
+### Illustration hero
+
+1. Files: `/images/hero/<slug>-{480,960,1280}.webp` and `<slug>-1280.jpg` (16:9).
+2. In `data/site.json`: `"hero": "illustration"`, `"imageAlt": "Illustration: …"` (literal, not a real product or person).
+3. Regenerate. Markup includes:
 
 ```html
-<figure class="article-hero">
-  <picture>
-    <source type="image/webp" srcset="/images/hero/your-slug-480.webp 480w, /images/hero/your-slug-960.webp 960w, /images/hero/your-slug-1280.webp 1280w" sizes="(min-width: 960px) 860px, 100vw">
-    <img src="/images/hero/your-slug-1280.jpg" srcset="/images/hero/your-slug-480.webp 480w, /images/hero/your-slug-960.webp 960w, /images/hero/your-slug-1280.jpg 1280w" sizes="(min-width: 960px) 860px, 100vw" width="1280" height="720" alt="Short literal description." loading="eager" fetchpriority="high">
-  </picture>
+<figure class="article-hero article-hero--illustration">
+  <picture>…</picture>
+  <figcaption class="article-hero-caption">Illustration: WhyDoWeNeedAI</figcaption>
 </figure>
 ```
 
-4. Set `og:image`, `twitter:image`, and JSON-LD `image` to `https://whydoweneedai.com/images/hero/your-slug-1280.jpg`.
+### Screenshot hero (tool reviews)
 
-**Fallback** (no image yet): use a typographic placeholder:
+1. Add screenshot files at the same paths (or update generator paths if you use a `-screenshot-` suffix later).
+2. Set `"hero": "screenshot"` and alt text that describes the UI literally (not marketing).
+3. Optional longer `figcaption` under the credit line for what the screenshot shows.
 
-```html
-<div class="hero-fallback" role="img" aria-label="Article title">Article title</div>
-```
+### Typographic fallback
 
-## Topic label
-
-```html
-<a class="topic-label" href="/topics/choosing-ai-tools/">Choosing AI tools</a>
-```
-
-Topic slugs: `tested`, `choosing-ai-tools`, `automation-workflows`, `roi-planning`, `risk-data`.
+Set `"hero": "typographic"` — no image files required. OG/Twitter image falls back to `website_logo.png`.
 
 ## Newsletter (end of article)
 
-Use the compact Netlify form pattern from any redesigned article (`newsletter-compact` + `newsletter-form--compact`).
+Inactive by default. See **Newsletter** section in `docs/design-system.md`. Do not enable until privacy copy and provider are ready.

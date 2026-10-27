@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+"""Shared HTML chrome fragments driven by data/site.json."""
+from site_data import load_site, topic_href
+
+HEAD_ANALYTICS = """  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GLNJLNSFEL');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3631010450044967" crossorigin="anonymous"></script>
+"""
+
+FONT = """  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="/blog/styles.css">"""
+
+
+def html_newsletter_attr(active: bool) -> str:
+    return ' data-newsletter="on"' if active else ' data-newsletter="off"'
+
+
+def header_nav(current_path: str = "") -> str:
+    site = load_site()
+    topic_pages = site["topic_pages"]
+    links = []
+    for t in site["raw"]["topics"]:
+        href = topic_href(t["slug"], topic_pages)
+        label = t["name"]
+        if t["slug"] == "choosing-ai-tools":
+            label = "Choosing tools"
+        elif t["slug"] == "automation-workflows":
+            label = "Automation"
+        elif t["slug"] == "roi-planning":
+            label = "ROI &amp; planning"
+        elif t["slug"] == "risk-data":
+            label = "Risk &amp; data"
+        cur = f' aria-current="page"' if current_path == href else ""
+        links.append(f'<a href="{href}"{cur}>{label}</a>')
+    nav_topics = "\n        ".join(links)
+    return f"""<header class="site-header">
+  <nav class="nav-inner" aria-label="Primary navigation">
+    <a class="brand" href="/"><img class="brand-logo" src="/website_logo.png" alt="WhyDoWeNeedAI" width="1407" height="768" decoding="async"><span class="brand-text">WhyDoWeNeedAI</span></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav-panel">Menu</button>
+    <div class="nav-panel" id="site-nav-panel">
+      <div class="nav-links">
+        {nav_topics}
+        <a href="/search/">Search</a>
+        <a href="/about/">About</a>
+        <a class="nav-cta" href="/ai-readyscore/">AI ReadyScore</a>
+      </div>
+    </div>
+  </nav>
+</header>"""
+
+
+def footer_html() -> str:
+    site = load_site()
+    topic_pages = site["topic_pages"]
+    topic_links = []
+    for t in site["raw"]["topics"]:
+        href = topic_href(t["slug"], topic_pages)
+        topic_links.append(f'<a href="{href}">{t["name"]}</a>')
+    topics_col = "\n        ".join(topic_links)
+    return f"""<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-tagline">Practical AI for small business — researched and plainly answered.</p>
+      <p class="footer-copy">© WhyDoWeNeedAI</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <div class="footer-col">
+        <p class="footer-col-title">Topics</p>
+        {topics_col}
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Publication</p>
+        <a href="/blog/">Archive</a>
+        <a href="/about/">About</a>
+        <a href="/editorial-policy/">Editorial policy</a>
+        <a href="/contact/">Contact</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/ai-readyscore/">AI ReadyScore</a>
+      </div>
+    </nav>
+  </div>
+</footer>
+<script src="/blog/site.js" defer></script>"""
+
+
+NEWSLETTER_COPY = "One useful email when we publish: what we tested, what worked, and which AI is worth paying for. No hype. Unsubscribe anytime."
+
+
+def newsletter_home_block() -> str:
+    return f"""    <section class="home-section newsletter-block" aria-labelledby="newsletter-title">
+      <h2 id="newsletter-title" class="section-title">Newsletter</h2>
+      <p>{NEWSLETTER_COPY}</p>
+      <p class="newsletter-soon" role="status">Newsletter launching soon.</p>
+      <form class="newsletter-form" name="newsletter" aria-hidden="true">
+        <label class="newsletter-label" for="newsletter-email">Email address</label>
+        <div class="newsletter-row">
+          <input id="newsletter-email" type="email" name="email" disabled autocomplete="email" placeholder="you@company.com">
+          <button type="button" class="button" disabled>Subscribe</button>
+        </div>
+      </form>
+    </section>"""
+
+
+def newsletter_article_block(slug: str) -> str:
+    return f"""  <aside class="newsletter-compact" aria-labelledby="nl-{slug}">
+    <h2 id="nl-{slug}" class="module-title">Newsletter</h2>
+    <p>{NEWSLETTER_COPY}</p>
+    <p class="newsletter-soon" role="status">Newsletter launching soon.</p>
+    <form class="newsletter-form newsletter-form--compact" name="newsletter" aria-hidden="true">
+      <label class="newsletter-label" for="email-{slug}">Email</label>
+      <div class="newsletter-row">
+        <input id="email-{slug}" type="email" name="email" disabled autocomplete="email" placeholder="you@company.com">
+        <button type="button" class="button" disabled>Subscribe</button>
+      </div>
+    </form>
+  </aside>"""
