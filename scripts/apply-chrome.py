@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""Replace legacy header/footer/fonts on static pages (not articles, not assessment)."""
+"""Replace legacy header/footer/fonts on static pages (not articles, not assessment, not quiz)."""
 import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from site_chrome import FONT, HEAD_ICONS, footer_html, header_nav
+from site_chrome import FONT, HEAD_GA, HEAD_ICONS, footer_html, header_nav, html_newsletter_attr
 from site_data import load_site
-from site_chrome import html_newsletter_attr
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -19,9 +18,10 @@ FONT_OLD = re.compile(
 HEADER_OLD = re.compile(r'<header class="site-header">.*?</header>', re.DOTALL)
 FOOTER_OLD = re.compile(r'<footer class="site-footer">.*?</footer>\s*(<script src="/blog/site.js" defer></script>)?', re.DOTALL)
 
-ADSENSE_SNIPPET = """  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3631010450044967" crossorigin="anonymous"></script>
-"""
+ADSENSE_BLOCK = re.compile(
+    r"\s*<!-- Google AdSense -->.*?pagead2\.googlesyndication\.com.*?</script>",
+    re.DOTALL,
+)
 
 PATHS = [
     "about/index.html",
@@ -29,16 +29,19 @@ PATHS = [
     "contact/thanks/index.html",
     "editorial-policy/index.html",
     "privacy/index.html",
-    "ai-readyscore/index.html",
-    "search/index.html",
     "subscribe/thanks/index.html",
 ]
 
 
-def ensure_adsense(html: str) -> str:
-    if "adsbygoogle" in html:
-        return html
-    return html.replace("</script>\n\n  <meta charset", f"</script>\n\n{ADSENSE_SNIPPET}\n  <meta charset", 1)
+def strip_adsense(html: str) -> str:
+    return ADSENSE_BLOCK.sub("", html)
+
+
+def ensure_ga_only(html: str) -> str:
+    html = strip_adsense(html)
+    if "G-GLNJLNSFEL" not in html:
+        html = html.replace("<head>", f"<head>\n{HEAD_GA}", 1)
+    return html
 
 
 def ensure_newsletter_attr(html: str) -> str:
@@ -46,7 +49,7 @@ def ensure_newsletter_attr(html: str) -> str:
     attr = html_newsletter_attr(site["newsletter_active"])
     if "data-newsletter" in html[:300]:
         return html
-    return re.sub(r"<html lang=\"en\">", f"<html lang=\"en\"{attr}>", html, count=1)
+    return re.sub(r'<html lang="en">', f'<html lang="en"{attr}>', html, count=1)
 
 
 def inject_icons(html: str) -> str:
@@ -68,11 +71,11 @@ def inject_icons(html: str) -> str:
 
 def process(path: Path):
     html = path.read_text()
+    html = ensure_ga_only(html)
     html = FONT_OLD.sub(FONT, html)
     html = inject_icons(html)
     html = HEADER_OLD.sub(header_nav(), html)
     html = FOOTER_OLD.sub(footer_html(), html)
-    html = ensure_adsense(html)
     html = ensure_newsletter_attr(html)
     path.write_text(html)
     print("chrome", path)

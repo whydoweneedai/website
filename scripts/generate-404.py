@@ -5,7 +5,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_chrome import (
     FONT,
-    HEAD_ANALYTICS,
+    head_scripts,
     HEAD_ICONS,
     footer_html,
     header_nav,
@@ -23,7 +23,7 @@ def main():
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl}>
 <head>
-{HEAD_ANALYTICS}
+{head_scripts(False)}
 {HEAD_ICONS}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

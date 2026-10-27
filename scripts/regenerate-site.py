@@ -29,6 +29,8 @@ def main():
     run("generate-404.py")
     run("redesign-articles.py")
     subprocess.check_call(["node", str(SCRIPTS / "build-search-index.js")])
+    run("generate-search.py")
+    run("apply-chrome.py")
     print("Done. Review data/site.json and commit outputs.")
 
 

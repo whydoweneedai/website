@@ -5,7 +5,8 @@
     "topic": "Choosing AI tools",
     "topicSlug": "choosing-ai-tools",
     "url": "/blog/chatgpt-vs-claude-vs-gemini-vs-copilot/",
-    "date": "2026-10-29"
+    "date": "Oct 29, 2026",
+    "dateIso": "2026-10-29"
   },
   {
     "title": "Can AI type your invoices into a spreadsheet?",
@@ -13,7 +14,8 @@
     "topic": "Tested",
     "topicSlug": "tested",
     "url": "/blog/can-ai-enter-invoices-spreadsheet-test/",
-    "date": "2026-10-24"
+    "date": "Oct 24, 2026",
+    "dateIso": "2026-10-24"
   },
   {
     "title": "AI vs. simple rules for appointment and payment reminders",
@@ -21,7 +23,8 @@
     "topic": "Tested",
     "topicSlug": "tested",
     "url": "/blog/ai-vs-rules-appointment-payment-reminders/",
-    "date": "2026-10-23"
+    "date": "Oct 23, 2026",
+    "dateIso": "2026-10-23"
   },
   {
     "title": "We tested our AI readiness checklist on 12 made-up workflows",
@@ -29,7 +32,8 @@
     "topic": "Tested",
     "topicSlug": "tested",
     "url": "/blog/ai-readiness-checklist-test/",
-    "date": "2026-10-19"
+    "date": "Oct 19, 2026",
+    "dateIso": "2026-10-19"
   },
   {
     "title": "We ran 30 invented customer inquiries through an AI follow-up assistant",
@@ -37,7 +41,8 @@
     "topic": "Tested",
     "topicSlug": "tested",
     "url": "/blog/ai-lead-follow-up-test/",
-    "date": "2026-10-19"
+    "date": "Oct 19, 2026",
+    "dateIso": "2026-10-19"
   },
   {
     "title": "Small-business lead follow-up automation: a blueprint",
@@ -45,7 +50,8 @@
     "topic": "Automation & workflows",
     "topicSlug": "automation-workflows",
     "url": "/blog/lead-follow-up-automation/",
-    "date": "2026-10-14"
+    "date": "Oct 14, 2026",
+    "dateIso": "2026-10-14"
   },
   {
     "title": "AI agents are moving into your business apps",
@@ -53,7 +59,8 @@
     "topic": "Risk, data & permissions",
     "topicSlug": "risk-data",
     "url": "/blog/ai-agents-business-app-permissions/",
-    "date": "2026-10-09"
+    "date": "Oct 9, 2026",
+    "dateIso": "2026-10-09"
   },
   {
     "title": "How to evaluate an AI pilot: keep, fix, or stop",
@@ -61,7 +68,8 @@
     "topic": "ROI & planning",
     "topicSlug": "roi-planning",
     "url": "/blog/evaluate-ai-pilot/",
-    "date": "2026-10-07"
+    "date": "Oct 7, 2026",
+    "dateIso": "2026-10-07"
   },
   {
     "title": "What data should you put into an AI tool?",
@@ -69,7 +77,8 @@
     "topic": "Risk, data & permissions",
     "topicSlug": "risk-data",
     "url": "/blog/data-ai-tools/",
-    "date": "2026-10-04"
+    "date": "Oct 4, 2026",
+    "dateIso": "2026-10-04"
   },
   {
     "title": "How to calculate the ROI of AI automation",
@@ -77,7 +86,8 @@
     "topic": "ROI & planning",
     "topicSlug": "roi-planning",
     "url": "/blog/ai-automation-roi/",
-    "date": "2026-10-02"
+    "date": "Oct 2, 2026",
+    "dateIso": "2026-10-02"
   },
   {
     "title": "AI vs. automation: when your small business actually needs AI",
@@ -85,7 +95,8 @@
     "topic": "Choosing AI tools",
     "topicSlug": "choosing-ai-tools",
     "url": "/blog/ai-vs-automation/",
-    "date": "2026-09-30"
+    "date": "Sep 30, 2026",
+    "dateIso": "2026-09-30"
   },
   {
     "title": "How to choose your first AI tool without wasting money",
@@ -93,7 +104,8 @@
     "topic": "Choosing AI tools",
     "topicSlug": "choosing-ai-tools",
     "url": "/blog/choose-first-ai-tool/",
-    "date": "2026-08-22"
+    "date": "Aug 22, 2026",
+    "dateIso": "2026-08-22"
   },
   {
     "title": "The small-business AI readiness checklist",
@@ -101,7 +113,8 @@
     "topic": "ROI & planning",
     "topicSlug": "roi-planning",
     "url": "/blog/ai-readiness-checklist/",
-    "date": "2026-08-22"
+    "date": "Aug 22, 2026",
+    "dateIso": "2026-08-22"
   },
   {
     "title": "5 tasks your small business should automate before anything else",
@@ -109,6 +122,7 @@
     "topic": "Automation & workflows",
     "topicSlug": "automation-workflows",
     "url": "/blog/what-to-automate-first/",
-    "date": "2026-08-22"
+    "date": "Aug 22, 2026",
+    "dateIso": "2026-08-22"
   }
 ]

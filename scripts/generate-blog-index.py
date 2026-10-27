@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hero_markup import card_media
 from site_data import load_site, topic_href
-from site_chrome import FONT, HEAD_ANALYTICS, HEAD_ICONS, footer_html, header_nav, html_newsletter_attr, readyscore_module
+from site_chrome import FONT, HEAD_ICONS, footer_html, head_scripts, header_nav, html_newsletter_attr, readyscore_module
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -19,7 +19,7 @@ def archive_item(a, topic_pages):
           <div>
             <a class="topic-label" href="{thref}">{a['topicLabel']}</a>
             <h2><a href="/blog/{s}/">{a['searchTitle']}</a></h2>
-            <p class="post-meta"><time datetime="{a['date']}">{a['date']}</time> · {a['readMin']}-min read</p>
+            <p class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time> · {a['readMin']}-min read</p>
             <p>{a['searchDek']}</p>
           </div>
         </article>"""
@@ -38,14 +38,7 @@ def main():
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){{dataLayer.push(arguments);}}
-    gtag('js', new Date());
-    gtag('config', 'G-GLNJLNSFEL');
-  </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3631010450044967" crossorigin="anonymous"></script>
+{head_scripts(True)}
 {HEAD_ICONS}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

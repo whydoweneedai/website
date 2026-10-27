@@ -2,7 +2,7 @@
 """Shared HTML chrome fragments driven by data/site.json."""
 from site_data import load_site, topic_href
 
-HEAD_ANALYTICS = """  <!-- Google tag (gtag.js) -->
+HEAD_GA = """  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -10,10 +10,22 @@ HEAD_ANALYTICS = """  <!-- Google tag (gtag.js) -->
     gtag('js', new Date());
     gtag('config', 'G-GLNJLNSFEL');
   </script>
+"""
 
+HEAD_ADSENSE = """
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3631010450044967" crossorigin="anonymous"></script>
 """
+
+# Back-compat alias for pages that include both
+HEAD_ANALYTICS = HEAD_GA + HEAD_ADSENSE
+
+
+def head_scripts(include_adsense: bool = False) -> str:
+    if include_adsense:
+        return HEAD_GA + HEAD_ADSENSE
+    return HEAD_GA
+
 
 HEAD_ICONS = """  <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
@@ -46,14 +58,9 @@ def footer_logo() -> str:
 
 
 def mascot_img(size: str = "md", decorative: bool = True) -> str:
-    """size: sm | md | lg — full robot with bubbles."""
     cls = f"brand-mascot brand-mascot--{size}"
     hidden = ' aria-hidden="true"' if decorative else ""
     return f"""<img class="{cls}" src="/images/brand/logo-mascot.png" width="531" height="522" alt=""{hidden} loading="lazy" decoding="async">"""
-
-
-def robot_head_img(css_class: str = "brand-robot-head") -> str:
-    return f"""<img class="{css_class}" src="/images/brand/robot-head.png" width="262" height="174" alt="" aria-hidden="true" loading="lazy" decoding="async">"""
 
 
 def header_nav(current_path: str = "") -> str:
@@ -61,16 +68,14 @@ def header_nav(current_path: str = "") -> str:
     topic_pages = site["topic_pages"]
     links = []
     for t in site["raw"]["topics"]:
+        if t["slug"] not in topic_pages:
+            continue
         href = topic_href(t["slug"], topic_pages)
         label = t["name"]
         if t["slug"] == "choosing-ai-tools":
             label = "Choosing tools"
-        elif t["slug"] == "automation-workflows":
-            label = "Automation"
         elif t["slug"] == "roi-planning":
             label = "ROI &amp; planning"
-        elif t["slug"] == "risk-data":
-            label = "Risk &amp; data"
         cur = ' aria-current="page"' if current_path == href else ""
         links.append(f'<a href="{href}"{cur}>{label}</a>')
     nav_topics = "\n        ".join(links)
@@ -95,6 +100,8 @@ def footer_html() -> str:
     topic_pages = site["topic_pages"]
     topic_links = []
     for t in site["raw"]["topics"]:
+        if t["slug"] not in topic_pages:
+            continue
         href = topic_href(t["slug"], topic_pages)
         topic_links.append(f'<a href="{href}">{t["name"]}</a>')
     topics_col = "\n        ".join(topic_links)

@@ -10,9 +10,9 @@ from site_data import load_site, topic_href
 from hero_markup import hero_markup, og_image_url
 from site_chrome import (
     FONT,
-    HEAD_ANALYTICS,
     HEAD_ICONS,
     footer_html,
+    head_scripts,
     header_nav,
     html_newsletter_attr,
     newsletter_article_block,
@@ -87,7 +87,7 @@ def replace_images(html: str, art: dict) -> str:
         html,
     )
     html = re.sub(
-        r'"image": "https://whydoweneedai.com/[^"]+"',
+        r'"image"\s*:\s*"https://whydoweneedai\.com/[^"]+"',
         f'"image": "{img_url}"',
         html,
     )
@@ -97,6 +97,25 @@ def replace_images(html: str, art: dict) -> str:
 def topic_label_link(topic: str, label: str, topic_pages: set) -> str:
     href = topic_href(topic, topic_pages)
     return f'<a class="topic-label" href="{href}">{label}</a>'
+
+
+def refresh_article_meta(header: str, art: dict) -> str:
+    pub_iso = art["date"]
+    pub = art["dateDisplay"]
+    mod_iso = art.get("dateModified") or art["date"]
+    mod_disp = art["dateModifiedDisplay"]
+    read = art.get("readMin", 8)
+    updated = ""
+    if mod_iso != art["date"]:
+        updated = f'<span>•</span><span>Updated <time datetime="{mod_iso}">{mod_disp}</time></span>'
+    meta = (
+        f'<div class="article-meta"><time datetime="{pub_iso}">{pub}</time>'
+        f"{updated}<span>•</span><span>{read}-minute read</span>"
+        f'<span>•</span><span>By <a href="/about/">Ross C</a>, editor</span></div>'
+    )
+    if re.search(r'<div class="article-meta">', header):
+        return re.sub(r'<div class="article-meta">.*?</div>', meta, header, count=1, flags=re.DOTALL)
+    return header.replace("</header>", f"{meta}</header>", 1)
 
 
 def replace_eyebrow(header: str, topic: str, label: str, topic_pages: set) -> str:
@@ -145,6 +164,7 @@ def process_file(path: Path, site):
     article_header = replace_eyebrow(
         m_header.group(1), art["topic"], art["topicLabel"], site["topic_pages"]
     )
+    article_header = refresh_article_meta(article_header, art)
     article_nav = m_nav.group(0) if m_nav else ""
 
     head = re.search(r"<head>(.*?)</head>", html, re.DOTALL).group(1)
@@ -158,7 +178,7 @@ def process_file(path: Path, site):
     nl_attr = html_newsletter_attr(site["newsletter_active"])
 
     out = f"""<!DOCTYPE html><html lang="en"{nl_attr}><head>
-{HEAD_ANALYTICS}{HEAD_ICONS}{head}</head><body>
+{head_scripts(True)}{HEAD_ICONS}{head}</head><body>
 <a class="skip-link" href="#main-content">Skip to content</a>
 {header_nav()}
 <main class="article-main" id="main-content">

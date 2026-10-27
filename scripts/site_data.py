@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Load data/site.json and derived editorial helpers."""
 import json
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,6 +11,12 @@ HERO_CAPTION = "Illustration: WhyDoWeNeedAI"
 LOGO_OG = "https://whydoweneedai.com/website_logo.png"
 
 
+def format_display_date(iso: str) -> str:
+    """e.g. 2026-10-29 -> Oct 29, 2026"""
+    d = datetime.strptime(iso, "%Y-%m-%d")
+    return f"{d.strftime('%b')} {d.day}, {d.year}"
+
+
 def load_site():
     data = json.loads(SITE_PATH.read_text())
     topics_by_slug = {t["slug"]: t for t in data["topics"]}
@@ -17,6 +24,9 @@ def load_site():
     for a in articles:
         t = topics_by_slug[a["topic"]]
         a["topicLabel"] = t["name"]
+        a["dateDisplay"] = format_display_date(a["date"])
+        mod = a.get("dateModified") or a["date"]
+        a["dateModifiedDisplay"] = format_display_date(mod)
     by_slug = {a["slug"]: a for a in articles}
     ordered = sorted(articles, key=lambda x: x["date"], reverse=True)
     counts = {}

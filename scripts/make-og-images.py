@@ -2,15 +2,11 @@
 """
 Generate 1200×630 social share PNGs (logo + headline + topic).
 
-Requires: fonts/Nunito-ExtraBold.ttf (pinned via fontsource API).
+Requires: fonts/Nunito-ExtraBold.ttf (pinned).
 Outputs: images/og/<slug>.png, images/og/home.png, images/og/topic-<slug>.png
-
-Run after editing data/site.json or article titles:
-  python3 scripts/make-og-images.py
 """
 from __future__ import annotations
 
-import textwrap
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -22,31 +18,30 @@ FONT_HEAD = ROOT / "fonts" / "Nunito-ExtraBold.ttf"
 FONT_LABEL = ROOT / "fonts" / "Nunito-Bold.ttf"
 
 W, H = 1200, 630
-INK = (30, 58, 92)  # #1e3a5c
-ACCENT = (24, 89, 169)  # sampled robot blue #1859a9
-SKY = (216, 238, 248)
-SKY_DEEP = (159, 211, 230)
-GOLD = (242, 169, 59)
+INK = (30, 58, 92)
+ACCENT = (24, 89, 169)
+SKY = (232, 244, 251)
+SKY_BAND = (216, 238, 248)
 WHITE = (255, 255, 255)
+BAND_H = 200
 
 
 def load_fonts():
     if not FONT_HEAD.exists():
-        raise SystemExit(f"Missing {FONT_HEAD} — see docs/design-system.md")
-    head = ImageFont.truetype(str(FONT_HEAD), 56)
-    head_sm = ImageFont.truetype(str(FONT_HEAD), 48)
-    label = ImageFont.truetype(str(FONT_LABEL), 28)
-    return head, head_sm, label
+        raise SystemExit(f"Missing {FONT_HEAD}")
+    return (
+        ImageFont.truetype(str(FONT_HEAD), 56),
+        ImageFont.truetype(str(FONT_HEAD), 48),
+        ImageFont.truetype(str(FONT_LABEL), 26),
+    )
 
 
-def canvas() -> Image.Image:
+def base_canvas() -> tuple[Image.Image, ImageDraw.ImageDraw]:
     im = Image.new("RGB", (W, H), WHITE)
     draw = ImageDraw.Draw(im)
-    draw.rectangle((0, 0, W, 220), fill=SKY)
-    draw.polygon([(0, 180), (W, 120), (W, 280), (0, 320)], fill=SKY_DEEP)
-    draw.rectangle((0, 280, W, H), fill=WHITE)
-    draw.line((72, 248, W - 72, 248), fill=(200, 220, 235), width=2)
-    return im
+    draw.rectangle((0, 0, W, BAND_H), fill=SKY_BAND)
+    draw.line((0, BAND_H, W, BAND_H), fill=(190, 215, 230), width=3)
+    return im, draw
 
 
 def paste_rgba(base: Image.Image, overlay: Image.Image, xy: tuple[int, int], max_width: int | None = None):
@@ -57,23 +52,17 @@ def paste_rgba(base: Image.Image, overlay: Image.Image, xy: tuple[int, int], max
     base.paste(overlay, xy, overlay)
 
 
-def draw_topic_pill(draw: ImageDraw.ImageDraw, text: str, font, xy: tuple[int, int]) -> int:
-    pad_x, pad_y = 18, 10
+def draw_topic_pill(draw: ImageDraw.ImageDraw, text: str, font, x: int, y: int) -> tuple[int, int, int, int]:
+    pad_x, pad_y = 22, 14
     bbox = draw.textbbox((0, 0), text.upper(), font=font)
     tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
-    x, y = xy
-    draw.rounded_rectangle(
-        (x, y, x + tw + pad_x * 2, y + th + pad_y * 2),
-        radius=999,
-        fill=SKY,
-        outline=ACCENT,
-        width=2,
-    )
+    box = (x, y, x + tw + pad_x * 2, y + th + pad_y * 2)
+    draw.rounded_rectangle(box, radius=999, fill=SKY, outline=ACCENT, width=2)
     draw.text((x + pad_x, y + pad_y), text.upper(), font=font, fill=ACCENT)
-    return y + th + pad_y * 2 + 24
+    return box
 
 
-def wrap_headline(draw: ImageDraw.ImageDraw, text: str, font, x: int, y: int, max_width: int) -> int:
+def wrap_lines(draw: ImageDraw.ImageDraw, text: str, font, max_width: int, max_lines: int = 4) -> list[str]:
     words = text.split()
     lines: list[str] = []
     line = ""
@@ -87,53 +76,64 @@ def wrap_headline(draw: ImageDraw.ImageDraw, text: str, font, x: int, y: int, ma
             line = word
     if line:
         lines.append(line)
-    if len(lines) > 4:
-        lines = lines[:4]
-        lines[-1] = lines[-1][:80] + "…"
+    if len(lines) > max_lines:
+        lines = lines[:max_lines]
+        lines[-1] = lines[-1][:75] + "…"
+    return lines
+
+
+def draw_headline_centered(draw: ImageDraw.ImageDraw, text: str, font, y_center: int, max_width: int):
+    lines = wrap_lines(draw, text, font, max_width)
+    line_heights = []
     for ln in lines:
-        draw.text((x, y), ln, font=font, fill=INK)
-        bbox = draw.textbbox((x, y), ln, font=font)
-        y = bbox[3] + 12
-    return y
+        bb = draw.textbbox((0, 0), ln, font=font)
+        line_heights.append(bb[3] - bb[1] + 14)
+    total = sum(line_heights) - 14
+    y = y_center - total // 2
+    for ln in lines:
+        draw.text((72, y), ln, font=font, fill=INK)
+        bb = draw.textbbox((72, y), ln, font=font)
+        y = bb[3] + 14
+
+
+def draw_bottom_brand(im: Image.Image):
+    draw = ImageDraw.Draw(im)
+    lockup = Image.open(BRAND / "lockup-128.png")
+    head = Image.open(BRAND / "robot-head.png")
+    lock_w = 440
+    paste_rgba(im, lockup, (72, H - 118), max_width=lock_w)
+    paste_rgba(im, head, (W - 200, H - 130), max_width=110)
 
 
 def render_article(title: str, topic: str, out: Path, head_font, label_font):
-    im = canvas()
-    draw = ImageDraw.Draw(im)
-    lockup = Image.open(BRAND / "lockup-128.png")
-    paste_rgba(im, lockup, (72, 56), max_width=520)
-    y = draw_topic_pill(draw, topic, label_font, (72, 200))
-    wrap_headline(draw, title, head_font, 72, y, W - 144)
-    draw.ellipse((W - 120, H - 100, W - 40, H - 20), fill=GOLD)
+    im, draw = base_canvas()
+    draw_topic_pill(draw, topic, label_font, 72, 48)
+    draw_headline_centered(draw, title, head_font, (BAND_H + H) // 2 + 20, W - 144)
+    draw_bottom_brand(im)
     im.save(out, "PNG", optimize=True)
     print("og", out.relative_to(ROOT))
 
 
 def render_home(out: Path, head_font, label_font):
-    im = canvas()
-    draw = ImageDraw.Draw(im)
-    logo = Image.open(ROOT / "website_logo.png")
-    paste_rgba(im, logo, (72, 48), max_width=420)
-    draw.text((72, 360), "Practical AI for small business", font=label_font, fill=ACCENT)
-    wrap_headline(
+    im, draw = base_canvas()
+    draw_topic_pill(draw, "Why Do We Need AI", label_font, 72, 48)
+    draw_headline_centered(
         draw,
         "Which AI is worth it for your business—researched and plainly answered.",
         head_font,
-        72,
-        410,
+        (BAND_H + H) // 2 + 10,
         W - 144,
     )
+    draw_bottom_brand(im)
     im.save(out, "PNG", optimize=True)
     print("og", out.relative_to(ROOT))
 
 
 def render_topic(name: str, out: Path, head_font, label_font):
-    im = canvas()
-    draw = ImageDraw.Draw(im)
-    logo = Image.open(ROOT / "website_logo.png")
-    paste_rgba(im, logo, (72, 40), max_width=320)
-    y = draw_topic_pill(draw, "Topic", label_font, (72, 260))
-    wrap_headline(draw, name, head_font, 72, y, W - 144)
+    im, draw = base_canvas()
+    draw_topic_pill(draw, "Topic", label_font, 72, 48)
+    draw_headline_centered(draw, name, head_font, (BAND_H + H) // 2 + 10, W - 144)
+    draw_bottom_brand(im)
     im.save(out, "PNG", optimize=True)
     print("og", out.relative_to(ROOT))
 

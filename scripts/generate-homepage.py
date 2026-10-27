@@ -7,9 +7,9 @@ from hero_markup import LOGO_OG, card_media, lead_media_link, og_image_url
 from site_data import load_site, topic_href
 from site_chrome import (
     FONT,
-    HEAD_ANALYTICS,
     HEAD_ICONS,
     footer_html,
+    head_scripts,
     header_nav,
     html_newsletter_attr,
     masthead_logo,
@@ -58,13 +58,15 @@ def main():
         </article>"""
         )
 
-    topic_cards = "\n        ".join(topic_card(t, topic_pages) for t in site["raw"]["topics"])
+    topic_cards = "\n        ".join(
+        topic_card(t, topic_pages) for t in site["raw"]["topics"] if t["slug"] in topic_pages
+    )
     og_image = og_image_url(slug="home")
 
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>
 <head>
-{HEAD_ANALYTICS}
+{head_scripts(True)}
 {HEAD_ICONS}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -106,6 +108,9 @@ def main():
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 {header_nav("/")}
+  <div class="pub-dateline-bar" aria-hidden="false">
+    <p class="pub-dateline" id="pub-dateline"></p>
+  </div>
   <main class="page-main" id="main-content">
     <header class="masthead">
       <div class="masthead-inner">
@@ -125,9 +130,9 @@ def main():
         {lead_media_link(lead)}
         <div>
           <a class="topic-label" href="{lead_href}">{lead['topicLabel']}</a>
-          <h2><a href="/blog/{lead['slug']}/">{lead['searchTitle']}</a></h2>
+          <h2 class="lead-story-headline"><a href="/blog/{lead['slug']}/">{lead['searchTitle']}</a></h2>
           <p class="lead-dek">{lead['searchDek']}</p>
-          <p class="post-meta"><time datetime="{lead['date']}">{lead['date']}</time></p>
+          <p class="post-meta"><time datetime="{lead['date']}">{lead['dateDisplay']}</time></p>
           <a class="button" href="/blog/{lead['slug']}/">Read the comparison</a>
         </div>
       </article>
@@ -145,7 +150,7 @@ def main():
     <section class="home-section home-section--editors-picks" aria-labelledby="picks-title">
       <div class="section-header">
         <h2 id="picks-title" class="section-title">Editor's picks</h2>
-        <p class="section-intro">Start with the pieces readers return to most.</p>
+        <p class="section-intro">Good places to start.</p>
       </div>
       <div class="card-grid card-grid--picks">
         {chr(10).join(pick_cards)}
@@ -170,6 +175,16 @@ def main():
   </main>
 
 {footer_html()}
+  <script>
+  (function () {{
+    var el = document.getElementById("pub-dateline");
+    if (el) {{
+      var d = new Date();
+      var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      el.textContent = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " · Practical AI for small business";
+    }}
+  }})();
+  </script>
   <script>
   (function () {{
     var hash = window.location.hash;

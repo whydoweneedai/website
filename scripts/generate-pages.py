@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hero_markup import card_media
 from site_data import load_site
-from site_chrome import FONT, HEAD_ANALYTICS, HEAD_ICONS, footer_html, header_nav, html_newsletter_attr
+from site_chrome import FONT, HEAD_ICONS, footer_html, head_scripts, header_nav, html_newsletter_attr
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -19,7 +19,7 @@ def card_html(a):
   <a class="card-link" href="/blog/{slug}/">
     {card_media(a)}
     <div class="card-body">
-      <div class="post-meta"><time datetime="{a['date']}">{a['date']}</time></div>
+      <div class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time></div>
       <h2 class="card-title">{a['searchTitle']}</h2>
       <p class="card-dek">{a['searchDek']}</p>
     </div>
@@ -50,7 +50,7 @@ def topic_page(slug, topic, articles, nl_attr):
     return f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>
 <head>
-{HEAD_ANALYTICS}
+{head_scripts(True)}
 {HEAD_ICONS}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

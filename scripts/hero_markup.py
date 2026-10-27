@@ -13,26 +13,22 @@ ROBOT_HEAD_MARK = """<img class="hero-plate-mark" src="/images/brand/robot-head.
 
 
 def typographic_plate(art: dict, variant: str = "article") -> str:
-    """Text-and-color cover with robot-head mark (no illustrations)."""
+    """Text-and-color cover: topic label + robot-head mark (title lives outside the plate)."""
     topic = art["topicLabel"]
-    title = art["searchTitle"]
     if variant == "card":
         return f"""<div class="hero-plate hero-plate--card" aria-hidden="true">
   <span class="hero-plate-topic">{topic}</span>
-  <span class="hero-plate-title">{title}</span>
   {ROBOT_HEAD_MARK}
 </div>"""
     if variant == "lead":
         return f"""<div class="hero-plate hero-plate--lead" aria-hidden="true">
   <span class="hero-plate-topic">{topic}</span>
-  <span class="hero-plate-title">{title}</span>
   {ROBOT_HEAD_MARK}
 </div>"""
-    alt = art.get("imageAlt") or title
+    alt = art.get("imageAlt") or art["searchTitle"]
     return f"""<figure class="article-hero article-hero--typographic">
   <div class="hero-plate hero-plate--article" role="img" aria-label="{alt}">
     <span class="hero-plate-topic">{topic}</span>
-    <span class="hero-plate-title">{title}</span>
     {ROBOT_HEAD_MARK}
   </div>
 </figure>"""
@@ -87,7 +83,6 @@ def lead_media_link(art: dict) -> str:
 
 
 def og_image_url(art=None, slug=None) -> str:
-    """Per-article or special-page OG PNG under /images/og/."""
     if slug:
         return f"{SITE_ORIGIN}/images/og/{slug}.png"
     if art:
