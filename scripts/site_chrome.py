@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Shared HTML chrome fragments driven by data/site.json."""
+import re
+
 from site_data import load_site, topic_href
 
 HEAD_GA = """  <!-- Google tag (gtag.js) -->
@@ -36,6 +38,18 @@ FONT = """  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/blog/styles.css">"""
+
+FONT_BLOCK_RE = re.compile(
+    r"\s*<link rel=\"preconnect\" href=\"https://fonts\.googleapis\.com\">"
+    r".*?<link rel=\"stylesheet\" href=\"/blog/styles\.css\">",
+    re.DOTALL | re.IGNORECASE,
+)
+
+
+def inject_font(html: str) -> str:
+    """Idempotent: one canonical FONT block immediately before </head>."""
+    html = FONT_BLOCK_RE.sub("", html)
+    return html.replace("</head>", f"{FONT}\n</head>", 1)
 
 
 def html_newsletter_attr(active: bool) -> str:
@@ -178,8 +192,8 @@ def readyscore_module(title_id: str = "readyscore-title", compact: bool = False)
     return f"""<aside class="{cls}" aria-labelledby="{title_id}">
   {mascot_img("md")}
   <div class="module-readyscore-copy">
-    <h2 id="{title_id}" class="module-title">Take the 3-minute AI ReadyScore</h2>
+    <h2 id="{title_id}" class="module-title">AI ReadyScore</h2>
     <p>A short self-assessment to see where AI fits your business today—before another subscription or pilot.</p>
-    <a class="button button--secondary" href="/ai-readyscore/">Start AI ReadyScore</a>
+    <a class="button button--secondary" href="/ai-readyscore/">Find out where AI fits your business — free 2-minute AI ReadyScore self-assessment.</a>
   </div>
 </aside>"""

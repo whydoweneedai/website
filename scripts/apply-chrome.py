@@ -5,15 +5,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from site_chrome import FONT, HEAD_GA, HEAD_ICONS, footer_html, header_nav, html_newsletter_attr
+from site_chrome import HEAD_GA, HEAD_ICONS, footer_html, header_nav, html_newsletter_attr, inject_font
 from site_data import load_site
 
 ROOT = Path(__file__).resolve().parents[1]
-
-FONT_OLD = re.compile(
-    r'<link rel="preconnect" href="https://fonts.googleapis.com">.*?<link rel="stylesheet" href="/blog/styles.css">',
-    re.DOTALL,
-)
 
 HEADER_OLD = re.compile(r'<header class="site-header">.*?</header>', re.DOTALL)
 FOOTER_OLD = re.compile(r'<footer class="site-footer">.*?</footer>\s*(<script src="/blog/site.js" defer></script>)?', re.DOTALL)
@@ -79,7 +74,7 @@ def inject_icons(html: str) -> str:
 def process(path: Path):
     html = path.read_text()
     html = ensure_ga_only(html)
-    html = FONT_OLD.sub(FONT, html)
+    html = inject_font(html)
     html = inject_icons(html)
     html = HEADER_OLD.sub(header_nav(), html)
     html = FOOTER_OLD.sub(footer_html(), html)

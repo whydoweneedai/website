@@ -10,6 +10,7 @@ from site_data import load_site, topic_href
 from hero_markup import hero_markup, og_image_url
 from site_chrome import (
     FONT,
+    FONT_BLOCK_RE,
     HEAD_ICONS,
     footer_html,
     head_scripts,
@@ -145,6 +146,7 @@ def _dedupe_head_tags(head: str) -> str:
     head = re.sub(r"<noscript><link href=\"https://fonts.googleapis.com[^\"]*\"[^>]*></noscript>\s*", "", head, flags=re.IGNORECASE)
     head = re.sub(r"<link rel=\"stylesheet\" href=\"(?:\.\./)?styles\.css\">\s*", "", head, flags=re.IGNORECASE)
     head = re.sub(r"<link rel=\"stylesheet\" href=\"/blog/styles\.css\">\s*", "", head, flags=re.IGNORECASE)
+    head = FONT_BLOCK_RE.sub("", head)
 
     seen: set[str] = set()
     out: list[str] = []

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare visible article/policy prose against main (tags stripped, whitespace normalized)."""
+"""Compare visible article/policy prose against origin/main (tags stripped, whitespace normalized)."""
 from __future__ import annotations
 
 import re
@@ -9,6 +9,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+MAIN_REF = "origin/main"
 
 POLICY_PAGES = [
     "about/index.html",
@@ -64,7 +65,7 @@ def prose_from_html(html: str, article_only: bool) -> str:
 
 def git_show_main(path: str) -> str | None:
     r = subprocess.run(
-        ["git", "show", f"main:{path}"],
+        ["git", "show", f"{MAIN_REF}:{path}"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -76,6 +77,15 @@ def git_show_main(path: str) -> str | None:
 
 def main() -> int:
     import json
+
+    fetch = subprocess.run(
+        ["git", "fetch", "origin", "main"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if fetch.returncode != 0:
+        print(f"git fetch origin main failed: {fetch.stderr.strip()}", file=sys.stderr)
 
     site = json.loads((ROOT / "data/site.json").read_text())
     paths = [f"blog/{a['slug']}/index.html" for a in site["articles"]] + POLICY_PAGES
@@ -99,9 +109,9 @@ def main() -> int:
         if cur_text != main_text:
             failures.append(f"DIFF {rel} (len main={len(main_text)} cur={len(cur_text)})")
 
-    print(f"Checked {checked} pages against main.")
+    print(f"Checked {checked} pages against {MAIN_REF}.")
     if skipped:
-        print(f"Skipped {len(skipped)} pages not on main:")
+        print(f"Skipped {len(skipped)} pages not on {MAIN_REF}:")
         for rel in skipped:
             print(f"  SKIP {rel}")
     if failures:

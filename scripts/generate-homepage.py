@@ -47,12 +47,26 @@ def main():
           </a>
         </article>"""
 
-    latest_cards = [text_card(by[slug], True) for slug in hp["latestSlugs"]]
+    lead_slug = hp["leadSlug"]
+    ordered_slugs = [a["slug"] for a in site["ordered"]]
+    rail_slugs = [s for s in ordered_slugs if s != lead_slug][:3]
+    rail_set = set(rail_slugs)
 
-    pick_cards = [text_card(by[slug], False) for slug in hp["editorsPickSlugs"]]
+    latest_slugs = [s for s in hp["latestSlugs"] if s != lead_slug and s not in rail_set]
+    latest_cards = [text_card(by[slug], True) for slug in latest_slugs]
+
+    above_picks = {lead_slug} | rail_set | set(latest_slugs)
+    pick_slugs = [s for s in hp["editorsPickSlugs"] if s not in above_picks]
+    for slug in ordered_slugs:
+        if len(pick_slugs) >= len(hp["editorsPickSlugs"]):
+            break
+        if slug in above_picks or slug in pick_slugs:
+            continue
+        pick_slugs.append(slug)
+    pick_cards = [text_card(by[slug], False) for slug in pick_slugs]
 
     rail_items = []
-    for i, slug in enumerate(hp["latestSlugs"][:3], start=1):
+    for i, slug in enumerate(rail_slugs, start=1):
         a = by[slug]
         rail_items.append(
             f'<li class="lead-rail-item"><span class="lead-rail-num" aria-hidden="true">{i}</span>'

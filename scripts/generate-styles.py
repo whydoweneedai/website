@@ -79,8 +79,14 @@ CSS = r'''/*
 
 html { scroll-behavior: smooth; }
 
-h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
-  scroll-margin-top: 5.5rem;
+:root {
+  --header-scroll-offset: calc(3.25rem + 16px);
+}
+
+h1[id], h2[id], h3[id], h4[id], h5[id], h6[id],
+.article-body h2, .article-body h3,
+#editorial-correction {
+  scroll-margin-top: var(--header-scroll-offset);
 }
 
 body {

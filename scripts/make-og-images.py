@@ -71,17 +71,27 @@ def fit_headline(draw: ImageDraw.ImageDraw, text: str, max_width: int, max_heigh
     return font, lines, total
 
 
-def paste_band_lockup(im: Image.Image):
+def paste_band_lockup(im: Image.Image, draw: ImageDraw.ImageDraw):
     lockup = Image.open(BRAND / "lockup-128.png").convert("RGBA")
     lh = LOCKUP_MIN_HEIGHT
     lw = int(lockup.width * (lh / lockup.height))
-    max_w = BAND_W - 32
+    max_w = BAND_W - 28
     if lw > max_w:
         lw = max_w
         lh = max(LOCKUP_MIN_HEIGHT, int(lockup.height * (lw / lockup.width)))
     lockup = lockup.resize((lw, lh), Image.Resampling.LANCZOS)
-    x = (BAND_W - lw) // 2
-    y = (H - lh) // 2
+    pad_x = 10
+    panel_w = lw + pad_x * 2
+    panel_h = lh + pad_x * 2
+    panel_x = (BAND_W - panel_w) // 2
+    panel_y = (H - panel_h) // 2
+    draw.rounded_rectangle(
+        (panel_x, panel_y, panel_x + panel_w, panel_y + panel_h),
+        radius=10,
+        fill=WHITE,
+    )
+    x = panel_x + pad_x
+    y = panel_y + pad_x
     im.paste(lockup, (x, y), lockup)
 
 
@@ -105,7 +115,7 @@ def render_page(title: str, out: Path, topic: str | None = None):
     im = Image.new("RGB", (W, H), SKY)
     draw = ImageDraw.Draw(im)
     draw.rectangle((0, 0, BAND_W, H), fill=NAVY)
-    paste_band_lockup(im)
+    paste_band_lockup(im, draw)
     draw = ImageDraw.Draw(im)
 
     label_font = load_label_font()
