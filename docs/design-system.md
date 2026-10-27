@@ -86,4 +86,4 @@ Signup UI is visible but does not collect email until you turn it on.
    - Add the privacy-policy sentence for newsletter collection when you go live.
 4. Set `data-newsletter="on"` on `<html>` (regenerator does this when `active` is true). CSS hides the form when `data-newsletter="off"` and shows **Newsletter launching soon.**
 
-Hero illustrations use alt text starting with `Illustration:` and figcaption **Illustration: WhyDoWeNeedAI**. Product comparisons use `hero: "typographic"` until real screenshots are ready (`hero: "screenshot"`).
+Hero illustrations use alt text starting with `Illustration:` and figcaption **Illustration: WhyDoWeNeedAI**. When a piece needs real product UI, set `hero: "screenshot"` and use an honest caption; use `typographic` only if you need a text-only placeholder with no art.
