@@ -32,7 +32,7 @@ def html_newsletter_attr(active: bool) -> str:
 def wordmark_img(css_class: str = "brand-wordmark") -> str:
     return f"""<picture>
       <source type="image/webp" srcset="/images/brand/logo-wordmark.webp 1x, /images/brand/logo-wordmark@2x.webp 2x">
-      <img class="{css_class}" src="/images/brand/logo-wordmark.png" srcset="/images/brand/logo-wordmark.png 1x, /images/brand/logo-wordmark@2x.png 2x" width="896" height="146" alt="WhyDoWeNeedAI" decoding="async">
+      <img class="{css_class}" src="/images/brand/logo-wordmark.png" srcset="/images/brand/logo-wordmark.png 1x, /images/brand/logo-wordmark@2x.png 2x" width="907" height="166" alt="WhyDoWeNeedAI" decoding="async">
     </picture>"""
 
 
@@ -40,7 +40,7 @@ def mascot_img(size: str = "md", decorative: bool = True) -> str:
     """size: sm | md | lg"""
     cls = f"brand-mascot brand-mascot--{size}"
     hidden = ' aria-hidden="true"' if decorative else ""
-    return f"""<img class="{cls}" src="/images/brand/logo-mascot.webp" srcset="/images/brand/logo-mascot.webp 1x, /images/brand/logo-mascot@2x.webp 2x" width="520" height="446" alt=""{hidden} loading="lazy" decoding="async">"""
+    return f"""<img class="{cls}" src="/images/brand/logo-mascot.webp" srcset="/images/brand/logo-mascot.webp 1x, /images/brand/logo-mascot@2x.webp 2x" width="531" height="522" alt=""{hidden} loading="lazy" decoding="async">"""
 
 
 def header_nav(current_path: str = "") -> str:

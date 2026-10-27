@@ -11,7 +11,7 @@ Anchored on `/website_logo.png`. Derived assets live in `/images/brand/` (see `s
 | `website_logo.png` | Unchanged; default **og:image** / JSON-LD when no article hero image |
 | `favicon.png` | Robot-head crop from mascot |
 
-Replace masters in `images/brand/` and run `python3 scripts/build-brand-assets.py` when the owner supplies updated PNGs.
+Masters: `logo-wordmark.png` (907×166), `logo-mascot.png` (531×522). After replacing them, run `python3 scripts/build-brand-assets.py` then `python3 scripts/regenerate-site.py`.
 
 ## Color (from logo)
 

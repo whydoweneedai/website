@@ -9,7 +9,7 @@ def _ship_typographic_only() -> bool:
     return load_site()["raw"].get("settings", {}).get("shipTypographicHeroes", True)
 
 
-MASCOT_MINI = """<img class="hero-plate-mascot" src="/images/brand/logo-mascot.webp" srcset="/images/brand/logo-mascot.webp 1x, /images/brand/logo-mascot@2x.webp 2x" width="520" height="446" alt="" aria-hidden="true" loading="lazy" decoding="async">"""
+MASCOT_MINI = """<img class="hero-plate-mascot" src="/images/brand/logo-mascot.webp" srcset="/images/brand/logo-mascot.webp 1x, /images/brand/logo-mascot@2x.webp 2x" width="531" height="522" alt="" aria-hidden="true" loading="lazy" decoding="async">"""
 
 
 def typographic_plate(art: dict, variant: str = "article") -> str:
