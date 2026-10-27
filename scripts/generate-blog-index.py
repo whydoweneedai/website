@@ -3,8 +3,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hero_markup import card_media
 from site_data import load_site, topic_href
+
+ARCHIVE_MARK = """<img class="archive-mark" src="/images/brand/robot-head.png" width="262" height="174" alt="" aria-hidden="true" loading="lazy" decoding="async">"""
 from site_chrome import FONT, HEAD_ICONS, footer_html, head_scripts, header_nav, html_newsletter_attr, readyscore_module
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,15 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def archive_item(a, topic_pages):
     s = a["slug"]
-    thumb = f'<a class="archive-item-thumb archive-item-thumb--typographic" href="/blog/{s}/" tabindex="-1" aria-hidden="true">{card_media(a)}</a>'
     thref = topic_href(a["topic"], topic_pages)
-    return f"""        <article class="archive-item" data-topic="{a['topic']}">
-          {thumb}
-          <div>
+    return f"""        <article class="archive-item archive-item--text" data-topic="{a['topic']}">
+          <a class="archive-item-mark-link" href="/blog/{s}/" tabindex="-1" aria-hidden="true">{ARCHIVE_MARK}</a>
+          <div class="archive-item-body">
             <a class="topic-label" href="{thref}">{a['topicLabel']}</a>
             <h2><a href="/blog/{s}/">{a['searchTitle']}</a></h2>
+            <p class="archive-dek">{a['searchDek']}</p>
             <p class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time> · {a['readMin']}-min read</p>
-            <p>{a['searchDek']}</p>
           </div>
         </article>"""
 

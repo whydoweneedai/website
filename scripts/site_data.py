@@ -30,6 +30,14 @@ def format_display_date(iso: str) -> str:
     return f"{d.strftime('%b')} {d.day}, {d.year}"
 
 
+def publication_dateline() -> str:
+    """Build-time dateline in America/New_York."""
+    from zoneinfo import ZoneInfo
+
+    d = datetime.now(ZoneInfo("America/New_York")).date()
+    return f"{format_display_date(d.isoformat())} · Practical AI for small business"
+
+
 def load_site():
     data = json.loads(SITE_PATH.read_text())
     topics_by_slug = {t["slug"]: t for t in data["topics"]}

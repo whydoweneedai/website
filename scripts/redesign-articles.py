@@ -161,6 +161,21 @@ def process_file(path: Path, site):
         return
 
     article_body = m_body.group(1)
+    correction_above = ""
+    correction_m = re.search(
+        r'<div class="callout" id="editorial-correction">.*?</div>',
+        article_body,
+        flags=re.DOTALL,
+    )
+    if correction_m:
+        correction_above = (
+            '<details class="article-correction-fold">\n'
+            "  <summary>Editorial correction</summary>\n"
+            f'  <div class="article-correction-above">{correction_m.group(0)}</div>\n'
+            "</details>\n"
+        )
+        article_body = article_body.replace(correction_m.group(0), "", 1)
+
     article_header = replace_eyebrow(
         m_header.group(1), art["topic"], art["topicLabel"], site["topic_pages"]
     )
@@ -183,12 +198,23 @@ def process_file(path: Path, site):
 {header_nav()}
 <main class="article-main" id="main-content">
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><a href="/blog/">Archive</a><span aria-hidden="true"> / </span><a href="{thref}">{art['topicLabel']}</a><span aria-hidden="true"> / </span><span>{breadcrumb_short}</span></nav>
+<div class="article-layout">
+<div class="article-layout-main">
 {article_header}
 {hero}
-<nav class="article-toc" id="article-toc" aria-label="Table of contents" hidden></nav>
-{article_body}
+<details class="article-toc-fold" id="article-toc-fold" hidden>
+  <summary>In this article</summary>
+  <nav class="article-toc article-toc--fold" id="article-toc" aria-label="Table of contents" hidden></nav>
+</details>
+{correction_above}{article_body}
 {extras}
 {article_nav}
+</div>
+<aside class="article-toc-rail" id="article-toc-rail-wrap" hidden>
+  <p class="article-toc-rail-title">In this article</p>
+  <nav class="article-toc article-toc--rail" id="article-toc-rail" aria-label="Table of contents" hidden></nav>
+</aside>
+</div>
 </main>
 {footer_html()}
 </body></html>"""

@@ -3,10 +3,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from hero_markup import LOGO_OG, card_media, lead_media_link, og_image_url
-from datetime import date
+from hero_markup import LOGO_OG, og_image_url
 
-from site_data import format_display_date, load_site, topic_href
+from site_data import load_site, publication_dateline, topic_href
 from site_chrome import (
     FONT,
     HEAD_ICONS,
@@ -36,35 +35,37 @@ def main():
     lead_href = topic_href(lead["topic"], topic_pages)
     nl_attr = html_newsletter_attr(site["newsletter_active"])
 
-    latest_cards = []
-    for slug in hp["latestSlugs"]:
-        a = by[slug]
-        latest_cards.append(
-            f"""<article class="card card--standard">
-          <a class="card-link" href="/blog/{slug}/">
-            {card_media(a)}
-            <div class="card-body"><span class="topic-label">{a['topicLabel']}</span><h3 class="card-title">{a['searchTitle']}</h3><p class="card-dek">{a['searchDek']}</p></div>
+    def text_card(a, show_topic: bool) -> str:
+        topic = (
+            f'<span class="topic-label">{a["topicLabel"]}</span>'
+            if show_topic
+            else ""
+        )
+        return f"""<article class="card card--text">
+          <a class="card-link" href="/blog/{a['slug']}/">
+            <div class="card-body">{topic}<h3 class="card-title">{a['searchTitle']}</h3><p class="card-dek">{a['searchDek']}</p></div>
           </a>
         </article>"""
-        )
 
-    pick_cards = []
-    for slug in hp["editorsPickSlugs"]:
+    latest_cards = [text_card(by[slug], True) for slug in hp["latestSlugs"]]
+
+    pick_cards = [text_card(by[slug], False) for slug in hp["editorsPickSlugs"]]
+
+    rail_items = []
+    for i, slug in enumerate(hp["latestSlugs"][:3], start=1):
         a = by[slug]
-        pick_cards.append(
-            f"""<article class="card card--standard">
-          <a class="card-link" href="/blog/{slug}/">
-            {card_media(a)}
-            <div class="card-body"><h3 class="card-title">{a['searchTitle']}</h3><p class="card-dek">{a['searchDek']}</p></div>
-          </a>
-        </article>"""
+        rail_items.append(
+            f'<li class="lead-rail-item"><span class="lead-rail-num" aria-hidden="true">{i}</span>'
+            f'<a href="/blog/{slug}/"><span class="lead-rail-kicker">{a["topicLabel"]}</span>'
+            f'<span class="lead-rail-title">{a["searchTitle"]}</span></a></li>'
         )
+    lead_rail = "\n          ".join(rail_items)
 
     topic_cards = "\n        ".join(
         topic_card(t, topic_pages) for t in site["raw"]["topics"] if t["slug"] in topic_pages
     )
     og_image = og_image_url(slug="home")
-    built_dateline = f"{format_display_date(date.today().isoformat())} · Practical AI for small business"
+    built_dateline = publication_dateline()
 
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>
@@ -115,8 +116,8 @@ def main():
     <p class="pub-dateline" id="pub-dateline">{built_dateline}</p>
   </div>
   <main class="page-main" id="main-content">
-    <header class="masthead">
-      <div class="masthead-inner">
+    <header class="masthead masthead--front">
+      <div class="masthead-inner masthead-inner--front">
         {masthead_logo()}
         <div class="masthead-copy">
           <h1 class="masthead-tagline">Which AI is worth it for your business, researched and plainly answered.</h1>
@@ -125,20 +126,22 @@ def main():
       </div>
     </header>
 
-    <section class="home-section" aria-labelledby="lead-title">
-      <div class="section-header">
-        <h2 id="lead-title" class="section-title">Lead story</h2>
-      </div>
-      <article class="lead-story">
-        {lead_media_link(lead)}
-        <div>
+    <section class="home-section home-section--lead" aria-labelledby="lead-headline">
+      <div class="lead-front">
+        <article class="lead-story lead-story--front">
           <a class="topic-label" href="{lead_href}">{lead['topicLabel']}</a>
-          <h2 class="lead-story-headline"><a href="/blog/{lead['slug']}/">{lead['searchTitle']}</a></h2>
+          <h2 id="lead-headline" class="lead-story-headline"><a href="/blog/{lead['slug']}/">{lead['searchTitle']}</a></h2>
           <p class="lead-dek">{lead['searchDek']}</p>
-          <p class="post-meta"><time datetime="{lead['date']}">{lead['dateDisplay']}</time></p>
-          <a class="button" href="/blog/{lead['slug']}/">Read the comparison</a>
-        </div>
-      </article>
+          <p class="lead-byline post-meta"><span>By <a href="/about/">Ross C</a></span><span aria-hidden="true">·</span><time datetime="{lead['date']}">{lead['dateDisplay']}</time></p>
+          <p class="lead-cta"><a class="read-link" href="/blog/{lead['slug']}/">Read the story</a></p>
+        </article>
+        <aside class="lead-story-rail" aria-labelledby="lead-rail-title">
+          <h2 id="lead-rail-title" class="lead-rail-heading">Latest headlines</h2>
+          <ol class="lead-rail-list">
+          {lead_rail}
+          </ol>
+        </aside>
+      </div>
     </section>
 
     <section class="home-section" aria-labelledby="latest-title">
