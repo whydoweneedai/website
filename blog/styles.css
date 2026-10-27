@@ -664,7 +664,7 @@ h1 {
 }
 
 .article-header {
-  padding: 64px 0 44px;
+  padding: 48px 0 16px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -734,8 +734,8 @@ h1 {
 }
 
 .article-body {
-  padding: 46px 0 64px;
-  max-width: 36em;
+  padding: 24px 0 64px;
+  max-width: 32.5em;
   overflow-wrap: anywhere;
 }
 
@@ -754,7 +754,7 @@ h1 {
 .article-body > .our-take,
 .article-body > details {
   width: 100%;
-  max-width: 36em;
+  max-width: 32.5em;
 }
 
 .article-body p {
@@ -886,7 +886,6 @@ h1 {
 .article-body > p.short-answer {
   margin-top: 0;
   margin-bottom: 1.75em;
-  font-size: 0.98em;
   padding: 20px 22px 20px 24px;
   border: 2px solid #93c5fd;
   border-left-width: 6px;
@@ -1162,11 +1161,11 @@ h1 {
   }
 
   .article-header {
-    padding: 44px 0 34px;
+    padding: 36px 0 14px;
   }
 
   .article-body {
-    padding-top: 34px;
+    padding-top: 22px;
   }
 
   .article-body h2 {
