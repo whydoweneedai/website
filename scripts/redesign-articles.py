@@ -6,7 +6,8 @@ from pathlib import Path
 from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from site_data import HERO_CAPTION, LOGO_OG, load_site, topic_href
+from site_data import load_site, topic_href
+from hero_markup import hero_markup, og_image_url
 from site_chrome import (
     FONT,
     HEAD_ANALYTICS,
@@ -17,40 +18,6 @@ from site_chrome import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-
-
-def hero_markup(art: dict, eager: bool = True) -> str:
-    slug = art["slug"]
-    alt = art["imageAlt"]
-    mode = art.get("hero", "illustration")
-    loading = 'loading="eager" fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
-    caption = f'<figcaption class="article-hero-caption">{HERO_CAPTION}</figcaption>'
-
-    if mode == "typographic":
-        title = art["searchTitle"]
-        return f"""<figure class="article-hero article-hero--typographic">
-  <div class="hero-fallback" role="img" aria-label="{alt}">{title}</div>
-  {caption}
-</figure>"""
-
-    if mode == "screenshot":
-        base = f"/images/hero/{slug}"
-        return f"""<figure class="article-hero article-hero--screenshot">
-  <picture>
-    <source type="image/webp" srcset="{base}-480.webp 480w, {base}-960.webp 960w, {base}-1280.webp 1280w" sizes="(min-width: 960px) 860px, 100vw">
-    <img src="{base}-1280.jpg" srcset="{base}-480.webp 480w, {base}-960.webp 960w, {base}-1280.jpg 1280w" sizes="(min-width: 960px) 860px, 100vw" width="1280" height="720" alt="{alt}" {loading}>
-  </picture>
-  {caption}
-</figure>"""
-
-    base = f"/images/hero/{slug}"
-    return f"""<figure class="article-hero article-hero--illustration">
-  <picture>
-    <source type="image/webp" srcset="{base}-480.webp 480w, {base}-960.webp 960w, {base}-1280.webp 1280w" sizes="(min-width: 960px) 860px, 100vw">
-    <img src="{base}-1280.jpg" srcset="{base}-480.webp 480w, {base}-960.webp 960w, {base}-1280.jpg 1280w" sizes="(min-width: 960px) 860px, 100vw" width="1280" height="720" alt="{alt}" {loading}>
-  </picture>
-  {caption}
-</figure>"""
 
 
 def read_next_cards(slug: str, site):
@@ -110,10 +77,7 @@ def article_extras(slug: str, site):
 
 
 def replace_images(html: str, art: dict) -> str:
-    if art.get("hero") == "typographic":
-        img_url = LOGO_OG
-    else:
-        img_url = f"https://whydoweneedai.com/images/hero/{art['slug']}-1280.jpg"
+    img_url = og_image_url(art)
     html = re.sub(
         r'<meta property="og:image" content="[^"]*">',
         f'<meta property="og:image" content="{img_url}">',

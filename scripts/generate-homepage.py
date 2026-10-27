@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from hero_markup import LOGO_OG, card_media, lead_media_link, og_image_url
 from site_data import load_site, topic_href
 from site_chrome import (
     FONT,
@@ -14,30 +15,6 @@ from site_chrome import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-
-
-def card_media(art, lazy=True):
-    slug = art["slug"]
-    if art.get("hero") == "typographic":
-        return ""
-    loading = 'loading="lazy" decoding="async"' if lazy else 'loading="eager" fetchpriority="high"'
-    return f"""<div class="card-media"><picture><source type="image/webp" srcset="/images/hero/{slug}-480.webp 480w, /images/hero/{slug}-960.webp 960w" sizes="320px"><img src="/images/hero/{slug}-960.webp" width="960" height="540" alt="{art['imageAlt']}" {loading}></picture></div>"""
-
-
-def lead_media(art):
-    slug = art["slug"]
-    if art.get("hero") == "typographic":
-        return f"""<div class="lead-story-media lead-story-media--typographic">
-          <div class="hero-fallback" role="img" aria-label="{art['imageAlt']}">{art['searchTitle']}</div>
-        </div>"""
-    return f"""<div class="lead-story-media">
-          <a href="/blog/{slug}/">
-            <picture>
-              <source type="image/webp" srcset="/images/hero/{slug}-480.webp 480w, /images/hero/{slug}-960.webp 960w, /images/hero/{slug}-1280.webp 1280w" sizes="(min-width: 960px) 560px, 100vw">
-              <img src="/images/hero/{slug}-1280.jpg" width="1280" height="720" alt="{art['imageAlt']}" loading="eager" fetchpriority="high">
-            </picture>
-          </a>
-        </div>"""
 
 
 def topic_card(t, topic_pages):
@@ -69,22 +46,17 @@ def main():
     pick_cards = []
     for slug in hp["editorsPickSlugs"]:
         a = by[slug]
-        media = card_media(a)
-        body_intro = a["searchDek"] if a.get("hero") != "typographic" else "Which subscription matches which job—screenshot hero coming."
         pick_cards.append(
             f"""<article class="card card--standard">
           <a class="card-link" href="/blog/{slug}/">
-            {media}
-            <div class="card-body"><h3 class="card-title">{a['searchTitle']}</h3><p class="card-dek">{body_intro}</p></div>
+            {card_media(a)}
+            <div class="card-body"><h3 class="card-title">{a['searchTitle']}</h3><p class="card-dek">{a['searchDek']}</p></div>
           </a>
         </article>"""
         )
 
     topic_cards = "\n        ".join(topic_card(t, topic_pages) for t in site["raw"]["topics"])
-
-    og_image = "https://whydoweneedai.com/website_logo.png"
-    if lead.get("hero") == "illustration":
-        og_image = f"https://whydoweneedai.com/images/hero/{lead['slug']}-1280.jpg"
+    og_image = og_image_url(lead)
 
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>
@@ -121,7 +93,7 @@ def main():
       "@type": "Organization",
       "name": "Why Do We Need AI",
       "url": "https://whydoweneedai.com/",
-      "logo": {{ "@type": "ImageObject", "url": "https://whydoweneedai.com/website_logo.png" }}
+      "logo": {{ "@type": "ImageObject", "url": "{LOGO_OG}" }}
     }}
   }}
   </script>
@@ -142,7 +114,7 @@ def main():
         <h2 id="lead-title" class="section-title">Lead story</h2>
       </div>
       <article class="lead-story">
-        {lead_media(lead)}
+        {lead_media_link(lead)}
         <div>
           <a class="topic-label" href="{lead_href}">{lead['topicLabel']}</a>
           <h2><a href="/blog/{lead['slug']}/">{lead['searchTitle']}</a></h2>

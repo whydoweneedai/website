@@ -39,9 +39,8 @@ Scale: `--space-1` (4px) through `--space-9` (64px). Radius: `--radius-sm` 6px, 
 
 ## Imagery
 
-- Hero / lead: **16:9** (`--ratio-hero`)
-- Cards: **3:2** (`--ratio-card`)
-- Files under `/images/hero/<slug>-{480,960,1280}.webp` and `<slug>-1280.jpg`
+- **Live site:** typographic `.hero-plate` (topic, headline, brand gradient) on all cards and article heroes while `data/site.json` → `settings.shipTypographicHeroes` is `true`. Social/meta images use `website_logo.png`.
+- **Future assets:** 16:9 hero (`--ratio-hero`), 3:2 cards (`--ratio-card`), files at `/images/hero/<slug>-{480,960,1280}.webp` and `<slug>-1280.jpg` (add locally; not committed until approved). Generators in `scripts/hero_markup.py` keep `<picture>` / srcset markup for `illustration` and `screenshot` modes.
 
 ## Components
 
@@ -86,4 +85,4 @@ Signup UI is visible but does not collect email until you turn it on.
    - Add the privacy-policy sentence for newsletter collection when you go live.
 4. Set `data-newsletter="on"` on `<html>` (regenerator does this when `active` is true). CSS hides the form when `data-newsletter="off"` and shows **Newsletter launching soon.**
 
-Hero illustrations use alt text starting with `Illustration:` and figcaption **Illustration: WhyDoWeNeedAI**. When a piece needs real product UI, set `hero: "screenshot"` and use an honest caption; use `typographic` only if you need a text-only placeholder with no art.
+When `shipTypographicHeroes` is `false` and image files are present: use `Illustration:` alt prefix and figcaption **Illustration: WhyDoWeNeedAI** for art; `hero: "screenshot"` with an honest caption for product UI.

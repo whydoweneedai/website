@@ -6,33 +6,18 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from hero_markup import card_media
 from site_data import load_site
 from site_chrome import FONT, HEAD_ANALYTICS, footer_html, header_nav, html_newsletter_attr
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def card_html(a, lazy=True):
+def card_html(a):
     slug = a["slug"]
-    if a.get("hero") == "typographic":
-        return f"""<article class="card card--standard">
-  <a class="card-link" href="/blog/{slug}/">
-    <div class="card-body">
-      <div class="post-meta"><time datetime="{a['date']}">{a['date']}</time></div>
-      <h2 class="card-title">{a['searchTitle']}</h2>
-      <p class="card-dek">{a['searchDek']}</p>
-    </div>
-  </a>
-</article>"""
-    loading = 'loading="lazy" decoding="async"' if lazy else 'loading="eager" fetchpriority="high"'
     return f"""<article class="card card--standard">
   <a class="card-link" href="/blog/{slug}/">
-    <div class="card-media">
-      <picture>
-        <source type="image/webp" srcset="/images/hero/{slug}-480.webp 480w, /images/hero/{slug}-960.webp 960w" sizes="(min-width: 640px) 320px, 100vw">
-        <img src="/images/hero/{slug}-960.webp" alt="{a['imageAlt']}" width="960" height="540" {loading}>
-      </picture>
-    </div>
+    {card_media(a)}
     <div class="card-body">
       <div class="post-meta"><time datetime="{a['date']}">{a['date']}</time></div>
       <h2 class="card-title">{a['searchTitle']}</h2>
@@ -125,7 +110,6 @@ def main():
         published.add(slug)
         print("topic", slug)
 
-    # Remove stale topic dirs not in published
     if topics_root.exists():
         for child in topics_root.iterdir():
             if child.is_dir() and child.name not in published:

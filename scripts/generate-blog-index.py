@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from hero_markup import card_media
 from site_data import load_site, topic_href
 from site_chrome import FONT, HEAD_ANALYTICS, footer_html, header_nav, html_newsletter_attr
 
@@ -11,14 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def archive_item(a, topic_pages):
     s = a["slug"]
-    thumb = ""
-    if a.get("hero") != "typographic":
-        thumb = f"""<a class="archive-item-thumb" href="/blog/{s}/" tabindex="-1" aria-hidden="true">
-            <picture>
-              <source type="image/webp" srcset="/images/hero/{s}-480.webp 480w, /images/hero/{s}-960.webp 960w" sizes="160px">
-              <img src="/images/hero/{s}-960.webp" width="960" height="540" alt="" loading="lazy" decoding="async">
-            </picture>
-          </a>"""
+    thumb = f'<a class="archive-item-thumb archive-item-thumb--typographic" href="/blog/{s}/" tabindex="-1" aria-hidden="true">{card_media(a)}</a>'
     thref = topic_href(a["topic"], topic_pages)
     return f"""        <article class="archive-item" data-topic="{a['topic']}">
           {thumb}

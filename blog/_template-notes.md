@@ -55,18 +55,22 @@ Styles: [`blog/styles.css`](styles.css). Tokens: [`docs/design-system.md`](../do
 
 **Table of contents** — add `id` on `h2`; `blog/site.js` builds a TOC when there are three or more `h2[id]`.
 
-## Hero image modes (`data/site.json` → `hero`)
+## Hero image modes (`data/site.json`)
 
-| Value | Use |
+**Shipping now:** `settings.shipTypographicHeroes: true` — typographic plates everywhere; **do not commit** files under `/images/hero/` until art is approved. OG/Twitter/JSON-LD use `website_logo.png`.
+
+When ready for real art: set `shipTypographicHeroes` to `false`, add files locally, set per-article `hero`, run `python3 scripts/regenerate-site.py`.
+
+| `hero` value | Use |
 |-------|-----|
-| `illustration` | Conceptual 16:9 art in `/images/hero/` |
-| `typographic` | Brand title card (comparisons awaiting real screenshots) |
-| `screenshot` | Real product UI — use honest caption in `figcaption` |
+| `typographic` | Topic + headline + brand field (current default) |
+| `illustration` | Conceptual 16:9 art in `/images/hero/` (not in repo until chosen) |
+| `screenshot` | Real product UI with honest `figcaption` |
 
-### Illustration hero
+### Illustration hero (when assets exist)
 
-1. Files: `/images/hero/<slug>-{480,960,1280}.webp` and `<slug>-1280.jpg` (16:9).
-2. In `data/site.json`: `"hero": "illustration"`, `"imageAlt": "Illustration: …"` (literal, not a real product or person).
+1. Add files: `/images/hero/<slug>-{480,960,1280}.webp` and `<slug>-1280.jpg` (16:9).
+2. In `data/site.json`: `"hero": "illustration"`, `"imageAlt": "Illustration: …"`.
 3. Regenerate. Markup includes:
 
 ```html

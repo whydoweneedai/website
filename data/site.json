@@ -1,4 +1,7 @@
 {
+  "settings": {
+    "shipTypographicHeroes": true
+  },
   "newsletter": {
     "active": false
   },
@@ -27,12 +30,12 @@
     {
       "slug": "choosing-ai-tools",
       "name": "Choosing AI tools",
-      "intro": "Comparisons and decision tests for picking software—when a chatbot helps, when rules are enough, and how to match a subscription to the job you actually need done."
+      "intro": "Comparisons and decision tests for picking software\u2014when a chatbot helps, when rules are enough, and how to match a subscription to the job you actually need done."
     },
     {
       "slug": "automation-workflows",
       "name": "Automation & workflows",
-      "intro": "Lifecycle maps and blueprints for follow-up, handoff, and repetitive work—written for owners who need clear stop conditions before anything goes live."
+      "intro": "Lifecycle maps and blueprints for follow-up, handoff, and repetitive work\u2014written for owners who need clear stop conditions before anything goes live."
     },
     {
       "slug": "roi-planning",
@@ -52,8 +55,8 @@
       "date": "2026-10-29",
       "dateModified": "2026-10-29",
       "readMin": 5,
-      "hero": "illustration",
-      "imageAlt": "Illustration: four stylized work roles beside a laptop—documents, numbers, inbox, and office tasks—not product screenshots.",
+      "hero": "typographic",
+      "imageAlt": "Illustration: four stylized work roles beside a laptop\u2014documents, numbers, inbox, and office tasks\u2014not product screenshots.",
       "searchTitle": "ChatGPT, Claude or Gemini: which one is best at what",
       "searchDek": "Claude reads your contracts, ChatGPT crunches your numbers and makes images, Gemini and Copilot run your inbox. Which AI to pay for, job by job."
     },
@@ -63,7 +66,7 @@
       "date": "2026-10-24",
       "dateModified": "2026-10-24",
       "readMin": 10,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: stack of paper invoices beside a spreadsheet with check and warning icons.",
       "searchTitle": "Can AI type your invoices into a spreadsheet?",
       "searchDek": "We ran 24 invented invoices, including scans and handwriting, through an AI model and a rules script. AI read messy ones better but missed a bad total."
@@ -74,7 +77,7 @@
       "date": "2026-10-23",
       "dateModified": "2026-10-23",
       "readMin": 9,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: calendar and payment reminders beside a rules flowchart and chat bubble.",
       "searchTitle": "AI vs. simple rules for appointment and payment reminders",
       "searchDek": "We ran 30 made-up reminder records through a rules script and an AI model three times each. Rules got every routine case right."
@@ -85,7 +88,7 @@
       "date": "2026-10-19",
       "dateModified": "2026-10-22",
       "readMin": 12,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: inbox with inquiry emails and a draft reply under review.",
       "searchTitle": "We ran 30 invented customer inquiries through an AI follow-up assistant",
       "searchDek": "A 30-case synthetic test: stop checks passed, but one draft made unapproved promises."
@@ -96,7 +99,7 @@
       "date": "2026-10-19",
       "dateModified": "2026-10-19",
       "readMin": 11,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: checklist clipboard beside workflow cards marked pass, caution, and stop.",
       "searchTitle": "We tested our AI readiness checklist on 12 made-up workflows",
       "searchDek": "We ran our readiness checklist on 12 invented workflows. It's a good brake and a poor compass."
@@ -107,7 +110,7 @@
       "date": "2026-10-14",
       "dateModified": "2026-10-14",
       "readMin": 14,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: lead follow-up timeline from inquiry through handoff to closed deal.",
       "searchTitle": "Small-business lead follow-up automation: a blueprint",
       "searchDek": "A lifecycle map for capture, handoff, follow-up, and closure, with exceptions and stop conditions to write first."
@@ -118,7 +121,7 @@
       "date": "2026-08-22",
       "dateModified": "2026-10-14",
       "readMin": 12,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: five task cards ranked on an automation scorecard.",
       "searchTitle": "5 tasks your small business should automate before anything else",
       "searchDek": "Use a five-question scorecard, simple ROI math, and a worked example to identify repetitive work worth automating."
@@ -129,7 +132,7 @@
       "date": "2026-08-22",
       "dateModified": "2026-10-19",
       "readMin": 10,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: twenty-point readiness scorecard on a workflow diagram.",
       "searchTitle": "The small-business AI readiness checklist",
       "searchDek": "Score one workflow with a 20-point readiness check and turn the result into a one-page pilot brief."
@@ -140,7 +143,7 @@
       "date": "2026-08-22",
       "dateModified": "2026-09-30",
       "readMin": 11,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: side-by-side tool comparison scorecard with pilot checklist.",
       "searchTitle": "How to choose your first AI tool without wasting money",
       "searchDek": "Compare tools with the same real work, a 35-point scorecard, total-cost math, and a 30-day pilot."
@@ -151,7 +154,7 @@
       "date": "2026-09-30",
       "dateModified": "2026-10-14",
       "readMin": 9,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: decision fork between rules-based automation and AI assistance.",
       "searchTitle": "AI vs. automation: when your small business actually needs AI",
       "searchDek": "Use the Minimum Intelligence Principle and a four-question decision test to choose between rules, AI, and human judgment."
@@ -162,7 +165,7 @@
       "date": "2026-10-02",
       "dateModified": "2026-10-02",
       "readMin": 10,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: ROI worksheet with savings, costs, and break-even chart.",
       "searchTitle": "How to calculate the ROI of AI automation",
       "searchDek": "Use a conservative five-number model to calculate net monthly value, break-even volume, and payback period."
@@ -173,7 +176,7 @@
       "date": "2026-10-04",
       "dateModified": "2026-10-04",
       "readMin": 9,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: green, yellow, and red data labels beside documents entering an AI tool.",
       "searchTitle": "What data should you put into an AI tool?",
       "searchDek": "Use a green-yellow-red data framework and a pre-upload checklist before business information enters an AI workflow."
@@ -184,7 +187,7 @@
       "date": "2026-10-07",
       "dateModified": "2026-10-09",
       "readMin": 8,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: pilot evaluation sheet with keep, fix, and stop columns.",
       "searchTitle": "How to evaluate an AI pilot: keep, fix, or stop",
       "searchDek": "Use a pilot evidence sheet, quality buckets, net-time math, and a worked example to decide whether an AI workflow deserves to continue."
@@ -195,7 +198,7 @@
       "date": "2026-10-09",
       "dateModified": "2026-10-09",
       "readMin": 11,
-      "hero": "illustration",
+      "hero": "typographic",
       "imageAlt": "Illustration: business app icons with permission toggles and an action contract.",
       "searchTitle": "AI agents are moving into your business apps",
       "searchDek": "Use an Agent Action Contract and a contractor test plan to decide what an assistant may read, draft, propose, and change."
