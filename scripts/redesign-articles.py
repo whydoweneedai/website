@@ -128,20 +128,60 @@ def replace_eyebrow(header: str, topic: str, label: str, topic_pages: set) -> st
     )
 
 
-def clean_article_head(head: str) -> str:
-    """Strip chrome duplicates; keep page metadata and schema."""
+def _dedupe_head_tags(head: str) -> str:
+    """Remove duplicate link/meta tags so rebuilds are idempotent."""
     head = re.sub(r"<!-- Google tag \(gtag\.js\) -->.*?crossorigin=\"anonymous\"></script>\s*", "", head, flags=re.DOTALL)
-    head = re.sub(r"<link rel=\"icon\"[^>]*>\s*", "", head)
-    head = re.sub(r"<link rel=\"apple-touch-icon\"[^>]*>\s*", "", head)
-    head = re.sub(r"<link rel=\"preconnect\"[^>]*>\s*", "", head)
+    head = re.sub(r"<!-- Google AdSense -->.*?crossorigin=\"anonymous\"></script>\s*", "", head, flags=re.DOTALL)
+    head = re.sub(r"<link rel=\"icon\"[^>]*>\s*", "", head, flags=re.IGNORECASE)
+    head = re.sub(r"<link rel=\"apple-touch-icon\"[^>]*>\s*", "", head, flags=re.IGNORECASE)
+    head = re.sub(r"<link rel=\"manifest\"[^>]*>\s*", "", head, flags=re.IGNORECASE)
+    head = re.sub(r"<link rel=\"preconnect\"[^>]*>\s*", "", head, flags=re.IGNORECASE)
     head = re.sub(
         r"<link rel=\"preload\" as=\"style\" href=\"https://fonts.googleapis.com[^\"]*\"[^>]*>\s*",
         "",
         head,
+        flags=re.IGNORECASE,
     )
-    head = re.sub(r"<noscript><link href=\"https://fonts.googleapis.com[^\"]*\"[^>]*></noscript>\s*", "", head)
-    head = re.sub(r"<link rel=\"stylesheet\" href=\"(?:\.\./)?styles\.css\">\s*", "", head)
-    head = re.sub(r"<link rel=\"stylesheet\" href=\"/blog/styles\.css\">\s*", "", head)
+    head = re.sub(r"<noscript><link href=\"https://fonts.googleapis.com[^\"]*\"[^>]*></noscript>\s*", "", head, flags=re.IGNORECASE)
+    head = re.sub(r"<link rel=\"stylesheet\" href=\"(?:\.\./)?styles\.css\">\s*", "", head, flags=re.IGNORECASE)
+    head = re.sub(r"<link rel=\"stylesheet\" href=\"/blog/styles\.css\">\s*", "", head, flags=re.IGNORECASE)
+
+    seen: set[str] = set()
+    out: list[str] = []
+
+    def tag_key(tag: str) -> str | None:
+        tag_l = tag.lower()
+        if tag_l.startswith("<meta "):
+            m = re.search(r'\bproperty="([^"]+)"', tag, re.I)
+            if m:
+                return f"meta:property:{m.group(1).lower()}"
+            m = re.search(r'\bname="([^"]+)"', tag, re.I)
+            if m:
+                return f"meta:name:{m.group(1).lower()}"
+            return None
+        if tag_l.startswith("<link "):
+            m = re.search(r'\brel="([^"]+)"', tag, re.I)
+            href = re.search(r'\bhref="([^"]+)"', tag, re.I)
+            if m and href:
+                return f"link:{m.group(1).lower()}:{href.group(1)}"
+        return None
+
+    for part in re.split(r"(<meta[^>]+>|<link[^>]+>)", head):
+        if part.startswith("<meta") or part.startswith("<link"):
+            key = tag_key(part)
+            if key:
+                if key in seen:
+                    continue
+                seen.add(key)
+            out.append(part)
+        else:
+            out.append(part)
+    return "".join(out)
+
+
+def clean_article_head(head: str) -> str:
+    """Strip chrome duplicates; keep page metadata and schema."""
+    head = _dedupe_head_tags(head)
     head = head.strip()
     return f"{head}\n{FONT.strip()}"
 
@@ -161,20 +201,6 @@ def process_file(path: Path, site):
         return
 
     article_body = m_body.group(1)
-    correction_above = ""
-    correction_m = re.search(
-        r'<div class="callout" id="editorial-correction">.*?</div>',
-        article_body,
-        flags=re.DOTALL,
-    )
-    if correction_m:
-        correction_above = (
-            '<details class="article-correction-fold">\n'
-            "  <summary>Editorial correction</summary>\n"
-            f'  <div class="article-correction-above">{correction_m.group(0)}</div>\n'
-            "</details>\n"
-        )
-        article_body = article_body.replace(correction_m.group(0), "", 1)
 
     article_header = replace_eyebrow(
         m_header.group(1), art["topic"], art["topicLabel"], site["topic_pages"]
@@ -206,7 +232,7 @@ def process_file(path: Path, site):
   <summary>In this article</summary>
   <nav class="article-toc article-toc--fold" id="article-toc" aria-label="Table of contents" hidden></nav>
 </details>
-{correction_above}{article_body}
+{article_body}
 {extras}
 {article_nav}
 </div>

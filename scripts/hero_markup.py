@@ -28,7 +28,6 @@ def typographic_plate(art: dict, variant: str = "article") -> str:
     alt = art.get("imageAlt") or art["searchTitle"]
     return f"""<figure class="article-hero article-hero--typographic">
   <div class="hero-plate hero-plate--article" role="img" aria-label="{alt}">
-    <span class="hero-plate-topic">{topic}</span>
     {ROBOT_HEAD_MARK}
   </div>
 </figure>"""
