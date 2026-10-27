@@ -22,6 +22,11 @@ ADSENSE_BLOCK = re.compile(
     r"\s*<!-- Google AdSense -->.*?pagead2\.googlesyndication\.com.*?</script>",
     re.DOTALL,
 )
+ADSENSE_SCRIPT = re.compile(
+    r'<script async src="https://pagead2\.googlesyndication\.com/pagead/js/adsbygoogle\.js[^"]*"[^>]*></script>\s*',
+    re.DOTALL,
+)
+ADSENSE_META = re.compile(r'\s*<meta name="google-adsense-account"[^>]*>\s*')
 
 PATHS = [
     "about/index.html",
@@ -29,12 +34,14 @@ PATHS = [
     "contact/thanks/index.html",
     "editorial-policy/index.html",
     "privacy/index.html",
-    "subscribe/thanks/index.html",
 ]
 
 
 def strip_adsense(html: str) -> str:
-    return ADSENSE_BLOCK.sub("", html)
+    html = ADSENSE_BLOCK.sub("", html)
+    html = ADSENSE_SCRIPT.sub("", html)
+    html = ADSENSE_META.sub("\n", html)
+    return html
 
 
 def ensure_ga_only(html: str) -> str:

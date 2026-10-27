@@ -79,7 +79,7 @@
   </nav>
 </header>
   <div class="pub-dateline-bar" aria-hidden="false">
-    <p class="pub-dateline" id="pub-dateline"></p>
+    <p class="pub-dateline" id="pub-dateline">Oct 27, 2026 · Practical AI for small business</p>
   </div>
   <main class="page-main" id="main-content">
     <header class="masthead">
@@ -98,7 +98,7 @@
       </div>
       <article class="lead-story">
         <div class="lead-story-media lead-story-media--typographic"><a href="/blog/chatgpt-vs-claude-vs-gemini-vs-copilot/" class="hero-plate-link"><div class="hero-plate hero-plate--lead" aria-hidden="true">
-  <span class="hero-plate-topic">Choosing AI tools</span>
+  <span class="hero-plate-topic">Choosing tools</span>
   <img class="hero-plate-mark" src="/images/brand/robot-head.png" width="262" height="174" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div></a></div>
         <div>
@@ -146,7 +146,7 @@
 <article class="card card--standard">
           <a class="card-link" href="/blog/lead-follow-up-automation/">
             <div class="card-media card-media--typographic"><div class="hero-plate hero-plate--card" aria-hidden="true">
-  <span class="hero-plate-topic">Automation & workflows</span>
+  <span class="hero-plate-topic">Automation</span>
   <img class="hero-plate-mark" src="/images/brand/robot-head.png" width="262" height="174" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div></div>
             <div class="card-body"><span class="topic-label">Automation & workflows</span><h3 class="card-title">Small-business lead follow-up automation: a blueprint</h3><p class="card-dek">A lifecycle map for capture, handoff, follow-up, and closure, with exceptions and stop conditions to write first.</p></div>
@@ -200,7 +200,7 @@
 <article class="card card--standard">
           <a class="card-link" href="/blog/chatgpt-vs-claude-vs-gemini-vs-copilot/">
             <div class="card-media card-media--typographic"><div class="hero-plate hero-plate--card" aria-hidden="true">
-  <span class="hero-plate-topic">Choosing AI tools</span>
+  <span class="hero-plate-topic">Choosing tools</span>
   <img class="hero-plate-mark" src="/images/brand/robot-head.png" width="262" height="174" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </div></div>
             <div class="card-body"><h3 class="card-title">ChatGPT, Claude or Gemini: which one is best at what</h3><p class="card-dek">Claude reads your contracts, ChatGPT crunches your numbers and makes images, Gemini and Copilot run your inbox. Which AI to pay for, job by job.</p></div>
@@ -281,11 +281,10 @@
   <script>
   (function () {
     var el = document.getElementById("pub-dateline");
-    if (el) {
-      var d = new Date();
-      var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-      el.textContent = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " · Practical AI for small business";
-    }
+    if (!el) return;
+    var d = new Date();
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    el.textContent = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " · Practical AI for small business";
   })();
   </script>
   <script>

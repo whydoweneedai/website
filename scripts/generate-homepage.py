@@ -4,7 +4,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hero_markup import LOGO_OG, card_media, lead_media_link, og_image_url
-from site_data import load_site, topic_href
+from datetime import date
+
+from site_data import format_display_date, load_site, topic_href
 from site_chrome import (
     FONT,
     HEAD_ICONS,
@@ -62,6 +64,7 @@ def main():
         topic_card(t, topic_pages) for t in site["raw"]["topics"] if t["slug"] in topic_pages
     )
     og_image = og_image_url(slug="home")
+    built_dateline = f"{format_display_date(date.today().isoformat())} · Practical AI for small business"
 
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>
@@ -109,7 +112,7 @@ def main():
   <a class="skip-link" href="#main-content">Skip to content</a>
 {header_nav("/")}
   <div class="pub-dateline-bar" aria-hidden="false">
-    <p class="pub-dateline" id="pub-dateline"></p>
+    <p class="pub-dateline" id="pub-dateline">{built_dateline}</p>
   </div>
   <main class="page-main" id="main-content">
     <header class="masthead">
@@ -178,11 +181,10 @@ def main():
   <script>
   (function () {{
     var el = document.getElementById("pub-dateline");
-    if (el) {{
-      var d = new Date();
-      var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-      el.textContent = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " · Practical AI for small business";
-    }}
+    if (!el) return;
+    var d = new Date();
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    el.textContent = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " · Practical AI for small business";
   }})();
   </script>
   <script>

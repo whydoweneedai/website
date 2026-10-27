@@ -10,6 +10,19 @@ SITE_PATH = ROOT / "data/site.json"
 HERO_CAPTION = "Illustration: WhyDoWeNeedAI"
 LOGO_OG = "https://whydoweneedai.com/website_logo.png"
 
+# Short labels for tight cover plates / archive thumbs
+TOPIC_PLATE_LABELS = {
+    "tested": "Tested",
+    "choosing-ai-tools": "Choosing tools",
+    "automation-workflows": "Automation",
+    "roi-planning": "ROI & planning",
+    "risk-data": "Risk & data",
+}
+
+
+def topic_plate_label(topic_slug: str, fallback: str) -> str:
+    return TOPIC_PLATE_LABELS.get(topic_slug, fallback)
+
 
 def format_display_date(iso: str) -> str:
     """e.g. 2026-10-29 -> Oct 29, 2026"""
@@ -24,6 +37,7 @@ def load_site():
     for a in articles:
         t = topics_by_slug[a["topic"]]
         a["topicLabel"] = t["name"]
+        a["topicPlateLabel"] = topic_plate_label(a["topic"], t["name"])
         a["dateDisplay"] = format_display_date(a["date"])
         mod = a.get("dateModified") or a["date"]
         a["dateModifiedDisplay"] = format_display_date(mod)

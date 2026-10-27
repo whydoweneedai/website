@@ -14,7 +14,7 @@ ROBOT_HEAD_MARK = """<img class="hero-plate-mark" src="/images/brand/robot-head.
 
 def typographic_plate(art: dict, variant: str = "article") -> str:
     """Text-and-color cover: topic label + robot-head mark (title lives outside the plate)."""
-    topic = art["topicLabel"]
+    topic = art.get("topicPlateLabel") or art["topicLabel"]
     if variant == "card":
         return f"""<div class="hero-plate hero-plate--card" aria-hidden="true">
   <span class="hero-plate-topic">{topic}</span>

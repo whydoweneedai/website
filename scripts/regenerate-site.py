@@ -27,10 +27,12 @@ def main():
     run("generate-blog-index.py")
     run("generate-pages.py")
     run("generate-404.py")
+    run("generate-subscribe-thanks.py")
     run("redesign-articles.py")
     subprocess.check_call(["node", str(SCRIPTS / "build-search-index.js")])
     run("generate-search.py")
     run("apply-chrome.py")
+    run("patch-static-og.py")
     print("Done. Review data/site.json and commit outputs.")
 
 
