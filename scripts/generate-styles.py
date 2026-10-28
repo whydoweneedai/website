@@ -856,6 +856,23 @@ html[data-newsletter="on"] .newsletter-soon { display: none; }
   background: var(--color-accent-soft);
   color: var(--color-ink-muted);
 }
+.article-body pre {
+  margin: 0 0 1.25em;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-accent-soft);
+  font-size: 15px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow-x: auto;
+}
+.article-body pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
 
 .table-wrap {
   width: 100%; max-width: 100%; margin: 1.25em 0;
