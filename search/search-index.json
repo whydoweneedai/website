@@ -18,6 +18,15 @@
     "dateIso": "2026-10-28"
   },
   {
+    "title": "Turn last month's bank statement into a budget you'll actually keep",
+    "dek": "Holiday spending starts this month. Strip out the personal details, paste in one statement, and get a budget built on how you actually spend.",
+    "topic": "Choosing AI tools",
+    "topicSlug": "choosing-ai-tools",
+    "url": "/blog/chatgpt-budget-from-bank-statement/",
+    "date": "Oct 28, 2026",
+    "dateIso": "2026-10-28"
+  },
+  {
     "title": "Can AI type your invoices into a spreadsheet?",
     "dek": "We ran 24 invented invoices, including scans and handwriting, through an AI model and a rules script. AI read messy ones better but missed a bad total.",
     "topic": "Tested",

@@ -9,13 +9,14 @@
     "leadSlug": "chatgpt-vs-claude-vs-gemini-vs-copilot",
     "latestSlugs": [
       "ai-readiness-checklist-test",
-      "ai-lead-follow-up-test",
       "lead-follow-up-automation",
       "ai-agents-business-app-permissions",
       "evaluate-ai-pilot",
       "data-ai-tools",
       "ai-vs-automation",
-      "ai-readiness-checklist"
+      "ai-readiness-checklist",
+      "ai-lead-follow-up-test",
+      "ai-vs-rules-appointment-payment-reminders"
     ],
     "editorsPickSlugs": [
       "what-to-automate-first",
@@ -51,6 +52,17 @@
     }
   ],
   "articles": [
+    {
+      "slug": "chatgpt-budget-from-bank-statement",
+      "topic": "choosing-ai-tools",
+      "date": "2026-10-28",
+      "dateModified": "2026-10-28",
+      "readMin": 5,
+      "hero": "typographic",
+      "imageAlt": "Illustration: bank statement lines beside a budget table and a chat prompt.",
+      "searchTitle": "Turn last month's bank statement into a budget you'll actually keep",
+      "searchDek": "Holiday spending starts this month. Strip out the personal details, paste in one statement, and get a budget built on how you actually spend."
+    },
     {
       "slug": "thanksgiving-plan-chatgpt-menu-timeline-grocery-list",
       "topic": "choosing-ai-tools",
