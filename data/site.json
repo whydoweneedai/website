@@ -8,7 +8,9 @@
   "homepage": {
     "leadSlug": "chatgpt-vs-claude-vs-gemini-vs-copilot",
     "latestSlugs": [
+      "thanksgiving-plan-chatgpt-menu-timeline-grocery-list",
       "ai-readiness-checklist-test",
+      "ai-lead-follow-up-test",
       "lead-follow-up-automation",
       "ai-agents-business-app-permissions",
       "evaluate-ai-pilot",
@@ -50,6 +52,17 @@
     }
   ],
   "articles": [
+    {
+      "slug": "thanksgiving-plan-chatgpt-menu-timeline-grocery-list",
+      "topic": "choosing-ai-tools",
+      "date": "2026-11-03",
+      "dateModified": "2026-11-03",
+      "readMin": 6,
+      "hero": "typographic",
+      "imageAlt": "Illustration: Thanksgiving menu, timeline, and grocery list beside a chat prompt.",
+      "searchTitle": "Hosting Thanksgiving? One prompt gets you the menu, the timeline and the grocery list",
+      "searchDek": "Give ChatGPT four facts about your kitchen and it hands back a menu, an hour-by-hour plan and one grocery list sorted by aisle."
+    },
     {
       "slug": "chatgpt-vs-claude-vs-gemini-vs-copilot",
       "topic": "choosing-ai-tools",

@@ -1,5 +1,14 @@
 [
   {
+    "title": "Hosting Thanksgiving? One prompt gets you the menu, the timeline and the grocery list",
+    "dek": "Give ChatGPT four facts about your kitchen and it hands back a menu, an hour-by-hour plan and one grocery list sorted by aisle.",
+    "topic": "Choosing AI tools",
+    "topicSlug": "choosing-ai-tools",
+    "url": "/blog/thanksgiving-plan-chatgpt-menu-timeline-grocery-list/",
+    "date": "Nov 3, 2026",
+    "dateIso": "2026-11-03"
+  },
+  {
     "title": "ChatGPT, Claude or Gemini: which one is best at what",
     "dek": "Claude reads your contracts, ChatGPT crunches your numbers and makes images, Gemini and Copilot run your inbox. Which AI to pay for, job by job.",
     "topic": "Choosing AI tools",
