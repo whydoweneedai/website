@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hero_markup import LOGO_OG, og_image_url
 
-from site_data import load_site, publication_dateline, topic_href
+from site_data import format_display_date, load_site, publication_dateline, topic_href
 from site_chrome import (
     FONT,
     HEAD_ICONS,
@@ -90,7 +90,13 @@ def main():
         topic_card(t, topic_pages) for t in site["raw"]["topics"] if t["slug"] in topic_pages
     )
     og_image = og_image_url(slug="home")
-    built_dateline = publication_dateline()
+    pinned = hp.get("mastheadDatelineDate")
+    if pinned:
+        built_dateline = (
+            f"{format_display_date(pinned)} · Practical AI for small business"
+        )
+    else:
+        built_dateline = publication_dateline()
 
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>

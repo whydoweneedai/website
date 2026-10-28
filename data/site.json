@@ -6,6 +6,7 @@
     "active": false
   },
   "homepage": {
+    "mastheadDatelineDate": "2026-10-27",
     "leadSlug": "chatgpt-vs-claude-vs-gemini-vs-copilot",
     "latestSlugs": [
       "ai-readiness-checklist-test",
@@ -15,7 +16,8 @@
       "data-ai-tools",
       "ai-vs-automation",
       "ai-readiness-checklist",
-      "ai-lead-follow-up-test"
+      "ai-lead-follow-up-test",
+      "ai-vs-rules-appointment-payment-reminders"
     ],
     "editorsPickSlugs": [
       "what-to-automate-first",
@@ -61,6 +63,17 @@
       "imageAlt": "Illustration: bank statement lines beside a budget table and a chat prompt.",
       "searchTitle": "Turn last month's bank statement into a budget you'll actually keep",
       "searchDek": "Holiday spending starts this month. Strip out the personal details, paste in one statement, and get a budget built on how you actually spend."
+    },
+    {
+      "slug": "thanksgiving-plan-chatgpt-menu-timeline-grocery-list",
+      "topic": "choosing-ai-tools",
+      "date": "2026-10-28",
+      "dateModified": "2026-10-28",
+      "readMin": 6,
+      "hero": "typographic",
+      "imageAlt": "Illustration: Thanksgiving menu, timeline, and grocery list beside a chat prompt.",
+      "searchTitle": "Hosting Thanksgiving? One prompt gets you the menu, the timeline and the grocery list",
+      "searchDek": "Give ChatGPT four facts about your kitchen and it hands back a menu, an hour-by-hour plan and one grocery list sorted by aisle."
     },
     {
       "slug": "chatgpt-vs-claude-vs-gemini-vs-copilot",
