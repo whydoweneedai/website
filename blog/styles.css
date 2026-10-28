@@ -823,6 +823,7 @@ html[data-newsletter="on"] .newsletter-soon { display: none; }
   max-width: var(--measure);
 }
 .article-body > * { max-width: var(--measure); }
+.article-body > pre { max-width: none; }
 .article-body .callout#editorial-correction {
   margin: 0 0 var(--space-4);
   padding: var(--space-3) var(--space-4);
