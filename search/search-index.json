@@ -1,14 +1,5 @@
 [
   {
-    "title": "Turn last month's bank statement into a budget you'll actually keep",
-    "dek": "Holiday spending starts this month. Strip out the personal details, paste in one statement, and get a budget built on how you actually spend.",
-    "topic": "Choosing AI tools",
-    "topicSlug": "choosing-ai-tools",
-    "url": "/blog/chatgpt-budget-from-bank-statement/",
-    "date": "Oct 30, 2026",
-    "dateIso": "2026-10-30"
-  },
-  {
     "title": "ChatGPT, Claude or Gemini: which one is best at what",
     "dek": "Claude reads your contracts, ChatGPT crunches your numbers and makes images, Gemini and Copilot run your inbox. Which AI to pay for, job by job.",
     "topic": "Choosing AI tools",
@@ -16,6 +7,15 @@
     "url": "/blog/chatgpt-vs-claude-vs-gemini-vs-copilot/",
     "date": "Oct 29, 2026",
     "dateIso": "2026-10-29"
+  },
+  {
+    "title": "Turn last month's bank statement into a budget you'll actually keep",
+    "dek": "Holiday spending starts this month. Strip out the personal details, paste in one statement, and get a budget built on how you actually spend.",
+    "topic": "Choosing AI tools",
+    "topicSlug": "choosing-ai-tools",
+    "url": "/blog/chatgpt-budget-from-bank-statement/",
+    "date": "Oct 28, 2026",
+    "dateIso": "2026-10-28"
   },
   {
     "title": "Can AI type your invoices into a spreadsheet?",
