@@ -295,6 +295,7 @@ function sendFollowUpEmail(data) {
         '— no pressure, no jargon.</p>' +
       cta +
       '<p style="margin:12px 0;">Want help putting this into practice? We offer hands-on AI consulting. Reply to this email and we\'ll set up a short call.</p>' +
+      '<p style="margin:0 0 12px;color:#6b7280;font-size:13px;">Disclosure: the consulting is provided by Nocos Consulting, the firm behind whydoweneedai.com.</p>' +
       '<p style="margin:24px 0 0;color:#6b7280;font-size:13px;">' +
         'Built by someone who was also confused by AI once.<br>' +
         'whydoweneedai.com</p>' +
@@ -311,7 +312,8 @@ function sendFollowUpEmail(data) {
     (formUrl
       ? 'Start here: ' + formUrl + '\n\n'
       : 'We\'ll follow up shortly with the assessment.\n\n') +
-    'Want help putting this into practice? We offer hands-on AI consulting. Reply to this email and we\'ll set up a short call.\n\n' +
+    'Want help putting this into practice? We offer hands-on AI consulting. Reply to this email and we\'ll set up a short call.\n' +
+    'Disclosure: the consulting is provided by Nocos Consulting, the firm behind whydoweneedai.com.\n\n' +
     'whydoweneedai.com';
 
   return sendEmail_(data.email, subject, htmlBody, plainBody);
