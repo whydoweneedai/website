@@ -294,6 +294,7 @@ function sendFollowUpEmail(data) {
         'few minutes and helps us map the single highest-ROI automation for you ' +
         '— no pressure, no jargon.</p>' +
       cta +
+      '<p style="margin:12px 0;">Want help putting this into practice? We offer hands-on AI consulting. Reply to this email and we\'ll set up a short call.</p>' +
       '<p style="margin:24px 0 0;color:#6b7280;font-size:13px;">' +
         'Built by someone who was also confused by AI once.<br>' +
         'whydoweneedai.com</p>' +
@@ -310,6 +311,7 @@ function sendFollowUpEmail(data) {
     (formUrl
       ? 'Start here: ' + formUrl + '\n\n'
       : 'We\'ll follow up shortly with the assessment.\n\n') +
+    'Want help putting this into practice? We offer hands-on AI consulting. Reply to this email and we\'ll set up a short call.\n\n' +
     'whydoweneedai.com';
 
   return sendEmail_(data.email, subject, htmlBody, plainBody);
