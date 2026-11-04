@@ -11,6 +11,18 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     site = load_site()
+    thanks_dir = ROOT / "subscribe/thanks"
+    thanks_file = thanks_dir / "index.html"
+    if not site["newsletter_active"]:
+        if thanks_file.exists():
+            thanks_file.unlink()
+            if thanks_dir.exists() and not any(thanks_dir.iterdir()):
+                thanks_dir.rmdir()
+                parent = thanks_dir.parent
+                if parent.exists() and not any(parent.iterdir()):
+                    parent.rmdir()
+        print("subscribe/thanks removed (newsletter inactive)")
+        return
     nl = html_newsletter_attr(site["newsletter_active"])
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl}>
@@ -38,7 +50,8 @@ def main():
 </body>
 </html>
 """
-    (ROOT / "subscribe/thanks/index.html").write_text(html)
+    thanks_dir.mkdir(parents=True, exist_ok=True)
+    thanks_file.write_text(html)
     print("subscribe/thanks ok")
 
 

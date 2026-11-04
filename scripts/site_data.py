@@ -36,6 +36,22 @@ def publication_dateline() -> str:
     return f"{format_display_date(d.isoformat())} · Practical AI for small business"
 
 
+def newest_article_iso(articles) -> str:
+    """Newest published or updated date across the article catalog."""
+    best = ""
+    for a in articles:
+        mod = a.get("dateModified") or a["date"]
+        if mod > best:
+            best = mod
+    return best
+
+
+def masthead_dateline(articles) -> str:
+    """Homepage masthead dateline from the newest article date."""
+    iso = newest_article_iso(articles)
+    return f"{format_display_date(iso)} · Practical AI for small business"
+
+
 def load_site():
     data = json.loads(SITE_PATH.read_text())
     topics_by_slug = {t["slug"]: t for t in data["topics"]}

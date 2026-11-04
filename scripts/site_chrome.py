@@ -141,6 +141,7 @@ def footer_html() -> str:
         <a href="/editorial-policy/">Editorial policy</a>
         <a href="/contact/">Contact</a>
         <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
         <a href="/ai-readyscore/">AI ReadyScore</a>
       </div>
     </nav>
@@ -153,6 +154,8 @@ NEWSLETTER_COPY = "One useful email when we publish: what we tested, what worked
 
 
 def newsletter_home_block() -> str:
+    if not load_site()["newsletter_active"]:
+        return ""
     return f"""    <section class="home-section newsletter-block" aria-labelledby="newsletter-title">
       <div class="newsletter-block-inner">
         {mascot_img("md")}
@@ -173,6 +176,8 @@ def newsletter_home_block() -> str:
 
 
 def newsletter_article_block(slug: str) -> str:
+    if not load_site()["newsletter_active"]:
+        return ""
     return f"""  <aside class="newsletter-compact" aria-labelledby="nl-{slug}">
     {mascot_img("sm")}
     <h2 id="nl-{slug}" class="module-title">Newsletter</h2>

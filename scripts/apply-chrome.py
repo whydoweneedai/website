@@ -29,6 +29,7 @@ PATHS = [
     "contact/thanks/index.html",
     "editorial-policy/index.html",
     "privacy/index.html",
+    "terms/index.html",
 ]
 
 

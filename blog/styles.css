@@ -150,7 +150,20 @@ img { display: block; max-width: 100%; height: auto; }
   flex-shrink: 0;
 }
 @media (max-width: 639px) {
-  .masthead--front { display: none; }
+  .masthead--front {
+    display: block;
+    padding: var(--space-3) 0 var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .masthead--front .masthead-logo,
+  .masthead--front .masthead-tagline,
+  .masthead--front .masthead-sub { display: none; }
+  .masthead--front .masthead-inner--front {
+    display: block;
+    width: min(var(--measure-wide), calc(100% - 2rem));
+    margin: 0 auto;
+  }
+  .masthead--front .masthead-dateline { margin: 0; line-height: 1.35; }
   .home-section--lead { padding-top: var(--space-4); }
 }
 @media (min-width: 640px) {
