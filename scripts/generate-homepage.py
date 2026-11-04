@@ -74,10 +74,14 @@ def main():
 
     latest_slugs = list(hp["latestSlugs"])
     pick_slugs = list(hp["editorsPickSlugs"])
+    all_slugs = {a["slug"] for a in site["articles"]}
     home_slugs = {lead_slug} | set(rail_slugs) | set(latest_slugs) | set(pick_slugs)
-    if len(home_slugs) != len(site["articles"]):
+    if home_slugs != all_slugs:
+        missing = sorted(all_slugs - home_slugs)
+        extra = sorted(home_slugs - all_slugs)
         raise SystemExit(
-            f"homepage must list each article once (got {len(home_slugs)}, expected {len(site['articles'])})"
+            f"homepage must include every article in lead, rail, latest, or editor's picks "
+            f"(missing {missing or 'none'}, extra {extra or 'none'})"
         )
 
     def latest_row(a) -> str:

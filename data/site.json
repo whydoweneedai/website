@@ -9,8 +9,8 @@
     "leadSlug": "can-ai-enter-invoices-spreadsheet-test",
     "featuredSlugs": [
       "ai-vs-rules-appointment-payment-reminders",
-      "chatgpt-budget-from-bank-statement",
-      "choose-first-ai-tool"
+      "chatgpt-vs-claude-vs-gemini-vs-copilot",
+      "ai-agents-business-app-permissions"
     ],
     "latestSlugs": [
       "ai-readiness-checklist-test",
@@ -21,12 +21,15 @@
       "ai-vs-automation",
       "ai-readiness-checklist",
       "ai-lead-follow-up-test",
-      "ai-vs-rules-appointment-payment-reminders"
+      "ai-vs-rules-appointment-payment-reminders",
+      "choose-first-ai-tool",
+      "what-to-automate-first",
+      "ai-automation-roi"
     ],
     "editorsPickSlugs": [
-      "what-to-automate-first",
-      "choose-first-ai-tool",
-      "ai-automation-roi"
+      "ai-lead-follow-up-test",
+      "ai-readiness-checklist-test",
+      "chatgpt-budget-from-bank-statement"
     ]
   },
   "topics": [
@@ -61,8 +64,8 @@
       "slug": "chatgpt-budget-from-bank-statement",
       "topic": "choosing-ai-tools",
       "date": "2026-10-28",
-      "dateModified": "2026-10-28",
-      "readMin": 5,
+      "dateModified": "2026-11-04",
+      "readMin": 7,
       "hero": "typographic",
       "imageAlt": "Illustration: bank statement lines beside a budget table and a chat prompt.",
       "searchTitle": "Turn last month's bank statement into a budget you'll actually keep",
@@ -72,23 +75,23 @@
       "slug": "thanksgiving-plan-chatgpt-menu-timeline-grocery-list",
       "topic": "choosing-ai-tools",
       "date": "2026-10-28",
-      "dateModified": "2026-10-28",
+      "dateModified": "2026-11-04",
       "readMin": 6,
       "hero": "typographic",
       "imageAlt": "Illustration: Thanksgiving menu, timeline, and grocery list beside a chat prompt.",
       "searchTitle": "Hosting Thanksgiving? One prompt gets you the menu, the timeline and the grocery list",
-      "searchDek": "Give ChatGPT four facts about your kitchen and it hands back a menu, an hour-by-hour plan and one grocery list sorted by aisle."
+      "searchDek": "Give ChatGPT four facts about your kitchen and ask for a menu, an hour-by-hour plan and one grocery list sorted by aisle. Then check the turkey against USDA."
     },
     {
       "slug": "chatgpt-vs-claude-vs-gemini-vs-copilot",
       "topic": "choosing-ai-tools",
       "date": "2026-10-29",
-      "dateModified": "2026-10-29",
+      "dateModified": "2026-11-04",
       "readMin": 5,
       "hero": "typographic",
       "imageAlt": "Illustration: four stylized work roles beside a laptop\u2014documents, numbers, inbox, and office tasks\u2014not product screenshots.",
       "searchTitle": "ChatGPT, Claude or Gemini: which one is best at what",
-      "searchDek": "Claude reads your contracts, ChatGPT crunches your numbers and makes images, Gemini and Copilot run your inbox. Which AI to pay for, job by job."
+      "searchDek": "Our picks, job by job: Claude for long documents, ChatGPT for numbers and images, Gemini or Copilot for everyday office work. Researched, not tested."
     },
     {
       "slug": "can-ai-enter-invoices-spreadsheet-test",
@@ -116,7 +119,7 @@
       "slug": "ai-lead-follow-up-test",
       "topic": "tested",
       "date": "2026-10-19",
-      "dateModified": "2026-10-22",
+      "dateModified": "2026-11-04",
       "readMin": 12,
       "hero": "typographic",
       "imageAlt": "Illustration: inbox with inquiry emails and a draft reply under review.",
@@ -215,7 +218,7 @@
       "slug": "evaluate-ai-pilot",
       "topic": "roi-planning",
       "date": "2026-10-07",
-      "dateModified": "2026-10-09",
+      "dateModified": "2026-11-04",
       "readMin": 8,
       "hero": "typographic",
       "imageAlt": "Illustration: pilot evaluation sheet with keep, fix, and stop columns.",
