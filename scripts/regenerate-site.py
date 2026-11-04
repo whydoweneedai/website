@@ -26,6 +26,7 @@ def main():
     run("generate-homepage.py")
     run("generate-blog-index.py")
     run("generate-pages.py")
+    run("generate-terms.py")
     run("generate-404.py")
     run("generate-subscribe-thanks.py")
     run("redesign-articles.py")

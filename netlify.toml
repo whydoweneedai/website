@@ -107,3 +107,54 @@
   to = "/404"
   status = 404
   force = true
+
+# Internal build/source files (not linked from public pages)
+[[redirects]]
+  from = "/data/site.json"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/scripts/*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/docs/*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/blog/_template-notes.md"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/website_logo_original.png"
+  to = "/404"
+  status = 404
+  force = true
+
+# Custom 404 page should not be served with HTTP 200 at its direct URL
+[[redirects]]
+  from = "/404.html"
+  to = "/404"
+  status = 404
+  force = true
+
+# Newsletter inactive: do not serve subscribe confirmation placeholder
+[[redirects]]
+  from = "/subscribe/thanks"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/subscribe/thanks/"
+  to = "/404"
+  status = 404
+  force = true

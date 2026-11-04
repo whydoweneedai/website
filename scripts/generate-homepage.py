@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hero_markup import LOGO_OG, og_image_url
 
-from site_data import format_display_date, load_site, publication_dateline, topic_href
+from site_data import load_site, masthead_dateline, topic_href
 from site_chrome import (
     FONT,
     HEAD_ICONS,
@@ -50,7 +50,27 @@ def main():
     lead_slug = hp["leadSlug"]
     ordered_slugs = [a["slug"] for a in site["ordered"]]
     rail_slugs = [s for s in ordered_slugs if s != lead_slug][:3]
-    rail_set = set(rail_slugs)
+
+    featured_slugs = list(hp.get("featuredSlugs", []))
+    for slug in featured_slugs:
+        if slug not in by:
+            raise SystemExit(f"unknown featuredSlug: {slug}")
+        if slug == lead_slug:
+            raise SystemExit("featuredSlug cannot match leadSlug")
+
+    featured_cards = [text_card(by[slug], True) for slug in featured_slugs]
+    featured_grid = "\n        ".join(featured_cards)
+    featured_section = ""
+    if featured_cards:
+        featured_section = f"""
+    <section class="home-section home-section--featured" aria-labelledby="featured-title">
+      <div class="section-header">
+        <h2 id="featured-title" class="section-title">Featured</h2>
+      </div>
+      <div class="card-grid card-grid--picks">
+        {featured_grid}
+      </div>
+    </section>"""
 
     latest_slugs = list(hp["latestSlugs"])
     pick_slugs = list(hp["editorsPickSlugs"])
@@ -90,13 +110,7 @@ def main():
         topic_card(t, topic_pages) for t in site["raw"]["topics"] if t["slug"] in topic_pages
     )
     og_image = og_image_url(slug="home")
-    pinned = hp.get("mastheadDatelineDate")
-    if pinned:
-        built_dateline = (
-            f"{format_display_date(pinned)} · Practical AI for small business"
-        )
-    else:
-        built_dateline = publication_dateline()
+    built_dateline = masthead_dateline(site["articles"])
 
     html = f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>
@@ -174,6 +188,7 @@ def main():
         </aside>
       </div>
     </section>
+{featured_section}
 
     <section class="home-section" aria-labelledby="latest-title">
       <div class="section-header">
@@ -212,15 +227,6 @@ def main():
   </main>
 
 {footer_html()}
-  <script>
-  (function () {{
-    var el = document.getElementById("pub-dateline");
-    if (!el) return;
-    var d = new Date();
-    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    el.textContent = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " · Practical AI for small business";
-  }})();
-  </script>
   <script>
   (function () {{
     var hash = window.location.hash;

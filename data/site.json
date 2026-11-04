@@ -6,8 +6,12 @@
     "active": false
   },
   "homepage": {
-    "mastheadDatelineDate": "2026-10-27",
-    "leadSlug": "chatgpt-vs-claude-vs-gemini-vs-copilot",
+    "leadSlug": "can-ai-enter-invoices-spreadsheet-test",
+    "featuredSlugs": [
+      "ai-vs-rules-appointment-payment-reminders",
+      "chatgpt-budget-from-bank-statement",
+      "choose-first-ai-tool"
+    ],
     "latestSlugs": [
       "ai-readiness-checklist-test",
       "lead-follow-up-automation",
