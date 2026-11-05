@@ -54,6 +54,18 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/ai-readiness-score"
+  to = "/ai-readyscore/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ai-readiness-score/"
+  to = "/ai-readyscore/"
+  status = 301
+  force = true
+
 # Editorial / internal docs (root)
 [[redirects]]
   from = "/EDITORIAL_PLAYBOOK.md"
