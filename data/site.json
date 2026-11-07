@@ -6,13 +6,14 @@
     "active": false
   },
   "homepage": {
-    "leadSlug": "can-ai-enter-invoices-spreadsheet-test",
+    "leadSlug": "how-customers-find-small-business-chatgpt",
     "featuredSlugs": [
       "ai-vs-rules-appointment-payment-reminders",
       "chatgpt-vs-claude-vs-gemini-vs-copilot",
       "ai-agents-business-app-permissions"
     ],
     "latestSlugs": [
+      "can-ai-enter-invoices-spreadsheet-test",
       "ai-readiness-checklist-test",
       "lead-follow-up-automation",
       "ai-agents-business-app-permissions",
@@ -57,6 +58,11 @@
       "slug": "risk-data",
       "name": "Risk, data & permissions",
       "intro": "Frameworks for what to upload, what to keep out of AI tools, and how to set permissions before agents can read or change data in your business apps."
+    },
+    {
+      "slug": "using-ai-at-work",
+      "name": "Using AI at Work",
+      "intro": "Practical guides to using AI in everyday business."
     }
   ],
   "articles": [
@@ -235,6 +241,16 @@
       "imageAlt": "Illustration: business app icons with permission toggles and an action contract.",
       "searchTitle": "AI agents are moving into your business apps",
       "searchDek": "Use an Agent Action Contract and a contractor test plan to decide what an assistant may read, draft, propose, and change."
+    },
+    {
+      "slug": "how-customers-find-small-business-chatgpt",
+      "topic": "using-ai-at-work",
+      "date": "2026-11-07",
+      "dateModified": "2026-11-07",
+      "readMin": 5,
+      "hero": "typographic",
+      "searchTitle": "How Can Customers Find Your Small Business on ChatGPT?",
+      "searchDek": "Make your services clear, check crawler access and try realistic searches. Practical steps for small-business owners, without promises of guaranteed recommendations."
     }
   ]
 }
