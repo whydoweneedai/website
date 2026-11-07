@@ -38,7 +38,7 @@ def main():
 
     def text_card(a, show_topic: bool) -> str:
         topic = (
-            f'<span class="topic-label">{a["topicLabel"]}</span>'
+            f'<span class="topic-label">{a["topicLabel"]}</span>' + (f'<span class="format-label">{a["formatLabel"]}</span>' if a["topic"] else "")
             if show_topic
             else ""
         )
@@ -89,7 +89,7 @@ def main():
     def latest_row(a) -> str:
         return f"""<li class="home-latest-item">
           <a class="home-latest-link" href="/blog/{a['slug']}/">
-            <span class="topic-label">{a['topicLabel']}</span>
+            <span class="topic-label">{a['topicLabel']}</span>{f'<span class="format-label">{a["formatLabel"]}</span>' if a["topic"] else ""}
             <h3 class="home-latest-title">{a['searchTitle']}</h3>
             <p class="home-latest-dek">{a['searchDek']}</p>
             <p class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time></p>
@@ -179,7 +179,7 @@ def main():
       <div class="lead-front">
         <article class="lead-story lead-story--front">
           <a class="editorial-cover-link" href="/blog/{lead['slug']}/" aria-label="Read: {lead['searchTitle']}">{editorial_image(lead, eager=True)}</a>
-          <a class="topic-label" href="{lead_href}">{lead['topicLabel']}</a>
+          <a class="topic-label" href="{lead_href}">{lead['topicLabel']}</a><span class="format-label">{lead['formatLabel']}</span>
           <h2 id="lead-headline" class="lead-story-headline"><a href="/blog/{lead['slug']}/">{lead['searchTitle']}</a></h2>
           <p class="lead-dek">{lead['searchDek']}</p>
           <p class="lead-byline post-meta"><span>By <a href="/about/">Ross C</a></span><span aria-hidden="true">·</span><time datetime="{lead['date']}">{lead['dateDisplay']}</time></p>

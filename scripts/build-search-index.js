@@ -20,7 +20,8 @@ const index = site.articles
   .map((a) => ({
     title: a.searchTitle,
     dek: a.searchDek,
-    topic: topics[a.topic],
+    topic: topics[a.topic] || "",
+    format: a.format,
     topicSlug: a.topic,
     url: `/blog/${a.slug}/`,
     date: formatDisplayDate(a.date),

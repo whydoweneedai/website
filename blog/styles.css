@@ -278,7 +278,7 @@ img { display: block; max-width: 100%; height: auto; }
   background: var(--color-paper-elevated);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1199px) {
   .nav-toggle { display: inline-flex; }
   .nav-panel {
     display: none;
@@ -1276,3 +1276,5 @@ figure.article-figure figcaption { margin-top: var(--space-2); font-size: var(--
  .test-result dd { font-size: 1.4rem; }
 }
 @media (max-width: 420px) { .test-results { grid-template-columns: 1fr; } }
+.format-label { display: inline-block; font-size: .75rem; font-weight: 500; color: var(--color-ink-muted); margin: 0 0 .7rem .6rem; text-transform: none; letter-spacing: normal; }
+.card-body > .format-label { margin-left: 0; }

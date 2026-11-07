@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild article page chrome without changing article-body HTML."""
 import re
+import json
 import sys
 from pathlib import Path
 from urllib.parse import quote
@@ -36,7 +37,7 @@ def read_next_cards(slug: str, site):
         cards.append(
             f"""<article class="card card--compact read-next-card">
   <a class="card-link" href="/blog/{p['slug']}/">
-    <span class="topic-label">{p['topicLabel']}</span>
+    <span class="topic-label">{p['topicLabel']}</span>{f'<span class="format-label">{p["formatLabel"]}</span>' if p["topic"] else ""}
     <h3 class="card-title">{p['searchTitle']}</h3>
     <p class="card-dek">{p['searchDek']}</p>
   </a>
@@ -97,6 +98,8 @@ def replace_images(html: str, art: dict) -> str:
 
 
 def topic_label_link(topic: str, label: str, topic_pages: set) -> str:
+    if topic is None:
+        return f'<span class="topic-label">{label}</span>'
     href = topic_href(topic, topic_pages)
     return f'<a class="topic-label" href="{href}">{label}</a>'
 
@@ -123,7 +126,7 @@ def refresh_article_meta(header: str, art: dict) -> str:
 def replace_eyebrow(header: str, topic: str, label: str, topic_pages: set) -> str:
     link = topic_label_link(topic, label, topic_pages)
     return re.sub(
-        r'<span class="eyebrow">[^<]*</span>|<a class="topic-label" href="[^"]*">[^<]*</a>',
+        r'<span class="(?:eyebrow|topic-label)">[^<]*</span>|<a class="topic-label" href="[^"]*">[^<]*</a>',
         link,
         header,
         count=1,
@@ -208,15 +211,29 @@ def process_file(path: Path, site):
     article_header = replace_eyebrow(
         m_header.group(1), art["topic"], art["topicLabel"], site["topic_pages"]
     )
+    article_header = re.sub(r'<span class="format-label">.*?</span>', '', article_header)
+    if art["topic"]:
+        article_header = article_header.replace('</a>', f'</a><span class="format-label">{art["formatLabel"]}</span>', 1)
     article_header = refresh_article_meta(article_header, art)
     article_nav = m_nav.group(0) if m_nav else ""
 
     head = re.search(r"<head>(.*?)</head>", html, re.DOTALL).group(1)
     head = clean_article_head(head)
     head = replace_images(head, art)
+    def refresh_section(match):
+        data = json.loads(match.group(1))
+        if data.get("@type") == "BlogPosting":
+            if art["topic"]:
+                data["articleSection"] = art["topicLabel"]
+            else:
+                data.pop("articleSection", None)
+            data["genre"] = art["formatLabel"]
+        return '<script type="application/ld+json">' + json.dumps(data) + '</script>'
+    head = re.sub(r'<script type="application/ld\+json">(.*?)</script>', refresh_section, head, flags=re.DOTALL)
 
     breadcrumb_short = art["searchTitle"][:40] + ("…" if len(art["searchTitle"]) > 40 else "")
     thref = topic_href(art["topic"], site["topic_pages"])
+    category_crumb = f'<a href="{thref}">{art["topicLabel"]}</a><span aria-hidden="true"> / </span>' if art["topic"] else ""
     extras = article_extras(slug, site)
     nl_attr = html_newsletter_attr(site["newsletter_active"])
 
@@ -225,7 +242,7 @@ def process_file(path: Path, site):
 <a class="skip-link" href="#main-content">Skip to content</a>
 {header_nav()}
 <main class="article-main" id="main-content">
-<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><a href="/blog/">Archive</a><span aria-hidden="true"> / </span><a href="{thref}">{art['topicLabel']}</a><span aria-hidden="true"> / </span><span>{breadcrumb_short}</span></nav>
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><a href="/blog/">Archive</a><span aria-hidden="true"> / </span>{category_crumb}<span>{breadcrumb_short}</span></nav>
 <div class="article-layout">
 <div class="article-layout-main">
 {article_header}{chr(10) + article_cover(art) if article_cover(art) else ""}

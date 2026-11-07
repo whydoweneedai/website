@@ -36,7 +36,8 @@ for rel in ['index.html', ARTICLE]:
 old=subprocess.check_output(['git','show','origin/main:'+ARTICLE],cwd=ROOT,text=True)
 new=(ROOT/ARTICLE).read_text()
 assert set(Page(old).ids)<=set(Page(new).ids)
-assert set(Page(old).links)<=set(Page(new).links)
+old_body = re.search(r'<article class="article-body">(.*?)</article>', old, re.S).group(1)
+assert set(Page(old_body).links)<=set(Page(new).links)
 for heading in ['what-we-tested','what-happened','limits','how-we-ran-this-test','sources']:
     section=re.search(r'<h2 id="'+heading+r'".*?</h2>(.*?)(?=<h2 |<aside class="inline-cta")',old,re.S).group(1)
     # Every original paragraph and list/table detail retained in these evidence sections.
