@@ -41,7 +41,7 @@ Article column: `max-width: 36em` (~65–75 characters). Body 17px mobile / 18px
 
 ## Covers and heroes
 
-**No article images** ship in this site: cards and article heroes are **text + color only**, with the **robot-head** mark for recognition. `scripts/hero_markup.py` still supports future screenshot/illustration heroes (`<picture>`, srcset, figcaption).
+The homepage and invoice article pilot now use original vector editorial illustrations in `/images/editorial/`. The invoice cover explicitly distinguishes illustration from test evidence. Other article pages retain their current presentation. `scripts/editorial_media.py` owns the pilot media mapping; the four SVG files are source assets, not generated screenshots. `scripts/hero_markup.py` still supports future screenshot/illustration heroes (`<picture>`, srcset, figcaption).
 
 ## Social share images (OG)
 

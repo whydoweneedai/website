@@ -8,6 +8,7 @@ from urllib.parse import quote
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_data import load_site, topic_href
 from hero_markup import og_image_url
+from editorial_media import article_cover
 from site_chrome import (
     FONT,
     FONT_BLOCK_RE,
@@ -227,7 +228,7 @@ def process_file(path: Path, site):
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><a href="/blog/">Archive</a><span aria-hidden="true"> / </span><a href="{thref}">{art['topicLabel']}</a><span aria-hidden="true"> / </span><span>{breadcrumb_short}</span></nav>
 <div class="article-layout">
 <div class="article-layout-main">
-{article_header}
+{article_header}{chr(10) + article_cover(art) if article_cover(art) else ""}
 <details class="article-toc-fold" id="article-toc-fold" hidden>
   <summary>In this article</summary>
   <nav class="article-toc article-toc--fold" id="article-toc" aria-label="Table of contents" hidden></nav>
