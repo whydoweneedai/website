@@ -24,7 +24,7 @@ SEARCH_SCRIPT = """
       var needle = q.trim().toLowerCase();
       var hits = data.filter(function (item) {
         if (!needle) return true;
-        var blob = (item.title + " " + item.dek + " " + item.topic).toLowerCase();
+        var blob = (item.title + " " + item.dek + " " + item.topic + " " + item.format).toLowerCase();
         return blob.indexOf(needle) !== -1;
       });
       if (needle && hits.length === 0) {
@@ -35,7 +35,7 @@ SEARCH_SCRIPT = """
         status.textContent = hits.length + " result" + (hits.length === 1 ? "" : "s");
       }
       results.innerHTML = hits.map(function (item) {
-        return '<article class="search-hit"><a href="' + item.url + '"><p class="search-meta">' + item.topic + " · " + item.date + '</p><h2>' + item.title + '</h2><p>' + item.dek + '</p></a></article>';
+        return '<article class="search-hit"><a href="' + item.url + '"><p class="search-meta">' + (item.topic ? item.topic + " · " : "") + item.format + " · " + item.date + '</p><h2>' + item.title + '</h2><p>' + item.dek + '</p></a></article>';
       }).join("");
     }
 

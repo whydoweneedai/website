@@ -57,9 +57,10 @@ def load_site():
     topics_by_slug = {t["slug"]: t for t in data["topics"]}
     articles = data["articles"]
     for a in articles:
-        t = topics_by_slug[a["topic"]]
-        a["topicLabel"] = t["name"]
-        a["topicPlateLabel"] = topic_plate_label(a["topic"], t["name"])
+        t = topics_by_slug.get(a["topic"])
+        a["topicLabel"] = t["name"] if t else a["format"]
+        a["formatLabel"] = a["format"]
+        a["topicPlateLabel"] = topic_plate_label(a["topic"], a["topicLabel"])
         a["dateDisplay"] = format_display_date(a["date"])
         mod = a.get("dateModified") or a["date"]
         a["dateModifiedDisplay"] = format_display_date(mod)
@@ -68,7 +69,7 @@ def load_site():
     counts = {}
     for a in articles:
         counts[a["topic"]] = counts.get(a["topic"], 0) + 1
-    topic_pages = {slug for slug, n in counts.items() if n >= 3}
+    topic_pages = set(topics_by_slug)
     return {
         "raw": data,
         "topics_by_slug": topics_by_slug,

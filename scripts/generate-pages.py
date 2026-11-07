@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate topic hub pages (only topics with 3+ articles)."""
+"""Generate reader-first category hubs and legacy redirects."""
 import json
 import shutil
 import sys
@@ -19,6 +19,7 @@ def card_html(a):
   <a class="card-link" href="/blog/{slug}/">
     {card_media(a)}
     <div class="card-body">
+      <p class="format-label">{a['formatLabel']}</p>
       <div class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time></div>
       <h2 class="card-title">{a['searchTitle']}</h2>
       <p class="card-dek">{a['searchDek']}</p>
@@ -111,6 +112,12 @@ def main():
         out.write_text(topic_page(slug, t, arts, nl_attr))
         published.add(slug)
         print("topic", slug)
+
+    for slug, destination in site["raw"].get("legacyTopicRedirects", {}).items():
+        out = topics_root / slug / "index.html"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="refresh" content="0;url={destination}"><link rel="canonical" href="https://whydoweneedai.com{destination}"><meta name="robots" content="noindex,follow"><title>Section moved | Why Do We Need AI?</title></head><body><p>This section has moved. <a href="{destination}">Continue to the articles</a>.</p></body></html>''')
+        published.add(slug)
 
     if topics_root.exists():
         for child in topics_root.iterdir():

@@ -4,6 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hero_markup import LOGO_OG, og_image_url
+from editorial_media import editorial_image
 
 from site_data import load_site, masthead_dateline, topic_href
 from site_chrome import (
@@ -37,12 +38,13 @@ def main():
 
     def text_card(a, show_topic: bool) -> str:
         topic = (
-            f'<span class="topic-label">{a["topicLabel"]}</span>'
+            f'<span class="topic-label">{a["topicLabel"]}</span>' + (f'<span class="format-label">{a["formatLabel"]}</span>' if a["topic"] else "")
             if show_topic
             else ""
         )
         return f"""<article class="card card--text">
           <a class="card-link" href="/blog/{a['slug']}/">
+            {editorial_image(a)}
             <div class="card-body">{topic}<h3 class="card-title">{a['searchTitle']}</h3><p class="card-dek">{a['searchDek']}</p></div>
           </a>
         </article>"""
@@ -87,7 +89,7 @@ def main():
     def latest_row(a) -> str:
         return f"""<li class="home-latest-item">
           <a class="home-latest-link" href="/blog/{a['slug']}/">
-            <span class="topic-label">{a['topicLabel']}</span>
+            <span class="topic-label">{a['topicLabel']}</span>{f'<span class="format-label">{a["formatLabel"]}</span>' if a["topic"] else ""}
             <h3 class="home-latest-title">{a['searchTitle']}</h3>
             <p class="home-latest-dek">{a['searchDek']}</p>
             <p class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time></p>
@@ -158,17 +160,17 @@ def main():
   </script>
 {FONT}
 </head>
-<body>
+<body class="editorial-home">
   <a class="skip-link" href="#main-content">Skip to content</a>
 {header_nav("/")}
   <main class="page-main" id="main-content">
     <header class="masthead masthead--front">
       <div class="masthead-inner masthead-inner--front">
-        {masthead_logo()}
+
         <div class="masthead-copy">
           <p class="pub-dateline masthead-dateline" id="pub-dateline">{built_dateline}</p>
-          <h1 class="masthead-tagline">Which AI is worth it for your business, researched and plainly answered.</h1>
-          <p class="masthead-sub">Practical AI. No jargon required.</p>
+          <h1 class="masthead-tagline">AI for the work in front of you.</h1>
+          <p class="masthead-sub">Real tests. Useful guides. Clear limits. Find out what helps, what fails, and what still needs you.</p>
         </div>
       </div>
     </header>
@@ -176,18 +178,19 @@ def main():
     <section class="home-section home-section--lead" aria-labelledby="lead-headline">
       <div class="lead-front">
         <article class="lead-story lead-story--front">
-          <a class="topic-label" href="{lead_href}">{lead['topicLabel']}</a>
+          <a class="editorial-cover-link" href="/blog/{lead['slug']}/" aria-label="Read: {lead['searchTitle']}">{editorial_image(lead, eager=True)}</a>
+          <a class="topic-label" href="{lead_href}">{lead['topicLabel']}</a><span class="format-label">{lead['formatLabel']}</span>
           <h2 id="lead-headline" class="lead-story-headline"><a href="/blog/{lead['slug']}/">{lead['searchTitle']}</a></h2>
           <p class="lead-dek">{lead['searchDek']}</p>
           <p class="lead-byline post-meta"><span>By <a href="/about/">Ross C</a></span><span aria-hidden="true">·</span><time datetime="{lead['date']}">{lead['dateDisplay']}</time></p>
           <p class="lead-cta"><a class="read-link" href="/blog/{lead['slug']}/">Read the story</a></p>
           <div class="lead-story-rail-mobile" aria-labelledby="lead-rail-mobile-title">
-            <h2 id="lead-rail-mobile-title" class="lead-rail-heading">Latest headlines</h2>
+            <h2 id="lead-rail-mobile-title" class="lead-rail-heading">New &amp; noteworthy</h2>
             {lead_rail_block}
           </div>
         </article>
         <aside class="lead-story-rail" aria-labelledby="lead-rail-title">
-          <h2 id="lead-rail-title" class="lead-rail-heading">Latest headlines</h2>
+          <h2 id="lead-rail-title" class="lead-rail-heading">New &amp; noteworthy</h2>
           {lead_rail_block}
         </aside>
       </div>
@@ -196,7 +199,7 @@ def main():
 
     <section class="home-section" aria-labelledby="latest-title">
       <div class="section-header">
-        <h2 id="latest-title" class="section-title">Latest</h2>
+        <h2 id="latest-title" class="section-title">More to explore</h2>
       </div>
       <ol class="home-latest-list">
         {latest_rows}
@@ -244,7 +247,7 @@ def main():
 </body>
 </html>
 """
-    (ROOT / "index.html").write_text(html)
+    (ROOT / "index.html").write_text("\n".join(line.rstrip() for line in html.splitlines()) + "\n")
     print("homepage ok")
 
 

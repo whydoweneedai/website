@@ -17,7 +17,7 @@ def archive_item(a, topic_pages):
     return f"""        <article class="archive-item archive-item--text" data-topic="{a['topic']}">
           <a class="archive-item-mark-link" href="/blog/{s}/" tabindex="-1" aria-hidden="true">{ARCHIVE_MARK}</a>
           <div class="archive-item-body">
-            <a class="topic-label" href="{thref}">{a['topicLabel']}</a>
+            <a class="topic-label" href="{thref}">{a['topicLabel']}</a>{f'<span class="format-label">{a["formatLabel"]}</span>' if a["topic"] else ""}
             <h2><a href="/blog/{s}/">{a['searchTitle']}</a></h2>
             <p class="archive-dek">{a['searchDek']}</p>
             <p class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time> · {a['readMin']}-min read</p>
