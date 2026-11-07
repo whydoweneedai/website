@@ -283,6 +283,9 @@ img { display: block; max-width: 100%; height: auto; }
   .nav-panel {
     display: none;
     position: absolute; left: 0; right: 0; top: 100%;
+    max-height: calc(100vh - 3.25rem);
+    max-height: calc(100dvh - 3.25rem);
+    overflow-y: auto;
     padding: var(--space-4) var(--space-4) var(--space-5);
     border-bottom: 1px solid var(--color-border);
     background: var(--color-paper);
