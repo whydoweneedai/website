@@ -170,3 +170,94 @@
   to = "/404"
   status = 404
   force = true
+
+# Legacy sections remain reachable after the reader-first navigation update.
+[[redirects]]
+  from = "/topics/tested"
+  to = "/blog/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/tested/"
+  to = "/blog/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/tested/index.html"
+  to = "/blog/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/choosing-ai-tools"
+  to = "/topics/tools-comparisons/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/choosing-ai-tools/"
+  to = "/topics/tools-comparisons/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/choosing-ai-tools/index.html"
+  to = "/topics/tools-comparisons/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/roi-planning"
+  to = "/topics/costs-results/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/roi-planning/"
+  to = "/topics/costs-results/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/roi-planning/index.html"
+  to = "/topics/costs-results/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/automation-workflows"
+  to = "/topics/using-ai-at-work/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/automation-workflows/"
+  to = "/topics/using-ai-at-work/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/automation-workflows/index.html"
+  to = "/topics/using-ai-at-work/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/risk-data"
+  to = "/topics/using-ai-at-work/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/risk-data/"
+  to = "/topics/using-ai-at-work/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/risk-data/index.html"
+  to = "/topics/using-ai-at-work/"
+  status = 301
+  force = true
