@@ -62,10 +62,23 @@ def html_newsletter_attr(active: bool) -> str:
     return ' data-newsletter="on"' if active else ' data-newsletter="off"'
 
 
+# Match .brand-lockup's 28px / 34px height and max-width constraints.
+# The explicit ratio keeps each derivative's rounded pixel height from changing
+# the layout while it decodes. Width/height attributes retain the fallback ratio.
+HEADER_LOCKUP_SIZES = "(max-width: 640px) min(78vw, 149.625px), min(72vw, 181.6875px)"
+
+
+def lockup_srcset(extension: str) -> str:
+    return ", ".join(
+        f"/images/brand/lockup-w{width}.{extension} {width}w"
+        for width in (150, 182, 300, 364, 450, 546)
+    ) + f", /images/brand/lockup-128.{extension} 684w"
+
+
 def header_lockup() -> str:
-    return """<picture>
-      <source type="image/webp" srcset="/images/brand/lockup-128.webp">
-      <img class="brand-lockup" src="/images/brand/lockup-128.png" width="684" height="128" alt="WhyDoWeNeedAI" decoding="async">
+    return f"""<picture>
+      <source type="image/webp" srcset="{lockup_srcset('webp')}" sizes="{HEADER_LOCKUP_SIZES}">
+      <img class="brand-lockup" src="/images/brand/lockup-w182.png" srcset="{lockup_srcset('png')}" sizes="{HEADER_LOCKUP_SIZES}" width="684" height="128" style="aspect-ratio:171 / 32" alt="WhyDoWeNeedAI" decoding="async">
     </picture>"""
 
 

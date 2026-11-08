@@ -46,31 +46,7 @@
 <meta name="twitter:image" content="https://whydoweneedai.com/images/og/ai-readyscore.png">
 
 <!-- Structured data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://whydoweneedai.com/#organization",
-      "name": "whydoweneedai.com",
-      "url": "https://whydoweneedai.com",
-      "logo": "https://whydoweneedai.com/website_logo.png",
-      "description": "Practical AI guides and a free readiness self-assessment for small-business owners."
-    },
-    {
-      "@type": "WebApplication",
-      "name": "AI ReadyScore — Free AI Assessment for Small Business",
-      "url": "https://whydoweneedai.com/ai-readyscore/",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
-      "description": "A free 2-minute AI readiness self-assessment that organizes your answers and suggests a practical next step to test.",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "publisher": { "@id": "https://whydoweneedai.com/#organization" }
-    }
-  ]
-}
-</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "AI ReadyScore — Free AI Assessment for Small Business", "url": "https://whydoweneedai.com/ai-readyscore/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "A free 2-minute AI readiness self-assessment that organizes your answers and suggests a practical next step to test.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@id": "https://whydoweneedai.com/#organization"}}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,6 +85,12 @@
   .field-label{display:block;text-align:left;font-size:14px;font-weight:800;margin-bottom:4px;}
   .result-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:12px;}
   .result-links a,.fine a{color:var(--blue-dark);}
+  .score-explainer{width:100%;max-width:720px;margin:32px auto 0;padding:24px;background:#fff;border:1px solid var(--border);border-radius:18px;line-height:1.65;}
+  .score-explainer h2{font-size:23px;line-height:1.3;margin-bottom:12px;}
+  .score-explainer h3{font-size:18px;margin:22px 0 8px;}
+  .score-explainer p{margin:0 0 12px;}
+  .score-explainer ul{padding-left:22px;margin:0 0 16px;}
+  .score-explainer a{color:var(--blue-dark);text-underline-offset:3px;}
   .site-trust{width:100%;max-width:720px;margin-top:18px;text-align:center;color:#64748b;
     font-size:12.5px;line-height:1.5;}
   .site-trust nav{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 16px;margin-bottom:6px;}
@@ -155,13 +137,15 @@
   .logo-sm{display:block;width:100%;max-width:150px;height:auto;margin:0 auto 12px;border-radius:12px;}
   @media(prefers-reduced-motion:reduce){.screen{animation:none;}*{scroll-behavior:auto!important;}}
 </style>
+<script id="discovery-identity" type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://whydoweneedai.com/#organization", "name": "Why Do We Need AI", "url": "https://whydoweneedai.com/", "logo": "https://whydoweneedai.com/website_logo.png", "sameAs": ["https://x.com/whydoweneedai"]}, {"@type": "Person", "@id": "https://whydoweneedai.com/about/#ross-c", "name": "Ross C", "url": "https://whydoweneedai.com/about/#ross-c", "jobTitle": "Editor", "worksFor": {"@id": "https://whydoweneedai.com/#organization"}, "description": "Editor of Why Do We Need AI, a publication about practical AI and automation decisions for small-business owners."}]}</script>
+<link rel="alternate" type="application/rss+xml" title="Why Do We Need AI" href="/feed.xml">
 </head>
 <body>
 
 <a class="skip-link" href="#app">Skip to content</a>
 
 <nav class="site-nav" aria-label="Primary navigation">
-  <a class="brand" href="/"><picture class="brand-logo"><source srcset="/images/brand/lockup-128.webp" type="image/webp"><img src="/images/brand/lockup-128.png" alt="WhyDoWeNeedAI" width="684" height="128" decoding="async"></picture></a>
+  <a class="brand" href="/"><picture class="brand-logo"><source srcset="/images/brand/lockup-w150.webp 150w, /images/brand/lockup-w182.webp 182w, /images/brand/lockup-w300.webp 300w, /images/brand/lockup-w364.webp 364w, /images/brand/lockup-w450.webp 450w, /images/brand/lockup-w546.webp 546w, /images/brand/lockup-128.webp 684w" sizes="(max-width: 639px) 149.625px, 181.6875px" type="image/webp"><img src="/images/brand/lockup-w182.png" srcset="/images/brand/lockup-w150.png 150w, /images/brand/lockup-w182.png 182w, /images/brand/lockup-w300.png 300w, /images/brand/lockup-w364.png 364w, /images/brand/lockup-w450.png 450w, /images/brand/lockup-w546.png 546w, /images/brand/lockup-128.png 684w" sizes="(max-width: 639px) 149.625px, 181.6875px" alt="WhyDoWeNeedAI" width="684" height="128" style="aspect-ratio:171 / 32" decoding="async"></picture></a>
   <div class="nav-actions">
     <a class="about-link" href="/about/">About</a>
     <a class="blog-link" href="/blog/">Read the blog →</a>
@@ -179,6 +163,23 @@
     <p class="footer">Built by someone who was also confused by AI once.</p>
   </div>
 </main>
+
+<section class="score-explainer" aria-labelledby="score-explainer-title">
+  <h2 id="score-explainer-title">What does AI ReadyScore measure?</h2>
+  <p>AI ReadyScore is a short self-assessment for small-business owners considering an AI or automation pilot. It organizes your answers about current AI use, where your data lives, willingness to pay for automation, project ownership, process documentation and timing. It does not inspect your systems or prove that a particular task needs AI.</p>
+  <h3>How the score works</h3>
+  <p>There are eight questions. Six have four answers worth 0, 1, 2 or 3 points, with equal weight. The tool divides the total by 18, multiplies by 100 and rounds to the nearest whole number. The two questions about time-consuming work and your biggest worry do not change the score. Your time-consuming task selects the quick-win suggestion.</p>
+  <ul>
+    <li><strong>0–40: AI Curious.</strong> Start with a small, repeatable task and document the process.</li>
+    <li><strong>41–70: AI Ready.</strong> Establish the workflow's current time, cost and errors before a pilot.</li>
+    <li><strong>71–100: AI Ready to Pilot.</strong> Plan a focused test with a clear goal and a person responsible for review.</li>
+  </ul>
+  <h3>An illustrative result</h3>
+  <p>Choosing a 2-point answer on each of the six scored questions gives 12 out of 18 points: a rounded score of 67, in the “AI Ready” band. This is an example calculation, not a result from a real business. The next step is to pick one workflow and measure its baseline, not to buy a tool immediately.</p>
+  <h3>Before you begin</h3>
+  <p>The quiz asks for your first and last name, email and phone number before showing your result; company is optional. Submitting requests a results email and follow-up assessment. The email may mention AI consulting from Nocos Consulting. Read the <a href="/privacy/">privacy policy</a> for how contact details are used.</p>
+  <p>The bands are a simple guide based on self-reported answers, not a validated prediction of savings, safety or business success. A high score does not replace checking data permissions, failure costs or review arrangements. You can use the <a href="/blog/ai-readiness-checklist/">AI readiness checklist</a> without completing the quiz, compare <a href="/blog/ai-vs-automation/">AI with ordinary automation</a>, and <a href="/blog/evaluate-ai-pilot/">evaluate a small pilot</a> before committing.</p>
+</section>
 
 <footer class="site-trust">
   <nav aria-label="Site information">
