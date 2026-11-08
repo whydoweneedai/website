@@ -13,6 +13,41 @@ from site_chrome import FONT, HEAD_ICONS, footer_html, head_scripts, header_nav,
 ROOT = Path(__file__).resolve().parents[1]
 
 
+# Reading paths supplement the article cards without imposing a word-count target.
+TOPIC_GUIDANCE = {
+    "getting-started": """<h2>Start with a task, not a tool</h2>
+      <p>The best first step is to choose a small, repeatable piece of work and describe what a correct result looks like. If the steps and decisions are predictable, a checklist or ordinary automation may be enough. AI becomes worth testing when the task involves varied language or inputs that simple rules cannot handle well.</p>
+      <ul>
+        <li>Not sure where to begin? Use <a href="/blog/what-to-automate-first/">the first-task guide</a> to find a manageable starting point.</li>
+        <li>Before choosing software, compare <a href="/blog/ai-vs-automation/">AI with rules-based automation</a>.</li>
+        <li>Check the process, data and review arrangements with <a href="/blog/ai-readiness-checklist/">the readiness checklist</a>, then see <a href="/blog/ai-readiness-checklist-test/">how it behaved on 12 made-up workflows</a>.</li>
+      </ul>
+      <p>A readiness score is a prompt for investigation, not permission to automate. Once the task is clear, move to <a href="/topics/tools-comparisons/">choosing a tool</a> and define a small test before committing.</p>""",
+    "using-ai-at-work": """<h2>Choose the workflow you need to improve</h2>
+      <p>AI is most useful at work when its role is specific and someone can check the result. Start with one transfer, draft or decision-support step. Keep rules for predictable actions, give the tool only the access it needs, and decide what must stop for human review.</p>
+      <ul>
+        <li>For repetitive admin, read the <a href="/blog/can-ai-enter-invoices-spreadsheet-test/">invoice-entry experiment</a> and the <a href="/blog/ai-vs-rules-appointment-payment-reminders/">AI-versus-rules reminder test</a>. Their synthetic inputs reveal failure cases, not guaranteed business results.</li>
+        <li>For customer inquiries, begin with the <a href="/blog/lead-follow-up-automation/">follow-up blueprint</a> and compare it with <a href="/blog/ai-lead-follow-up-test/">the 30-inquiry experiment</a>.</li>
+        <li>Before connecting business systems, check <a href="/blog/data-ai-tools/">what data to share</a> and <a href="/blog/ai-agents-business-app-permissions/">which permissions an agent needs</a>.</li>
+      </ul>
+      <p>Customer discovery is a different problem: <a href="/blog/how-customers-find-small-business-chatgpt/">the ChatGPT discovery guide</a> explains how to make your business information clearer and easier to find. For any workflow change, use <a href="/topics/costs-results/">Costs &amp; Results</a> to decide whether the effort pays off.</p>""",
+    "tools-comparisons": """<h2>Compare tools on your own task</h2>
+      <p>There is no single best AI tool for every small business. Shortlist tools by the work you need done, the data you can safely share and the systems you already use. Then compare them on the same small set of realistic tasks, including awkward cases, rather than choosing from a polished demo.</p>
+      <ul>
+        <li>Use <a href="/blog/choose-first-ai-tool/">the first-tool scorecard and cost test</a> to define requirements, compare options and account for review time.</li>
+        <li>Read <a href="/blog/chatgpt-vs-claude-vs-gemini-vs-copilot/">the ChatGPT, Claude, Gemini and Copilot comparison</a> for a starting shortlist. It is a researched guide, not a head-to-head benchmark.</li>
+      </ul>
+      <p>Features, limits and prices change. Check the vendor's current terms before buying, especially if you plan to upload customer or business data. If you cannot yet describe a successful result, return to <a href="/topics/getting-started/">Getting Started</a>. After a trial, use <a href="/blog/evaluate-ai-pilot/">the keep, fix or stop framework</a> before expanding it.</p>""",
+    "costs-results": """<h2>Count the work that remains</h2>
+      <p>An automation pays off only if its benefits exceed the time and money needed to set it up, run it and correct it. Compare a pilot with your current process, including human review, exceptions and maintenance. Time saved is useful, but it is not automatically cash saved.</p>
+      <ul>
+        <li>Before a trial, use <a href="/blog/ai-automation-roi/">the AI automation ROI guide</a> to build a baseline, include recurring costs and make your assumptions visible.</li>
+        <li>After a trial, use <a href="/blog/evaluate-ai-pilot/">the pilot evaluation framework</a> to choose whether to keep it, fix a specific problem or stop.</li>
+      </ul>
+      <p>Agree on acceptable errors and review responsibilities before you start. A fast result that needs frequent correction may be worse than a slower, reliable process. If you need ideas for a bounded test, explore <a href="/topics/using-ai-at-work/">the workflow guides and experiments</a>; if the software itself is the obstacle, revisit <a href="/topics/tools-comparisons/">tool selection</a>.</p>""",
+}
+
+
 def card_html(a):
     slug = a["slug"]
     return f"""<article class="card card--standard">
@@ -79,6 +114,9 @@ def topic_page(slug, topic, articles, nl_attr):
       <h1>{title}</h1>
       <p>{intro}</p>
     </header>
+    <section class="article-body home-section" aria-label="Reading guide">
+{TOPIC_GUIDANCE[slug]}
+    </section>
     <section class="home-section" aria-label="Articles">
       <div class="card-grid">
 {cards}

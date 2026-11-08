@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" data-newsletter="off">
+<head>
+  <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GLNJLNSFEL');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How we test AI and automation | Why Do We Need AI</title>
+  <meta name="description" content="How our AI experiments use synthetic cases, expected answers, scripts and judgment. Read the methods, evidence, corrections and limits behind the results.">
+  <meta name="robots" content="index, follow">
+  <meta name="twitter:site" content="@whydoweneedai">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="canonical" href="https://whydoweneedai.com/how-we-test/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Why Do We Need AI">
+  <meta property="og:title" content="How we test AI and automation">
+  <meta property="og:url" content="https://whydoweneedai.com/how-we-test/">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "How we test AI and automation", "url": "https://whydoweneedai.com/how-we-test/", "description": "How our AI experiments use synthetic cases, expected answers, scripts and judgment. Read the methods, evidence, corrections and limits behind the results."}</script>
+<meta property="og:image" content="https://whydoweneedai.com/images/og/about.png">
+<meta name="twitter:image" content="https://whydoweneedai.com/images/og/about.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="/blog/styles.css">
+<script id="discovery-identity" type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://whydoweneedai.com/#organization", "name": "Why Do We Need AI", "url": "https://whydoweneedai.com/", "logo": "https://whydoweneedai.com/website_logo.png", "sameAs": ["https://x.com/whydoweneedai"]}, {"@type": "Person", "@id": "https://whydoweneedai.com/about/#ross-c", "name": "Ross C", "url": "https://whydoweneedai.com/about/#ross-c", "jobTitle": "Editor", "worksFor": {"@id": "https://whydoweneedai.com/#organization"}, "description": "Editor of Why Do We Need AI, a publication about practical AI and automation decisions for small-business owners."}]}</script>
+<link rel="alternate" type="application/rss+xml" title="Why Do We Need AI" href="/feed.xml">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+  <nav class="nav-inner" aria-label="Primary navigation">
+    <a class="brand" href="/"><picture>
+      <source type="image/webp" srcset="/images/brand/lockup-w150.webp 150w, /images/brand/lockup-w182.webp 182w, /images/brand/lockup-w300.webp 300w, /images/brand/lockup-w364.webp 364w, /images/brand/lockup-w450.webp 450w, /images/brand/lockup-w546.webp 546w, /images/brand/lockup-128.webp 684w" sizes="(max-width: 640px) min(78vw, 149.625px), min(72vw, 181.6875px)">
+      <img class="brand-lockup" src="/images/brand/lockup-w182.png" srcset="/images/brand/lockup-w150.png 150w, /images/brand/lockup-w182.png 182w, /images/brand/lockup-w300.png 300w, /images/brand/lockup-w364.png 364w, /images/brand/lockup-w450.png 450w, /images/brand/lockup-w546.png 546w, /images/brand/lockup-128.png 684w" sizes="(max-width: 640px) min(78vw, 149.625px), min(72vw, 181.6875px)" width="684" height="128" style="aspect-ratio:171 / 32" alt="WhyDoWeNeedAI" decoding="async">
+    </picture></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav-panel">Menu</button>
+    <div class="nav-panel" id="site-nav-panel">
+      <div class="nav-links">
+        <a href="/topics/getting-started/">Getting Started</a>
+        <a href="/topics/using-ai-at-work/">Using AI at Work</a>
+        <a href="/topics/tools-comparisons/">Tools &amp; Comparisons</a>
+        <a href="/topics/costs-results/">Costs &amp; Results</a>
+        <a href="/search/">Search</a>
+        <a href="/about/">About</a>
+        <a class="nav-cta" href="/ai-readyscore/">AI ReadyScore</a>
+      </div>
+    </div>
+  </nav>
+</header>
+  <main class="article-main" id="main-content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><span>How we test</span></nav>
+    <header class="article-header">
+      <span class="eyebrow">Methods and evidence</span>
+      <h1>How we test AI and automation.</h1>
+      <p class="article-dek">Small, documented experiments can expose useful failures. They cannot tell you how a tool will perform in every business.</p>
+    </header>
+    <article class="article-body">
+      <p>Our experiments start with a specific question: can a model copy invoice fields, follow customer-contact rules, or do something a simpler script cannot? The published report explains the inputs, scoring, failures and limits. Read those alongside the headline result before using it to make a decision.</p>
+      <h2>What counts as a test?</h2>
+      <p>We distinguish an actual tool run from a researched comparison, an illustrative workflow and a desk test of a checklist. Our <a href="/blog/chatgpt-vs-claude-vs-gemini-vs-copilot/">chatbot comparison</a> is researched, not a side-by-side test. Our <a href="/blog/lead-follow-up-automation/">follow-up blueprint</a> is an illustrative design. The <a href="/blog/ai-readiness-checklist-test/">readiness experiment</a> applies a scorecard to invented workflow descriptions; it does not run AI tools on those workflows.</p>
+      <h2>Inputs and expected answers</h2>
+      <p>The four experiments below use invented invoices, inquiries, reminders or workflow cards. They are not customer case studies. The inputs deliberately include awkward cases, so their proportions do not estimate how often those problems occur in a real business.</p>
+      <p>The reports describe expected answers or scoring rules set before evaluation. Where a script and model are compared, they receive the same cases. The invoice test separates four development invoices from 20 held-out invoices; counting all 24 as unseen test cases would give the wrong impression.</p>
+      <h2>How results are scored</h2>
+      <p>Mechanical checks and judgment are different kinds of evidence. Scripts can compare amounts, dates and required fields. Judging whether a reply is useful or makes an unapproved promise needs interpretation. Each report explains which checks were scripted and which were scored by the site's AI writing assistant.</p>
+      <p>The AI assistant helped design and score these experiments. The published methods identify Ross C as the editor who reviewed and approved the original reports. The lead-follow-up report distinguishes that original approval from later corrections. Editorial review is not the same as an independent, blinded regrading of every output. The reports disclose those limits, including cases where the same assistant created the inputs and expected answers.</p>
+      <h2>Read the failures and corrections</h2>
+      <p>A passing score does not mean an output is safe to send or use without review. The reminder test's corrected mechanical score still coexists with a customer-note channel mistake. The invoice model copied a bad subtotal accurately without flagging that it did not add up.</p>
+      <p>When we correct a result, the report should make the change and its reason visible. The lead-follow-up report preserves its original and corrected grades, and the reminder report explains the scoring-script error. Evidence downloads let readers inspect the saved cases, outputs and scoring files where provided. Rechecking saved outputs is different from running a new test.</p>
+      <h2>Explore the experiments</h2>
+      <ul>
+        <li><a href="/blog/can-ai-enter-invoices-spreadsheet-test/">Invoice extraction:</a> 24 invented invoices, including four development cases; one model run three times per invoice against a rules script. See the held-out results, repeated errors and downloadable evidence.</li>
+        <li><a href="/blog/ai-vs-rules-appointment-payment-reminders/">Appointment and payment reminders:</a> 30 invented records, one rules run and three model runs per record. No messages were sent. Read both the mechanical checks and the separately labeled judgment scores.</li>
+        <li><a href="/blog/ai-lead-follow-up-test/">Lead follow-up drafts:</a> 30 invented inquiries and written contact rules. The report includes a correction, a recheck of the saved outputs and the evidence files.</li>
+        <li><a href="/blog/ai-readiness-checklist-test/">Readiness checklist:</a> 12 invented workflows, expected answers and item-level scores. This is a desk test, not evidence that the proposed workflows work.</li>
+      </ul>
+      <h2>What the numbers cannot tell you</h2>
+      <p>These are small tests of particular inputs, instructions and models or rules on stated dates. Repeated runs of the same cases are not new independent cases. Synthetic scenarios cannot establish live-business accuracy, compliance or savings. A cost figure does not prove time saved, and an experiment that did not time the work cannot support that claim.</p>
+      <p>Use the findings to design your own narrow, supervised pilot with representative, approved data. Our <a href="/blog/evaluate-ai-pilot/">pilot evaluation guide</a> covers safeguards, quality, review time and net value. For how we choose topics, use AI in production and handle commercial relationships, see our <a href="/editorial-policy/">editorial policy</a>. To flag a problem in a report, <a href="/contact/">contact the editor</a>.</p>
+    </article>
+  </main>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="/website_logo.png" width="1407" height="768" alt="WhyDoWeNeedAI" loading="lazy" decoding="async">
+      <p class="footer-tagline">Practical AI for small business — researched and plainly answered.</p>
+      <p class="footer-copy">© WhyDoWeNeedAI</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <div class="footer-col">
+        <p class="footer-col-title">Topics</p>
+        <a href="/topics/getting-started/">Getting Started</a>
+        <a href="/topics/using-ai-at-work/">Using AI at Work</a>
+        <a href="/topics/tools-comparisons/">Tools &amp; Comparisons</a>
+        <a href="/topics/costs-results/">Costs &amp; Results</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Publication</p>
+        <a href="/blog/">Archive</a>
+        <a href="/about/">About</a>
+        <a href="/editorial-policy/">Editorial policy</a>
+        <a href="/contact/">Contact</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="/ai-readyscore/">AI ReadyScore</a>
+      </div>
+    </nav>
+  </div>
+</footer>
+<script src="/blog/site.js" defer></script>
+</body>
+</html>

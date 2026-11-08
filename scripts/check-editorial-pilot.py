@@ -38,11 +38,10 @@ new=(ROOT/ARTICLE).read_text()
 assert set(Page(old).ids)<=set(Page(new).ids)
 old_body = re.search(r'<article class="article-body">(.*?)</article>', old, re.S).group(1)
 assert set(Page(old_body).links)<=set(Page(new).links)
-for heading in ['what-we-tested','what-happened','limits','how-we-ran-this-test','sources']:
-    section=re.search(r'<h2 id="'+heading+r'".*?</h2>(.*?)(?=<h2 |<aside class="inline-cta")',old,re.S).group(1)
-    # Every original paragraph and list/table detail retained in these evidence sections.
-    for fragment in re.findall(r'<p>.*?</p>|<li>.*?</li>|<table>.*?</table>',section,re.S):
-        assert fragment in new, (heading,fragment[:80])
+# Compare evidence inside the six expandable sections of the current baseline.
+for section in re.findall(r'<details class="test-detail">(.*?)</details>', old, re.S):
+    for fragment in re.findall(r'<p>.*?</p>|<li>.*?</li>|<table>.*?</table>', section, re.S):
+        assert fragment in new, ('evidence changed', fragment[:80])
 assert new.count('<details class="test-detail">')==6
 assert 'this is not a screenshot' in new
 for path in (ROOT/'images/editorial').glob('*.svg'): ET.parse(path)

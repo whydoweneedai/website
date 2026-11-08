@@ -25,6 +25,7 @@ ADSENSE_META = re.compile(r'\s*<meta name="google-adsense-account"[^>]*>\s*')
 
 PATHS = [
     "about/index.html",
+    "how-we-test/index.html",
     "contact/index.html",
     "contact/thanks/index.html",
     "editorial-policy/index.html",

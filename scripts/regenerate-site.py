@@ -34,6 +34,7 @@ def main():
     run("generate-search.py")
     run("apply-chrome.py")
     run("patch-static-og.py")
+    run("generate-discovery.py")
     print("Done. Review data/site.json and commit outputs.")
 
 

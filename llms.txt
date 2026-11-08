@@ -1,0 +1,27 @@
+# Why Do We Need AI
+
+> Practical AI and automation guidance for small-business owners, with documented experiments and explicit limits.
+
+## Start here
+
+- [About and editorial responsibility](https://whydoweneedai.com/about/)
+- [How we test](https://whydoweneedai.com/how-we-test/)
+- [Editorial policy](https://whydoweneedai.com/editorial-policy/)
+- [All articles](https://whydoweneedai.com/blog/)
+- [RSS feed](https://whydoweneedai.com/feed.xml)
+
+## Reader sections
+
+- [Getting Started](https://whydoweneedai.com/topics/getting-started/): Where should you begin? Understand when AI helps, choose a first task and check whether your business is ready.
+- [Using AI at Work](https://whydoweneedai.com/topics/using-ai-at-work/): How can AI help with the work you already do? Explore invoices, reminders and customer follow-up, with practical checks for data and permissions.
+- [Tools & Comparisons](https://whydoweneedai.com/topics/tools-comparisons/): Which tool fits the job? Compare options, choose what to try and avoid paying for features you do not need.
+- [Costs & Results](https://whydoweneedai.com/topics/costs-results/): Is it worth the time and money? Calculate costs, measure a pilot and decide whether to keep, fix or stop.
+
+## Documented experiments
+
+- [Can AI type your invoices into a spreadsheet?](https://whydoweneedai.com/blog/can-ai-enter-invoices-spreadsheet-test/): We ran 24 invented invoices, including scans and handwriting, through an AI model and a rules script. AI read messy ones better but missed a bad total.
+- [AI vs. simple rules for appointment and payment reminders](https://whydoweneedai.com/blog/ai-vs-rules-appointment-payment-reminders/): We ran 30 made-up reminder records through a rules script and an AI model three times each. Rules got every routine case right.
+- [We ran 30 invented customer inquiries through an AI follow-up assistant](https://whydoweneedai.com/blog/ai-lead-follow-up-test/): A 30-case synthetic test: stop checks passed, but one draft made unapproved promises.
+- [We tested our AI readiness checklist on 12 made-up workflows](https://whydoweneedai.com/blog/ai-readiness-checklist-test/): We ran our readiness checklist on 12 invented workflows. It's a good brake and a poor compass.
+
+These small, task-specific experiments do not predict performance in other businesses. Read each method and its limits before using the result.
