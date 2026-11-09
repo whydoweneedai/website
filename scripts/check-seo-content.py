@@ -40,6 +40,9 @@ def blocks(html, slug):
 count = 0
 for path in sorted((ROOT / 'blog').glob('*/index.html')):
     rel = path.relative_to(ROOT).as_posix()
+    # New articles have no baseline prose to preserve.
+    if subprocess.run(['git', 'cat-file', '-e', f'{BASE}:{rel}'], cwd=ROOT, stderr=subprocess.DEVNULL).returncode != 0:
+        continue
     old = subprocess.check_output(['git', 'show', f'{BASE}:{rel}'], cwd=ROOT, text=True)
     new = path.read_text()
     missing = blocks(old, path.parent.name) - blocks(new, path.parent.name)

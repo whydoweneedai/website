@@ -6,8 +6,8 @@ from site_data import load_site
 from html.parser import HTMLParser
 ROOT=Path(__file__).resolve().parents[1]
 site=load_site(); categories=site['topic_pages']; assert len(categories)==4
-assert len(site['articles'])==17
-assert {c:sum(a['topic']==c for a in site['articles']) for c in categories}=={'getting-started':4,'using-ai-at-work':7,'tools-comparisons':2,'costs-results':2}
+assert len(site['articles'])==18
+assert {c:sum(a['topic']==c for a in site['articles']) for c in categories}=={'getting-started':4,'using-ai-at-work':8,'tools-comparisons':2,'costs-results':2}
 class Links(HTMLParser):
  def __init__(self,s):super().__init__();self.hrefs=[];self.feed(s)
  def handle_starttag(self,t,a):
@@ -15,10 +15,12 @@ class Links(HTMLParser):
 for a in site['articles']:
  p=ROOT/'blog'/a['slug']/'index.html';s=p.read_text()
  baseline = 'origin/main' if a['slug']=='how-customers-find-small-business-chatgpt' else 'HEAD'
- old=subprocess.check_output(['git','show',baseline+':'+str(p.relative_to(ROOT))],cwd=ROOT,text=True)
  body=lambda t:re.search(r'<article class="article-body">(.*?)</article>',t,re.S).group(1)
  if '--check-prose' in sys.argv:
-  assert body(old)==body(s),a['slug']
+  ref=baseline+':'+str(p.relative_to(ROOT))
+  if subprocess.run(['git','cat-file','-e',ref],cwd=ROOT,stderr=subprocess.DEVNULL).returncode==0:
+   old=subprocess.check_output(['git','show',ref],cwd=ROOT,text=True)
+   assert body(old)==body(s),a['slug']
  if a['topic']:
   assert f'/topics/{a["topic"]}/' in s
  else:
@@ -39,7 +41,7 @@ for old,dest in site['raw']['legacyTopicRedirects'].items():
  for suffix in ['', '/', '/index.html']:
   assert any(x['from']==f'/topics/{old}{suffix}' and x['to']==dest and x['status']==301 for x in routes)
  assert dest in (ROOT/'topics'/old/'index.html').read_text()
-index=json.loads((ROOT/'search/search-index.json').read_text());assert len(index)==17
+index=json.loads((ROOT/'search/search-index.json').read_text());assert len(index)==18
 assert sum(not x['topic'] for x in index)==2
 assert {x['format'] for x in index}=={'Guide','Comparison','Our experiment'}
-print('PASS: four category hubs (4/7/2/2), all 17 articles (use --check-prose for baseline equality), uncategorized personal guides, navigation, search and 15 legacy redirects')
+print('PASS: four category hubs (4/8/2/2), all 18 articles (use --check-prose for baseline equality), uncategorized personal guides, navigation, search and 15 legacy redirects')
