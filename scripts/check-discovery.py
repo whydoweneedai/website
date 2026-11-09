@@ -18,7 +18,7 @@ class Page(HTMLParser):
  def handle_starttag(self,t,a):self.tags.append((t,dict(a)))
 ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
 urls=[x.text for x in ET.parse(ROOT/'sitemap.xml').findall('s:url/s:loc',ns)]
-assert len(urls)==len(set(urls))==30
+assert len(urls)==len(set(urls))==31
 assert ORIGIN+'/how-we-test/' in urls and ORIGIN+'/search/' not in urls
 for url in urls:
  rel=url.removeprefix(ORIGIN).strip('/')
@@ -55,8 +55,8 @@ for url in urls:
   count=len(site['articles']) if rel=='blog' else sum(a['topic']==rel.split('/')[1] for a in site['articles'])
   assert len(collection['mainEntity']['itemListElement'])==count,rel
 feed=ET.parse(ROOT/'feed.xml');items=feed.findall('channel/item')
-assert len(items)==17 and len({x.findtext('guid') for x in items})==17
+assert len(items)==18 and len({x.findtext('guid') for x in items})==18
 assert [x.findtext('link') for x in items]==[ORIGIN+'/blog/'+a['slug']+'/' for a in site['ordered']]
 assert 'noindex' in (ROOT/'search/index.html').read_text()
 assert 'Allow: /' in (ROOT/'robots.txt').read_text()
-print('PASS: 30 sitemap pages, entity graph, 17 article breadcrumbs/dates, collection lists, 17 feed items, social defaults, links and privacy')
+print('PASS: 31 sitemap pages, entity graph, 18 article breadcrumbs/dates, collection lists, 18 feed items, social defaults, links and privacy')

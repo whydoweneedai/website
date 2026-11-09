@@ -13,6 +13,7 @@
       "ai-agents-business-app-permissions"
     ],
     "latestSlugs": [
+      "avoid-ai-workslop",
       "how-customers-find-small-business-chatgpt",
       "thanksgiving-plan-chatgpt-menu-timeline-grocery-list",
       "ai-readiness-checklist-test",
@@ -266,6 +267,20 @@
       "searchDek": "Make your services clear, check crawler access and try realistic searches. Practical steps for small-business owners, without promises of guaranteed recommendations.",
       "format": "Guide",
       "metaDescription": "Help customers find your business in ChatGPT with clear service pages, consistent details and useful evidence. No placement or ranking guarantees."
+    },
+    {
+      "slug": "avoid-ai-workslop",
+      "topic": "using-ai-at-work",
+      "date": "2026-11-09",
+      "dateModified": "2026-11-09",
+      "readMin": 5,
+      "hero": "typographic",
+      "imageAlt": "Title card: How to avoid AI workslop that wastes your reader’s time.",
+      "searchTitle": "How to avoid AI workslop that wastes your reader’s time",
+      "searchDek": "AI can make unfinished thinking look finished. Before sending a draft, check whether your reader has the facts, decisions and next steps they need.",
+      "format": "Guide",
+      "metaTitle": "How to avoid AI workslop that wastes your reader’s time",
+      "metaDescription": "AI can make unfinished thinking look finished. Before sending a draft, check whether your reader has the facts, decisions and next steps they need."
     }
   ],
   "legacyTopicRedirects": {
