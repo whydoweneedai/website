@@ -107,10 +107,5 @@
   .publication-menu a:hover {background: #eef4f9}
   .publication-footer {flex-direction: column; gap: 12px}
 }
-@font-face {
-  font-family: "Publication Inter";
-  src: url("/fonts/publication-inter.ttf") format("truetype");
-  font-weight: 100 900;
-  font-display: swap;
-}
-.publication-nav, .publication-footer {font-family:"Publication Inter", Inter, system-ui, sans-serif}
+.publication-nav, .publication-footer {font-family:Inter, system-ui, sans-serif}
+
