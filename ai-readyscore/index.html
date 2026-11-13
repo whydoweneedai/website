@@ -60,22 +60,6 @@
   body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
     background:linear-gradient(180deg,#f0f7ff,#fff);min-height:100vh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 16px 20px;}
-  .site-nav{position:fixed;z-index:100;top:0;left:0;right:0;height:56px;
-    display:flex;align-items:center;justify-content:space-between;padding:0 18px;
-    background:rgba(255,255,255,.88);border-bottom:1px solid rgba(219,234,254,.9);
-    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
-  .site-nav a{color:var(--ink);text-decoration:none;font-weight:900;}
-  .site-nav .brand{display:inline-flex;align-items:center;flex-shrink:0;}
-  .brand-logo{display:block;line-height:0;}
-  .brand-logo img{display:block;width:auto;height:34px;max-width:none;}
-  @media(max-width:639px){.brand-logo img{height:28px;}}
-  .site-nav .nav-actions{display:flex;align-items:center;gap:14px;}
-  .site-nav .about-link{font-size:14px;color:var(--sub);}
-  .site-nav .blog-link{padding:8px 13px;border-radius:999px;background:var(--soft);
-    border:1px solid var(--border);color:var(--blue-dark);font-size:14px;transition:.15s;}
-  .site-nav .about-link:hover,.site-nav .about-link:focus-visible{color:var(--blue-dark);outline:none;}
-  .site-nav .blog-link:hover,.site-nav .blog-link:focus-visible{background:#dbeafe;
-    outline:none;box-shadow:0 0 0 3px rgba(37,99,235,.16);}
   .app{width:100%;max-width:430px;flex:1;display:flex;align-items:center;position:relative;z-index:1;}
   .quiz-mascot{display:block;width:auto;height:clamp(120px,28vw,168px);margin:0 auto 14px;object-fit:contain;}
   .app>.screen{width:100%;}
@@ -97,11 +81,6 @@
   .site-trust a{color:#64748b;text-decoration:none;font-weight:800;}
   .site-trust a:hover,.site-trust a:focus-visible{color:var(--blue-dark);outline:none;}
   .site-trust p{margin:0;}
-  @media(max-width:520px){
-    .site-nav{padding:0 12px;}
-    .site-nav .nav-actions{gap:9px;}
-    .site-nav .about-link{display:none;}
-  }
   .screen{animation:slide .35s ease;}
   @keyframes slide{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
   h1{font-size:36px;font-weight:900;letter-spacing:-.5px;line-height:1.1;margin-bottom:10px;}
@@ -137,6 +116,7 @@
   .logo-sm{display:block;width:100%;max-width:150px;height:auto;margin:0 auto 12px;border-radius:12px;}
   @media(prefers-reduced-motion:reduce){.screen{animation:none;}*{scroll-behavior:auto!important;}}
 </style>
+<link rel="stylesheet" href="/readyscore.css">
 <script id="discovery-identity" type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://whydoweneedai.com/#organization", "name": "Why Do We Need AI", "url": "https://whydoweneedai.com/", "logo": "https://whydoweneedai.com/website_logo.png", "sameAs": ["https://x.com/whydoweneedai"]}, {"@type": "Person", "@id": "https://whydoweneedai.com/about/#ross-c", "name": "Ross C", "url": "https://whydoweneedai.com/about/#ross-c", "jobTitle": "Editor", "worksFor": {"@id": "https://whydoweneedai.com/#organization"}, "description": "Editor of Why Do We Need AI, a publication about practical AI and automation decisions for small-business owners."}]}</script>
 <link rel="alternate" type="application/rss+xml" title="Why Do We Need AI" href="/feed.xml">
 </head>
@@ -144,25 +124,38 @@
 
 <a class="skip-link" href="#app">Skip to content</a>
 
-<nav class="site-nav" aria-label="Primary navigation">
-  <a class="brand" href="/"><picture class="brand-logo"><source srcset="/images/brand/lockup-w150.webp 150w, /images/brand/lockup-w182.webp 182w, /images/brand/lockup-w300.webp 300w, /images/brand/lockup-w364.webp 364w, /images/brand/lockup-w450.webp 450w, /images/brand/lockup-w546.webp 546w, /images/brand/lockup-128.webp 684w" sizes="(max-width: 639px) 149.625px, 181.6875px" type="image/webp"><img src="/images/brand/lockup-w182.png" srcset="/images/brand/lockup-w150.png 150w, /images/brand/lockup-w182.png 182w, /images/brand/lockup-w300.png 300w, /images/brand/lockup-w364.png 364w, /images/brand/lockup-w450.png 450w, /images/brand/lockup-w546.png 546w, /images/brand/lockup-128.png 684w" sizes="(max-width: 639px) 149.625px, 181.6875px" alt="WhyDoWeNeedAI" width="684" height="128" style="aspect-ratio:171 / 32" decoding="async"></picture></a>
-  <div class="nav-actions">
-    <a class="about-link" href="/about/">About</a>
-    <a class="blog-link" href="/blog/">Read the blog →</a>
-  </div>
-</nav>
+<header class="site-header">
+  <nav class="publication-nav" aria-label="Primary navigation">
+    <a class="publication-brand" href="/"><img src="/images/brand/robot-head.png" width="38" height="38" alt=""><span>whydoweneed<b>ai</b></span></a>
+    <div class="publication-links">
+      <a href="/blog/">Blog</a>
+      <a href="/ai-readyscore/" aria-current="page">ReadyScore</a>
+    </div>
+    <a class="publication-follow" href="https://x.com/whydoweneedai"><svg class="xicon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z"/></svg> Follow on X</a>
+    <details class="publication-menu">
+      <summary aria-label="Menu"><span aria-hidden="true"></span></summary>
+      <div>
+        <a href="/blog/">Blog</a>
+        <a href="/ai-readyscore/" aria-current="page">ReadyScore</a>
+        <a href="https://x.com/whydoweneedai"><svg class="xicon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z"/></svg> Follow on X</a>
+      </div>
+    </details>
+  </nav>
+</header>
 
-<main class="app" id="app" tabindex="-1">
-  <div class="screen center">
-    <img src="/images/brand/logo-mascot.png" alt="" class="quiz-mascot" width="531" height="522" aria-hidden="true" decoding="async">
-    <h1>Do I Need AI?</h1>
-    <p class="sub">Find out your AI ReadyScore in 2 minutes.<br>A practical starting point for your next small test.</p>
-    <button class="btn" onclick="question()">Let's find out →</button>
-    <p class="fine">This self-assessment uses your answers to suggest a next step. A real pilot will tell you what works.</p>
+<div class="rs-sheet"><main class="app" id="app" tabindex="-1"><div class="screen start">
+  <div class="rs-copy">
+    <div class="rs-eyebrow">AI ReadyScore · Free</div>
+    <h1>Find out where AI fits your business.</h1>
+    <p class="sub">Answer 8 quick questions about how you work today. Get a score and one practical first step to test.</p>
+    <div class="rs-facts"><span><i></i>8 questions</span><span><i></i>About 2 minutes</span><span><i></i>No tool to buy</span></div>
+    <button class="btn" onclick="question()">Start the quiz →</button>
+    <p class="fine">We ask for your name and email before showing your score.</p>
     <noscript><p class="fine">The quiz needs JavaScript. You can still use our <a href="/blog/ai-readiness-checklist/">AI readiness checklist</a> and <a href="/blog/">practical guides</a>.</p></noscript>
-    <p class="footer">Built by someone who was also confused by AI once.</p>
   </div>
-</main>
+  <div class="rs-art"><img src="/images/brand/logo-mascot.png" alt="" aria-hidden="true" width="531" height="522" decoding="async">
+    <div class="rs-chip"><small>Example score</small><b>67</b><span>AI Ready</span></div></div>
+</div></main>
 
 <section class="score-explainer" aria-labelledby="score-explainer-title">
   <h2 id="score-explainer-title">What does AI ReadyScore measure?</h2>
@@ -190,7 +183,7 @@
     <a href="https://x.com/whydoweneedai" rel="noopener" target="_blank">Follow on X</a>
   </nav>
   <p>Why Do We Need AI — practical guidance for using AI at work.</p>
-</footer>
+</footer></div>
 
 <script>
 const questions = [
@@ -257,15 +250,18 @@ const persona = () => personas.find(p => finalScore()>=p.min && finalScore()<=p.
 
 function welcome(){
   state = {i:0, score:0, answers:[], pain:null, worry:null};
-  app.innerHTML = `
-    <div class="screen center">
-      <img src="/images/brand/logo-mascot.png" alt="" class="quiz-mascot" width="531" height="522" aria-hidden="true" decoding="async">
-      <h1>Do I Need AI?</h1>
-      <p class="sub">Find out your AI ReadyScore in 2 minutes.<br>A practical starting point for your next small test.</p>
-      <button class="btn" onclick="question()">Let's find out →</button>
-      <p class="fine">This self-assessment uses your answers to suggest a next step. A real pilot will tell you what works.</p>
-      <p class="footer">Built by someone who was also confused by AI once.</p>
-    </div>`;
+  app.innerHTML = `<div class="screen start">
+  <div class="rs-copy">
+    <div class="rs-eyebrow">AI ReadyScore · Free</div>
+    <h1>Find out where AI fits your business.</h1>
+    <p class="sub">Answer 8 quick questions about how you work today. Get a score and one practical first step to test.</p>
+    <div class="rs-facts"><span><i></i>8 questions</span><span><i></i>About 2 minutes</span><span><i></i>No tool to buy</span></div>
+    <button class="btn" onclick="question()">Start the quiz →</button>
+    <p class="fine">We ask for your name and email before showing your score.</p>
+  </div>
+  <div class="rs-art"><img src="/images/brand/logo-mascot.png" alt="" aria-hidden="true" width="531" height="522" decoding="async">
+    <div class="rs-chip"><small>Example score</small><b>67</b><span>AI Ready</span></div></div>
+</div>`;
 }
 
 function question(){
@@ -399,6 +395,21 @@ function results(name){
   app.focus({preventScroll:true});
 }
 </script>
-  <script src="/blog/site.js" defer></script>
+<footer class="site-footer">
+  <div class="publication-footer">
+    <p>© WhyDoWeNeedAI · Practical AI for small business</p>
+    <nav aria-label="Footer">
+      <a href="/blog/">Blog</a>
+      <a href="/ai-readyscore/">ReadyScore</a>
+      <a href="https://x.com/whydoweneedai">X</a>
+      <a href="/about/">About</a>
+      <a href="/editorial-policy/">Editorial policy</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+    </nav>
+  </div>
+</footer>
+<script src="/blog/site.js" defer></script>
 </body>
 </html>

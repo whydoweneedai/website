@@ -46,8 +46,8 @@ const assessmentPrefill = (() => {
   *{box-sizing:border-box;margin:0;}
   body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);
     background:linear-gradient(180deg,#f0f7ff,#fff);min-height:100vh;
-    display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 60px;}
-  .app{width:100%;max-width:560px;}
+    display:block;}
+  .app{width:min(560px, calc(100% - 32px));margin:24px auto 60px;}
   .screen{animation:slide .35s ease;}
   @keyframes slide{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
   .logo-sm{display:block;width:100%;max-width:150px;height:auto;margin:0 auto 16px;border-radius:12px;}
@@ -79,8 +79,27 @@ const assessmentPrefill = (() => {
   .center{text-align:center;}
   .emoji{font-size:52px;text-align:center;margin-bottom:8px;}
 </style>
+<link rel="stylesheet" href="/chrome.css">
 </head>
 <body>
+<header class="site-header">
+  <nav class="publication-nav" aria-label="Primary navigation">
+    <a class="publication-brand" href="/"><img src="/images/brand/robot-head.png" width="38" height="38" alt=""><span>whydoweneed<b>ai</b></span></a>
+    <div class="publication-links">
+      <a href="/blog/">Blog</a>
+      <a href="/ai-readyscore/">ReadyScore</a>
+    </div>
+    <a class="publication-follow" href="https://x.com/whydoweneedai"><svg class="xicon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z"/></svg> Follow on X</a>
+    <details class="publication-menu">
+      <summary aria-label="Menu"><span aria-hidden="true"></span></summary>
+      <div>
+        <a href="/blog/">Blog</a>
+        <a href="/ai-readyscore/">ReadyScore</a>
+        <a href="https://x.com/whydoweneedai"><svg class="xicon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z"/></svg> Follow on X</a>
+      </div>
+    </details>
+  </nav>
+</header>
 
 <div class="app" id="app"></div>
 
@@ -266,5 +285,21 @@ function done(name){
 
 form();
 </script>
+<footer class="site-footer">
+  <div class="publication-footer">
+    <p>© WhyDoWeNeedAI · Practical AI for small business</p>
+    <nav aria-label="Footer">
+      <a href="/blog/">Blog</a>
+      <a href="/ai-readyscore/">ReadyScore</a>
+      <a href="https://x.com/whydoweneedai">X</a>
+      <a href="/about/">About</a>
+      <a href="/editorial-policy/">Editorial policy</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+    </nav>
+  </div>
+</footer>
+<script src="/blog/site.js" defer></script>
 </body>
 </html>

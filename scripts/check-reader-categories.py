@@ -33,8 +33,8 @@ for c in categories:
   # Hub cards contain exactly their assigned articles; global nav contains none.
   assert (f'/blog/{a["slug"]}/' in links)==(a['topic']==c),(c,a['slug'])
 for p in [ROOT/'index.html',ROOT/'blog/index.html',ROOT/'search/index.html',*(ROOT/'topics'/c/'index.html' for c in categories)]:
- s=p.read_text(); nav=re.search(r'<nav class="nav-inner".*?</nav>',s,re.S).group()
- assert all('/topics/'+c+'/' in nav for c in categories)
+ s=p.read_text(); nav=re.search(r'<nav class="publication-nav".*?</nav>',s,re.S).group()
+ assert all(f'href="{href}"' in nav for href in ('/blog/', '/ai-readyscore/', 'https://x.com/whydoweneedai'))
  assert not re.search(r'/topics/(tested|roi-planning|choosing-ai-tools)/',s)
 routes=tomllib.loads((ROOT/'netlify.toml').read_text())['redirects']
 for old,dest in site['raw']['legacyTopicRedirects'].items():

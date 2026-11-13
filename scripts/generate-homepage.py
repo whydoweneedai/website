@@ -1,125 +1,112 @@
 #!/usr/bin/env python3
-import sys
-from pathlib import Path
+"""Build the publication homepage from the article catalog and news desk."""
+from html import escape
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hero_markup import LOGO_OG, og_image_url
-from editorial_media import editorial_image
-
-from site_data import load_site, masthead_dateline, topic_href
-from site_chrome import (
-    FONT,
-    HEAD_ICONS,
-    footer_html,
-    head_scripts,
-    header_nav,
-    html_newsletter_attr,
-    masthead_logo,
-    newsletter_home_block,
-    readyscore_module,
-)
-
-ROOT = Path(__file__).resolve().parents[1]
+from editorial_media import MEDIA
+from site_chrome import FONT, HEAD_ICONS, X_URL, XSVG, footer_html, header_nav, head_scripts
+from site_data import ROOT, load_site, load_recent_news, recent_feed_date, format_display_date
 
 
-def topic_card(t, topic_pages):
-    href = topic_href(t["slug"], topic_pages)
-    return f"""<article class="card"><a class="card-link" href="{href}"><h3 class="card-title">{t['name']}</h3><p class="card-dek">{t['intro'].split('.')[0]}.</p></a></article>"""
+def article_url(article):
+    return f'/blog/{article["slug"]}/'
+
+
+def takeaway(article):
+    return article.get("takeaway") or article["searchDek"]
+
+
+def card_image(article):
+    media = MEDIA.get(article["slug"])
+    fallback = f"/images/editorial/{media[0]}.svg" if media else "/images/og/home.png"
+    return article.get("cardImage") or fallback
+
+
+def is_test(article):
+    return article["format"] == "Our experiment"
+
+
+def image_markup(url, eager=False):
+    loading = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    if url.endswith(".svg") or url.startswith("/images/posts/"):
+        width, height = 1200, 720
+    elif url.startswith("/images/news/"):
+        width, height = 960, 540
+    else:
+        width, height = 1200, 630
+    return f'<img src="{escape(url)}" alt="" width="{width}" height="{height}" {loading} decoding="async">' 
+
+
+def date_markup(iso):
+    return f'<time datetime="{iso}">{format_display_date(iso)}</time>'
+
+
+def featured_card(article, lead=False):
+    label = "Our test" if is_test(article) else article["format"]
+    image = image_markup(card_image(article), eager=lead)
+    dek = f"<p>{escape(takeaway(article))}</p>" if lead else ""
+    classes = "card lead" if lead else "card"
+    return f'''<a class="{classes}" href="{article_url(article)}">
+  <div class="ph"><span class="badge">{escape(label)}</span>{image}</div>
+  <div><h3>{escape(article["searchTitle"])}</h3>{dek}
+  <span class="meta">{date_markup(article["date"])} · {article["readMin"]} min read</span></div>
+</a>'''
+
+
+def feed_card(item):
+    label_class = "lab ours" if item["kind"] == "ours" else "lab"
+    return f'''<a class="item" data-kind="{item["kind"]}" href="{escape(item["sourceUrl"])}">
+  <div class="ph">{image_markup(item["image"])}</div>
+  <div><div class="{label_class}">{escape(item["source"])}</div>
+  <h3>{escape(item["title"])}</h3>
+  <p><b>Why it matters:</b> {escape(item["takeaway"])}</p>
+  <span class="meta">{date_markup(item["date"])}</span></div>
+</a>'''
+
+
+def tags(article):
+    primary = article["topic"] or "everyday"
+    return [primary, "tests"] if is_test(article) else [primary]
+
+
+def guide_card(article, index):
+    topic = article["topicLabel"] if article["topic"] else "Everyday ChatGPT"
+    state = " hidden" if index >= 8 else ""
+    return f'''<a class="guide" data-tags="{escape(" ".join(tags(article)))}" href="{article_url(article)}"{state}>
+  <div class="ph">{image_markup(card_image(article))}</div>
+  <div class="body"><h3>{escape(article["searchTitle"])}</h3><p>{escape(takeaway(article))}</p>
+  <div class="meta"><span class="t">{escape(topic)}</span> · {article["readMin"]} min read</div></div>
+</a>'''
 
 
 def main():
     site = load_site()
-    hp = site["raw"]["homepage"]
-    by = site["by_slug"]
-    topic_pages = site["topic_pages"]
-    lead = by[hp["leadSlug"]]
-    lead_href = topic_href(lead["topic"], topic_pages)
-    nl_attr = html_newsletter_attr(site["newsletter_active"])
+    posts = site["ordered"]
+    config = site["raw"]["homepage"]
+    featured = featured_card(site["by_slug"][config["leadSlug"]], lead=True)
+    featured += "".join(featured_card(site["by_slug"][slug]) for slug in config["featuredSlugs"])
 
-    def text_card(a, show_topic: bool) -> str:
-        topic = (
-            f'<span class="topic-label">{a["topicLabel"]}</span>' + (f'<span class="format-label">{a["formatLabel"]}</span>' if a["topic"] else "")
-            if show_topic
-            else ""
-        )
-        return f"""<article class="card card--text">
-          <a class="card-link" href="/blog/{a['slug']}/">
-            {editorial_image(a)}
-            <div class="card-body">{topic}<h3 class="card-title">{a['searchTitle']}</h3><p class="card-dek">{a['searchDek']}</p></div>
-          </a>
-        </article>"""
+    feed = [{**item, "source": f'via {item["source"]}', "kind": "news"} for item in load_recent_news()]
+    feed.extend({
+        "kind": "ours", "date": article["date"], "title": article["searchTitle"],
+        "source": "WhyDoWeNeedAI", "sourceUrl": article_url(article),
+        "takeaway": takeaway(article), "image": card_image(article),
+    } for article in posts if recent_feed_date(article["date"]))
+    feed.sort(key=lambda item: item["date"], reverse=True)
+    feed_html = "".join(feed_card(item) for item in feed)
 
-    lead_slug = hp["leadSlug"]
-    ordered_slugs = [a["slug"] for a in site["ordered"]]
-    rail_slugs = [s for s in ordered_slugs if s != lead_slug][:3]
-
-    featured_slugs = list(hp.get("featuredSlugs", []))
-    for slug in featured_slugs:
-        if slug not in by:
-            raise SystemExit(f"unknown featuredSlug: {slug}")
-        if slug == lead_slug:
-            raise SystemExit("featuredSlug cannot match leadSlug")
-
-    featured_cards = [text_card(by[slug], True) for slug in featured_slugs]
-    featured_grid = "\n        ".join(featured_cards)
-    featured_section = ""
-    if featured_cards:
-        featured_section = f"""
-    <section class="home-section home-section--featured" aria-labelledby="featured-title">
-      <div class="section-header">
-        <h2 id="featured-title" class="section-title">Featured</h2>
-      </div>
-      <div class="card-grid card-grid--picks">
-        {featured_grid}
-      </div>
-    </section>"""
-
-    latest_slugs = list(hp["latestSlugs"])
-    pick_slugs = list(hp["editorsPickSlugs"])
-    all_slugs = {a["slug"] for a in site["articles"]}
-    home_slugs = {lead_slug} | set(rail_slugs) | set(latest_slugs) | set(pick_slugs)
-    if home_slugs != all_slugs:
-        missing = sorted(all_slugs - home_slugs)
-        extra = sorted(home_slugs - all_slugs)
-        raise SystemExit(
-            f"homepage must include every article in lead, rail, latest, or editor's picks "
-            f"(missing {missing or 'none'}, extra {extra or 'none'})"
-        )
-
-    def latest_row(a) -> str:
-        return f"""<li class="home-latest-item">
-          <a class="home-latest-link" href="/blog/{a['slug']}/">
-            <span class="topic-label">{a['topicLabel']}</span>{f'<span class="format-label">{a["formatLabel"]}</span>' if a["topic"] else ""}
-            <h3 class="home-latest-title">{a['searchTitle']}</h3>
-            <p class="home-latest-dek">{a['searchDek']}</p>
-            <p class="post-meta"><time datetime="{a['date']}">{a['dateDisplay']}</time></p>
-          </a>
-        </li>"""
-
-    latest_rows = "\n".join(latest_row(by[slug]) for slug in latest_slugs)
-    pick_cards = [text_card(by[slug], False) for slug in pick_slugs]
-
-    rail_items = []
-    for i, slug in enumerate(rail_slugs, start=1):
-        a = by[slug]
-        rail_items.append(
-            f'<li class="lead-rail-item"><span class="lead-rail-num" aria-hidden="true">{i}</span>'
-            f'<a href="/blog/{slug}/"><span class="lead-rail-kicker">{a["topicLabel"]}</span>'
-            f'<span class="lead-rail-title">{a["searchTitle"]}</span></a></li>'
-        )
-    lead_rail = "\n          ".join(rail_items)
-    lead_rail_block = f"""<ol class="lead-rail-list">
-          {lead_rail}
-          </ol>"""
-
-    topic_cards = "\n        ".join(
-        topic_card(t, topic_pages) for t in site["raw"]["topics"] if t["slug"] in topic_pages
-    )
+    topics = {topic["slug"]: topic["name"] for topic in site["raw"]["topics"]}
+    topics.update(tests="Our tests", everyday="Everyday ChatGPT")
+    chips = f'<button class="on" aria-pressed="true" data-f="all">All <small>{len(posts)}</small></button>'
+    for slug, label in topics.items():
+        count = sum(slug in tags(article) for article in posts)
+        if count:
+            chips += f'<button aria-pressed="false" data-f="{escape(slug)}">{escape(label)} <small>{count}</small></button>'
+    guides = "".join(guide_card(article, index) for index, article in enumerate(posts))
+    n_tests = sum(is_test(article) for article in posts)
     og_image = og_image_url(slug="home")
-    built_dateline = masthead_dateline(site["articles"])
-
-    html = f"""<!DOCTYPE html>
-<html lang="en"{nl_attr}>
+    page = f'''<!DOCTYPE html>
+<html lang="en">
 <head>
 {head_scripts(True)}
 {HEAD_ICONS}
@@ -130,7 +117,7 @@ def main():
   <meta name="description" content="Which AI is worth it for your business—researched and plainly answered. Practical guides, documented tests, and decision tools for small-business owners.">
   <meta name="author" content="whydoweneedai.com">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#1f66b8">
+  <meta name="theme-color" content="#0f1d30">
   <link rel="canonical" href="https://whydoweneedai.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Why Do We Need AI">
@@ -159,96 +146,41 @@ def main():
   }}
   </script>
 {FONT}
+  <link rel="stylesheet" href="/publication.css">
 </head>
-<body class="editorial-home">
-  <a class="skip-link" href="#main-content">Skip to content</a>
+<body class="publication-home">
+<a class="skip-link" href="#main-content">Skip to content</a>
 {header_nav("/")}
-  <main class="page-main" id="main-content">
-    <header class="masthead masthead--front">
-      <div class="masthead-inner masthead-inner--front">
+<main id="main-content">
+<div class="top"><div class="wrap">
+<section class="hero"><h1>Honest, <em>tested</em> AI for<br> small-business owners.</h1>
+<p>We try AI on real small-business tasks, publish what worked and what didn’t, and explain the week’s AI news in plain English.</p>
+<div class="cta"><a class="btn btn-white" href="/ai-readyscore/">Get your ReadyScore →</a><a class="btn btn-ghost" href="{X_URL}">{XSVG} Follow @whydoweneedai</a></div>
+<p class="proof"><b>{n_tests}</b> published tests · <b>{len(posts)}</b> guides · corrections shown in the open</p></section>
+</div></div>
+<div class="sheet"><div class="wrap">
+<section class="sec"><div class="head"><h2>Latest from our tests</h2><p>Real tasks, invented data, and the results, good or bad.</p></div>
+<div class="feat">{featured}</div><div class="more"><a class="btn btn-outline" href="/blog/">View all posts →</a></div></section>
 
-        <div class="masthead-copy">
-          <p class="pub-dateline masthead-dateline" id="pub-dateline">{built_dateline}</p>
-          <h1 class="masthead-tagline">AI for the work in front of you.</h1>
-          <p class="masthead-sub">Real tests. Useful guides. Clear limits. Find out what helps, what fails, and what still needs you.</p>
-        </div>
-      </div>
-    </header>
+<section class="sec" id="latest"><div class="head"><h2>Latest</h2><p>Recent AI news and practical posts for small businesses.</p>
+<div class="tabs" data-for="feed"><button class="on" aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="news">News</button><button aria-pressed="false" data-f="ours">Our posts</button></div></div>
+<div class="feed">{feed_html}</div><p class="feed-empty" hidden>No recent items in this view.</p>
 
-    <section class="home-section home-section--lead" aria-labelledby="lead-headline">
-      <div class="lead-front">
-        <article class="lead-story lead-story--front">
-          <a class="editorial-cover-link" href="/blog/{lead['slug']}/" aria-label="Read: {lead['searchTitle']}">{editorial_image(lead, eager=True)}</a>
-          <a class="topic-label" href="{lead_href}">{lead['topicLabel']}</a><span class="format-label">{lead['formatLabel']}</span>
-          <h2 id="lead-headline" class="lead-story-headline"><a href="/blog/{lead['slug']}/">{lead['searchTitle']}</a></h2>
-          <p class="lead-dek">{lead['searchDek']}</p>
-          <p class="lead-byline post-meta"><span>By <a href="/about/">Ross C</a></span><span aria-hidden="true">·</span><time datetime="{lead['date']}">{lead['dateDisplay']}</time></p>
-          <p class="lead-cta"><a class="read-link" href="/blog/{lead['slug']}/">Read the story</a></p>
-          <div class="lead-story-rail-mobile" aria-labelledby="lead-rail-mobile-title">
-            <h2 id="lead-rail-mobile-title" class="lead-rail-heading">New &amp; noteworthy</h2>
-            {lead_rail_block}
-          </div>
-        </article>
-        <aside class="lead-story-rail" aria-labelledby="lead-rail-title">
-          <h2 id="lead-rail-title" class="lead-rail-heading">New &amp; noteworthy</h2>
-          {lead_rail_block}
-        </aside>
-      </div>
-    </section>
-{featured_section}
+<aside class="ready"><div class="txt"><div class="eyebrow">AI ReadyScore · Free</div>
+<h2>Find out where AI fits<br>your business.</h2><p>Answer 8 quick questions about how you work today. Get a score and one practical first step to test.</p>
+<div class="facts"><span><i></i>8 questions</span><span><i></i>About 2 minutes</span><span><i></i>No tool to buy</span></div>
+<a class="btn btn-gold" href="/ai-readyscore/">Get your ReadyScore →</a></div>
+<div class="art"><img src="/images/brand/logo-mascot.png" alt="" width="531" height="522"></div></aside></section>
 
-    <section class="home-section" aria-labelledby="latest-title">
-      <div class="section-header">
-        <h2 id="latest-title" class="section-title">More to explore</h2>
-      </div>
-      <ol class="home-latest-list">
-        {latest_rows}
-      </ol>
-    </section>
-
-    <section class="home-section home-section--editors-picks" aria-labelledby="picks-title">
-      <div class="section-header">
-        <h2 id="picks-title" class="section-title">Editor's picks</h2>
-        <p class="section-intro">Good places to start.</p>
-      </div>
-      <div class="card-grid card-grid--picks">
-        {chr(10).join(pick_cards)}
-      </div>
-    </section>
-
-    <section class="home-section" aria-labelledby="topics-title">
-      <div class="section-header">
-        <h2 id="topics-title" class="section-title">Browse by topic</h2>
-      </div>
-      <div class="card-grid">
-        {topic_cards}
-      </div>
-      <p style="margin-top:1.5rem"><a class="read-link" href="/blog/">Full archive</a></p>
-    </section>
-
-    <section class="home-section" aria-labelledby="readyscore-title">
-      {readyscore_module("readyscore-title")}
-    </section>
-
-{newsletter_home_block()}
-  </main>
-
+<section class="sec" id="guides"><div class="head"><h2>Guides</h2><p>Step-by-step playbooks from our tests and research.</p>
+<div class="chips">{chips}</div></div>
+<div class="guides">{guides}</div><div class="more"><a class="btn btn-outline" href="/blog/">View all guides →</a></div></section>
+</div></div></main>
 {footer_html()}
-  <script>
-  (function () {{
-    var hash = window.location.hash;
-    if (!hash || hash === "#") return;
-    var quizHashes = ["#app", "#quiz", "#assessment"];
-    if (quizHashes.indexOf(hash.toLowerCase()) !== -1) {{
-      window.location.replace("/ai-readyscore/" + hash);
-    }}
-  }})();
-  </script>
-</body>
-</html>
-"""
-    (ROOT / "index.html").write_text("\n".join(line.rstrip() for line in html.splitlines()) + "\n")
-    print("homepage ok")
+<script src="/publication.js" defer></script>
+</body></html>
+'''
+    (ROOT / "index.html").write_text(page)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,116 @@
+.site-header {
+  position: relative;
+  z-index: 2;
+  background: #0f1d30;
+  border: 0;
+  color: #fff;
+}
+.publication-nav, .publication-footer {
+  width: min(100%, 1140px);
+  margin-inline: auto;
+  padding-inline: 32px;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+.publication-nav {
+  min-height: 68px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+}
+.publication-nav a, .publication-footer a {text-decoration: none}
+.publication-nav .publication-brand {
+  display: inline-flex;
+  justify-self: start;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font: 800 19px/1 Nunito, Inter, system-ui, sans-serif;
+  letter-spacing: -.02em;
+}
+.publication-brand img {object-fit: contain}
+.publication-brand b {color: #9fd3e6}
+.publication-links {display: flex; gap: 30px; font-size: 14px}
+.publication-links a {color: #cfd8e2}
+.publication-links a:hover, .publication-links a[aria-current] {color: #fff}
+.publication-nav .publication-follow {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 9px;
+  background: #fff;
+  color: #132a44;
+  font-size: 14px;
+  font-weight: 600;
+}
+.xicon {width: 14px; height: 14px; vertical-align: -.1em; flex: none}
+.publication-menu {display: none}
+.site-footer {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #0f1d30;
+  color: #cfd8e2;
+}
+.publication-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  padding-block: 27px;
+  font-size: 13px;
+}
+.publication-footer p {margin: 0}
+.publication-footer nav {display: flex; gap: 8px 18px; flex-wrap: wrap}
+.publication-footer a {color: inherit}
+.publication-footer a:hover {text-decoration: underline}
+.publication-nav :focus-visible, .publication-footer :focus-visible {
+  outline: 2px solid #75b5fa;
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  .publication-nav, .publication-footer {padding-inline: 20px}
+  .publication-nav {display: flex; justify-content: space-between; min-height: 64px}
+  .publication-nav .publication-links, .publication-nav .publication-follow {display: none}
+  .publication-menu {display: block; position: relative}
+  .publication-menu summary {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    list-style: none;
+    cursor: pointer;
+    background: #fff;
+  }
+  .publication-menu summary::-webkit-details-marker {display: none}
+  .publication-menu summary span {
+    width: 18px;
+    height: 2px;
+    background: #132a44;
+    box-shadow: 0 -6px #132a44, 0 6px #132a44;
+  }
+  .publication-menu div {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 154px;
+    padding: 6px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 8px 28px #07142344;
+  }
+  .publication-menu a {display: block; padding: 9px; color: #132a44}
+  .publication-menu a:hover {background: #eef4f9}
+  .publication-footer {flex-direction: column; gap: 12px}
+}
+@font-face {
+  font-family: "Publication Inter";
+  src: url("/fonts/publication-inter.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}
+.publication-nav, .publication-footer {font-family:"Publication Inter", Inter, system-ui, sans-serif}
