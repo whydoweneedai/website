@@ -2,7 +2,7 @@
 """Shared HTML chrome fragments driven by data/site.json."""
 import re
 
-from site_data import load_site, topic_href
+from site_data import load_site
 
 HEAD_GA = """  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLNJLNSFEL"></script>
@@ -37,7 +37,8 @@ FONT = """  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="/blog/styles.css">"""
+  <link rel="stylesheet" href="/blog/styles.css">
+  <link rel="stylesheet" href="/chrome.css">"""
 
 FONT_BLOCK_RE = re.compile(
     r"\s*<link rel=\"preconnect\" href=\"https://fonts\.googleapis\.com\">"
@@ -55,6 +56,7 @@ def inject_font(html: str) -> str:
         html,
         flags=re.IGNORECASE,
     )
+    html = html.replace('<link rel="stylesheet" href="/chrome.css">', "")
     return html.replace("</head>", f"{FONT}\n</head>", 1)
 
 
@@ -96,67 +98,46 @@ def mascot_img(size: str = "md", decorative: bool = True) -> str:
     return f"""<img class="{cls}" src="/images/brand/logo-mascot.png" width="531" height="522" alt=""{hidden} loading="lazy" decoding="async">"""
 
 
+X_URL = "https://x.com/whydoweneedai"
+XSVG = '<svg class="xicon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z"/></svg>'
+
+
 def header_nav(current_path: str = "") -> str:
-    site = load_site()
-    topic_pages = site["topic_pages"]
-    links = []
-    for t in site["raw"]["topics"]:
-        if t["slug"] not in topic_pages:
-            continue
-        href = topic_href(t["slug"], topic_pages)
-        label = t["name"].replace("&", "&amp;")
-        cur = ' aria-current="page"' if current_path == href else ""
-        links.append(f'<a href="{href}"{cur}>{label}</a>')
-    nav_topics = "\n        ".join(links)
+    blog_current = ' aria-current="page"' if current_path == "/blog/" else ""
+    score_current = ' aria-current="page"' if current_path == "/ai-readyscore/" else ""
     return f"""<header class="site-header">
-  <nav class="nav-inner" aria-label="Primary navigation">
-    <a class="brand" href="/">{header_lockup()}</a>
-    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav-panel">Menu</button>
-    <div class="nav-panel" id="site-nav-panel">
-      <div class="nav-links">
-        {nav_topics}
-        <a href="/search/">Search</a>
-        <a href="/about/">About</a>
-        <a class="nav-cta" href="/ai-readyscore/">AI ReadyScore</a>
-      </div>
+  <nav class="publication-nav" aria-label="Primary navigation">
+    <a class="publication-brand" href="/"><img src="/images/brand/robot-head.png" width="38" height="38" alt=""><span>whydoweneed<b>ai</b></span></a>
+    <div class="publication-links">
+      <a href="/blog/"{blog_current}>Blog</a>
+      <a href="/ai-readyscore/"{score_current}>ReadyScore</a>
     </div>
+    <a class="publication-follow" href="{X_URL}">{XSVG} Follow on X</a>
+    <details class="publication-menu">
+      <summary aria-label="Menu"><span aria-hidden="true"></span></summary>
+      <div>
+        <a href="/blog/"{blog_current}>Blog</a>
+        <a href="/ai-readyscore/"{score_current}>ReadyScore</a>
+        <a href="{X_URL}">{XSVG} Follow on X</a>
+      </div>
+    </details>
   </nav>
 </header>"""
 
 
 def footer_html() -> str:
-    site = load_site()
-    topic_pages = site["topic_pages"]
-    topic_links = []
-    for t in site["raw"]["topics"]:
-        if t["slug"] not in topic_pages:
-            continue
-        href = topic_href(t["slug"], topic_pages)
-        label = t["name"].replace("&", "&amp;")
-        topic_links.append(f'<a href="{href}">{label}</a>')
-    topics_col = "\n        ".join(topic_links)
     return f"""<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      {footer_logo()}
-      <p class="footer-tagline">Practical AI for small business — researched and plainly answered.</p>
-      <p class="footer-copy">© WhyDoWeNeedAI</p>
-    </div>
-    <nav class="footer-nav" aria-label="Footer">
-      <div class="footer-col">
-        <p class="footer-col-title">Topics</p>
-        {topics_col}
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-title">Publication</p>
-        <a href="/blog/">Archive</a>
-        <a href="/about/">About</a>
-        <a href="/editorial-policy/">Editorial policy</a>
-        <a href="/contact/">Contact</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/terms/">Terms</a>
-        <a href="/ai-readyscore/">AI ReadyScore</a>
-      </div>
+  <div class="publication-footer">
+    <p>© WhyDoWeNeedAI · Practical AI for small business</p>
+    <nav aria-label="Footer">
+      <a href="/blog/">Blog</a>
+      <a href="/ai-readyscore/">ReadyScore</a>
+      <a href="{X_URL}">X</a>
+      <a href="/about/">About</a>
+      <a href="/editorial-policy/">Editorial policy</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
     </nav>
   </div>
 </footer>

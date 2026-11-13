@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "title": "Gemini eyewear starts at $395",
+      "source": "Ars Technica",
+      "sourceUrl": "https://arstechnica.com/google/2026/11/google-pushes-privacy-angle-as-gemini-powered-smartglasses-debut-starting-at-395/",
+      "date": "2026-11-12",
+      "takeaway": "If hands-free directions would help your crews, try one pair in the field before buying for the team.",
+      "image": "/images/news/gemini-glasses-preorders.webp"
+    },
+    {
+      "title": "OpenAI outlines what comes after custom GPTs",
+      "source": "OpenAI Help Center",
+      "sourceUrl": "https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq",
+      "date": "2026-11-12",
+      "takeaway": "List the GPTs your team relies on and test a replacement with the same tasks before switching.",
+      "image": "/images/news/custom-gpts-retire.webp"
+    },
+    {
+      "title": "ChatGPT opens business listings to owners",
+      "source": "OpenAI",
+      "sourceUrl": "https://openai.com/index/introducing-businesses-chatgpt/",
+      "date": "2026-11-10",
+      "takeaway": "Check what ChatGPT tells customers about your hours and services, then claim the listing so you can update it.",
+      "image": "/images/news/businesses-in-chatgpt.webp"
+    },
+    {
+      "title": "Claude brings shared workspaces into the meeting",
+      "source": "TechCrunch",
+      "sourceUrl": "https://techcrunch.com/2026/11/10/anthropic-launches-claude-meetings-to-turn-workplace-discussions-into-plans-and-tasks/",
+      "date": "2026-11-10",
+      "takeaway": "Team and Enterprise users can test the Google Meet beta on an internal call and compare its output with their usual notes.",
+      "image": "/images/news/claude-sheets-whiteboards.webp"
+    },
+    {
+      "title": "Railway customers face $740,000 in unauthorized AI usage",
+      "source": "BleepingComputer",
+      "sourceUrl": "https://www.bleepingcomputer.com/news/apple/railway-breach-leads-to-740-000-in-fraudulent-ai-charges/",
+      "date": "2026-11-10",
+      "takeaway": "If you hosted AI keys on Railway, rotate them and check your provider’s usage and billing.",
+      "image": "/images/news/railway-stolen-ai-keys.webp"
+    },
+    {
+      "title": "Intuit takes hands-on AI training to 30 U.S. cities",
+      "source": "Intuit",
+      "sourceUrl": "https://erp.intuit.com/blog/artificial-intelligence/activate-ai-tour-announcement/",
+      "date": "2026-11-10",
+      "takeaway": "If a stop is nearby, bring one task you already do every week and use the free session to try it.",
+      "image": "/images/news/intuit-activate-ai.webp"
+    }
+  ]
+}

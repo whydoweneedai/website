@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replace legacy header/footer/fonts on static pages (not articles, not assessment, not quiz)."""
+"""Refresh shared navigation and footer on static pages."""
 import re
 import sys
 from pathlib import Path
@@ -90,6 +90,11 @@ def main():
         p = ROOT / rel
         if p.exists():
             process(p)
+
+    for rel, current in (("ai-readyscore/index.html", "/ai-readyscore/"), ("assessment.html", "")):
+        path = ROOT / rel
+        html = HEADER_OLD.sub(lambda _: header_nav(current), path.read_text())
+        path.write_text(FOOTER_OLD.sub(lambda _: footer_html(), html))
 
 
 if __name__ == "__main__":

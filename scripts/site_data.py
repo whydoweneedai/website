@@ -90,3 +90,30 @@ def topic_href(slug: str, topic_pages: set) -> str:
 
 def enrich_article(a, topic_pages):
     return {**a, "topicHref": topic_href(a["topic"], topic_pages)}
+
+
+def recent_feed_date(iso, today=None):
+    """Use the publication's calendar day and an inclusive 21-day window."""
+    from datetime import date
+    from zoneinfo import ZoneInfo
+
+    today = today or datetime.now(ZoneInfo("America/New_York")).date()
+    return 0 <= (today - date.fromisoformat(iso)).days <= 21
+
+
+def load_recent_news():
+    from urllib.parse import urlsplit
+
+    items = json.loads((ROOT / "data/news.json").read_text())["items"]
+    recent = []
+    for item in items:
+        if not recent_feed_date(item["date"]):
+            continue
+        url = urlsplit(item["sourceUrl"])
+        image = item["image"]
+        if url.scheme != "https" or not url.netloc:
+            raise ValueError(f"News needs an HTTPS source: {item['title']}")
+        if not image.startswith("/images/news/") or not (ROOT / image[1:]).is_file():
+            raise ValueError(f"Missing news thumbnail: {image}")
+        recent.append(item)
+    return recent

@@ -150,6 +150,7 @@ def _dedupe_head_tags(head: str) -> str:
     head = re.sub(r"<noscript><link href=\"https://fonts.googleapis.com[^\"]*\"[^>]*></noscript>\s*", "", head, flags=re.IGNORECASE)
     head = re.sub(r"<link rel=\"stylesheet\" href=\"(?:\.\./)?styles\.css\">\s*", "", head, flags=re.IGNORECASE)
     head = re.sub(r"<link rel=\"stylesheet\" href=\"/blog/styles\.css\">\s*", "", head, flags=re.IGNORECASE)
+    head = re.sub(r'<link rel="stylesheet" href="/chrome\.css">\s*', "", head)
     head = FONT_BLOCK_RE.sub("", head)
 
     seen: set[str] = set()
