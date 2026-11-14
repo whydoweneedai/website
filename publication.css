@@ -95,7 +95,7 @@ body.publication-home{margin:0;background:var(--night);color:var(--ink);font-fam
 .guide:hover{box-shadow:0 8px 24px rgba(19,42,68,.08)}
 .guide .ph{border-radius:9px;overflow:hidden;background:#eef4f9}
 .guide .ph img{width:100%;aspect-ratio:16/9;object-fit:cover}
-.guide .body.publication-home{padding:12px 6px 0;display:flex;flex-direction:column;flex:1}
+.guide .body{padding:12px 6px 0;display:flex;flex-direction:column;flex:1}
 .guide h3{font:600 15px/1.35 Inter;letter-spacing:-.01em;margin:0}
 .guide p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.5;flex:1}
 .guide .meta{margin-top:12px;display:flex;gap:8px;align-items:center}
@@ -146,7 +146,7 @@ body.publication-home{margin:0;background:var(--night);color:var(--ink);font-fam
   .guides{grid-template-columns:1fr;gap:12px}
   .guide{flex-direction:row;gap:14px;padding:8px;align-items:stretch}
   .guide .ph{width:104px;height:104px;flex:none;align-self:start}.guide .ph img{width:104px;height:104px;aspect-ratio:auto}
-  .guide .body.publication-home{padding:4px 4px 2px 0}
+  .guide .body{padding:4px 4px 2px 0}
   .guide p{font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .guide .meta{margin-top:8px}
 
@@ -175,10 +175,15 @@ body.publication-home{margin:0;background:var(--night);color:var(--ink);font-fam
 .publication-home .lead .ph img {object-fit:cover}
 @media(max-width:640px){
   .publication-home .lead .ph img {height:auto}
-  .publication-home .hero h1 br {display:none}
 }
 .publication-home .ready h2 {color:#fff}
 @media(max-width:640px){
-  .publication-home .hero h1 {font-size:clamp(27px,8.1vw,34px)}
+  .publication-home .hero h1 {font-size:34px}
 }
 
+
+.photo-credit{display:block;margin-top:6px;font-size:10px;line-height:1.4;color:var(--muted)}
+.publication-home .site-footer{background:#fff;margin:0 14px 14px;padding-top:12px;color:#596a7c}
+.publication-home .publication-footer{border-top:1px solid var(--line);padding-block:28px 36px}
+.publication-home .publication-footer nav{gap:8px 14px}
+@media(max-width:640px){.publication-home .site-footer{margin-inline:8px}}

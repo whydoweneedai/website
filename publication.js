@@ -21,5 +21,13 @@ function bindFilters(group, cards, matches, limit, empty) {
 }
 
 bindFilters('.tabs button', '.item', (item, filter) => item.dataset.kind === filter,
-  Infinity, document.querySelector('.feed-empty'));
+  8, document.querySelector('.feed-empty'));
 bindFilters('.chips button', '.guide', (item, filter) => item.dataset.tags.split(' ').includes(filter), 8);
+
+// Expand the News tab while keeping the default homepage feed to two rows.
+document.querySelector('#view-news')?.addEventListener('click', event => {
+  event.preventDefault();
+  document.querySelector('.tabs [data-f="news"]').click();
+  document.querySelectorAll('.item').forEach(item => { item.hidden = item.dataset.kind !== 'news'; });
+  document.querySelector('#latest').scrollIntoView({behavior:'smooth'});
+});
