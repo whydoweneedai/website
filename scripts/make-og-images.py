@@ -142,6 +142,16 @@ def render_page(title: str, out: Path, topic: str | None = None):
     print("og", out.relative_to(ROOT))
 
 
+def render_photo(src: Path, out: Path):
+    """Center-crop a licensed article photo to a 1200x630 share JPG."""
+    im = Image.open(src).convert("RGB")
+    scale = max(W / im.width, H / im.height)
+    im = im.resize((round(im.width * scale), round(im.height * scale)), Image.LANCZOS)
+    left, top = (im.width - W) // 2, (im.height - H) // 2
+    im.crop((left, top, left + W, top + H)).save(out, "JPEG", quality=85, optimize=True, progressive=True)
+    print("og", out.relative_to(ROOT))
+
+
 def main():
     import sys
 
@@ -167,7 +177,13 @@ def main():
         topic="About",
     )
 
+    photo_og = ROOT / "images" / "posts" / "og"
+    photo_og.mkdir(parents=True, exist_ok=True)
     for art in site["articles"]:
+        photo = ROOT / "images" / "posts" / "cards" / f"{art['slug']}.jpg"
+        if photo.exists():
+            render_photo(photo, photo_og / f"{art['slug']}.jpg")
+            continue
         render_page(
             art["searchTitle"],
             OG_DIR / f"{art['slug']}.png",

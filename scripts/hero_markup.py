@@ -85,6 +85,10 @@ def og_image_url(art=None, slug=None) -> str:
     if slug:
         return f"{SITE_ORIGIN}/images/og/{slug}.png"
     if art:
+        from pathlib import Path as _P
+        photo = _P(__file__).resolve().parents[1] / "images/posts/og" / f"{art['slug']}.jpg"
+        if photo.exists():
+            return f"{SITE_ORIGIN}/images/posts/og/{art['slug']}.jpg"
         return f"{SITE_ORIGIN}/images/og/{art['slug']}.png"
     return f"{SITE_ORIGIN}/images/og/home.png"
 
