@@ -53,14 +53,16 @@ def featured_card(article, lead=False):
 </a>'''
 
 
-def feed_card(item):
+def feed_card(item, index):
     label_class = "lab ours" if item["kind"] == "ours" else "lab"
-    return f'''<a class="item" data-kind="{item["kind"]}" href="{escape(item["sourceUrl"])}">
+    credit = f'<span class="photo-credit">{escape(item["imageCredit"])}</span>' if item.get("imageCredit") else ""
+    hidden = " hidden" if index >= 8 else ""
+    return f'''<a class="item" data-kind="{item["kind"]}" href="{escape(item["sourceUrl"])}"{hidden}>
   <div class="ph">{image_markup(item["image"])}</div>
   <div><div class="{label_class}">{escape(item["source"])}</div>
   <h3>{escape(item["title"])}</h3>
   <p><b>Why it matters:</b> {escape(item["takeaway"])}</p>
-  <span class="meta">{date_markup(item["date"])}</span></div>
+  <span class="meta">{date_markup(item["date"])}</span>{credit}</div>
 </a>'''
 
 
@@ -75,7 +77,7 @@ def guide_card(article, index):
     return f'''<a class="guide" data-tags="{escape(" ".join(tags(article)))}" href="{article_url(article)}"{state}>
   <div class="ph">{image_markup(card_image(article))}</div>
   <div class="body"><h3>{escape(article["searchTitle"])}</h3><p>{escape(takeaway(article))}</p>
-  <div class="meta"><span class="t">{escape(topic)}</span> · {article["readMin"]} min read</div></div>
+  <div class="meta"><span class="t{ " ours" if is_test(article) else ""}">{escape("Our test" if is_test(article) else topic)}</span> · {article["readMin"]} min read</div></div>
 </a>'''
 
 
@@ -93,7 +95,7 @@ def main():
         "takeaway": takeaway(article), "image": card_image(article),
     } for article in posts if recent_feed_date(article["date"]))
     feed.sort(key=lambda item: item["date"], reverse=True)
-    feed_html = "".join(feed_card(item) for item in feed)
+    feed_html = "".join(feed_card(item, index) for index, item in enumerate(feed))
 
     topics = {topic["slug"]: topic["name"] for topic in site["raw"]["topics"]}
     topics.update(tests="Our tests", everyday="Everyday ChatGPT")
@@ -162,9 +164,10 @@ def main():
 <section class="sec"><div class="head"><h2>Latest from our tests</h2><p>Real tasks, invented data, and the results, good or bad.</p></div>
 <div class="feat">{featured}</div><div class="more"><a class="btn btn-outline" href="/blog/">View all posts →</a></div></section>
 
-<section class="sec" id="latest"><div class="head"><h2>Latest</h2><p>Recent AI news and practical posts for small businesses.</p>
+<section class="sec" id="latest"><div class="head"><h2>Latest</h2><p>This week’s AI news, and what it means for a small business.</p>
 <div class="tabs" data-for="feed"><button class="on" aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="news">News</button><button aria-pressed="false" data-f="ours">Our posts</button></div></div>
 <div class="feed">{feed_html}</div><p class="feed-empty" hidden>No recent items in this view.</p>
+<div class="more"><a class="btn btn-outline" id="view-news" href="#latest">View all news →</a></div>
 
 <aside class="ready"><div class="txt"><div class="eyebrow">AI ReadyScore · Free</div>
 <h2>Find out where AI fits<br>your business.</h2><p>Answer 8 quick questions about how you work today. Get a score and one practical first step to test.</p>

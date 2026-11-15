@@ -33,10 +33,7 @@ HEAD_ICONS = """  <link rel="icon" href="/favicon.png" sizes="32x32" type="image
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
   <link rel="manifest" href="/site.webmanifest">"""
 
-FONT = """  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Nunito:wght@800;900&amp;display=swap" rel="stylesheet"></noscript>
+FONT = """  <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="/blog/styles.css">
   <link rel="stylesheet" href="/chrome.css">"""
 
@@ -50,6 +47,7 @@ FONT_BLOCK_RE = re.compile(
 def inject_font(html: str) -> str:
     """Idempotent: one canonical FONT block immediately before </head>."""
     html = FONT_BLOCK_RE.sub("", html)
+    html = re.sub(r'\s*<link rel="stylesheet" href="/fonts/fonts.css">', "", html)
     html = re.sub(
         r'<link rel="stylesheet" href="/blog/styles\.css">\s*',
         "",
@@ -57,6 +55,7 @@ def inject_font(html: str) -> str:
         flags=re.IGNORECASE,
     )
     html = html.replace('<link rel="stylesheet" href="/chrome.css">', "")
+    html = re.sub(r"(?m)^[ \t]+$", "", html)
     return html.replace("</head>", f"{FONT}\n</head>", 1)
 
 

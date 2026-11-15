@@ -1,52 +1,81 @@
 {
+  "updated": "2026-11-13",
   "items": [
     {
-      "title": "Gemini eyewear starts at $395",
+      "id": "gemini-glasses-preorders",
+      "date": "2026-11-12",
+      "title": "Google's Gemini glasses open for preorder at $395",
       "source": "Ars Technica",
+      "also": [
+        "https://blog.google/innovation-and-ai/technology/xr-ar/google-intelligent-eyewear-collections-pre-order/"
+      ],
+      "image": "/images/news/glasses.jpg",
+      "imageCredit": "Photo: Daniel Xavier / Pexels",
       "sourceUrl": "https://arstechnica.com/google/2026/11/google-pushes-privacy-angle-as-gemini-powered-smartglasses-debut-starting-at-395/",
-      "date": "2026-11-12",
-      "takeaway": "If hands-free directions would help your crews, try one pair in the field before buying for the team.",
-      "image": "/images/news/gemini-glasses-preorders.webp"
+      "takeaway": "Hands-free translation and directions could help crews in the field. At $395 and up, wait for real reviews before you buy for a team."
     },
     {
-      "title": "OpenAI outlines what comes after custom GPTs",
+      "id": "custom-gpts-retire",
+      "date": "2026-11-12",
+      "title": "ChatGPT's custom GPTs retire on December 11",
       "source": "OpenAI Help Center",
+      "also": [
+        "https://learn.chatgpt.com/docs/migrate-custom-gpts"
+      ],
+      "image": "/images/news/custom-gpts.jpg",
+      "imageCredit": "Photo: cottonbro studio / Pexels",
       "sourceUrl": "https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq",
-      "date": "2026-11-12",
-      "takeaway": "List the GPTs your team relies on and test a replacement with the same tasks before switching.",
-      "image": "/images/news/custom-gpts-retire.webp"
+      "takeaway": "If your team runs on a custom GPT, move it to a plugin or a project and test it now. Custom actions don't carry over."
     },
     {
-      "title": "ChatGPT opens business listings to owners",
+      "id": "businesses-in-chatgpt",
+      "date": "2026-11-10",
+      "title": "Businesses can now claim their profile in ChatGPT",
       "source": "OpenAI",
+      "also": [
+        "https://www.reuters.com/5f374b32b07b/technology/openai-lets-businesses-claim-chatgpt-profiles-adds-ai-agents-us-e-commerce-firms-2026-11-10/"
+      ],
+      "image": "/images/news/chatgpt-businesses.jpg",
+      "imageCredit": "Photo: Arnie Chou / Pexels",
       "sourceUrl": "https://openai.com/index/introducing-businesses-chatgpt/",
-      "date": "2026-11-10",
-      "takeaway": "Check what ChatGPT tells customers about your hours and services, then claim the listing so you can update it.",
-      "image": "/images/news/businesses-in-chatgpt.webp"
+      "takeaway": "Claim it and correct your hours, prices and service area. The customer-chat agents are limited to U.S. online sellers for now."
     },
     {
-      "title": "Claude brings shared workspaces into the meeting",
+      "id": "claude-sheets-whiteboards",
+      "date": "2026-11-10",
+      "title": "Claude adds Sheets, Whiteboards and a meeting note-taker",
       "source": "TechCrunch",
+      "also": [
+        "https://claude.com/resources/articles/sheets-whiteboards-data"
+      ],
+      "image": "/images/news/claude-office.jpg",
+      "imageCredit": "Photo: Mikhail Nilov / Pexels",
       "sourceUrl": "https://techcrunch.com/2026/11/10/anthropic-launches-claude-meetings-to-turn-workplace-discussions-into-plans-and-tasks/",
-      "date": "2026-11-10",
-      "takeaway": "Team and Enterprise users can test the Google Meet beta on an internal call and compare its output with their usual notes.",
-      "image": "/images/news/claude-sheets-whiteboards.webp"
+      "takeaway": "Try it before renewing a separate tracker. Sheets is a basic beta, and Meetings is only on Team and Enterprise plans."
     },
     {
-      "title": "Railway customers face $740,000 in unauthorized AI usage",
+      "id": "railway-stolen-ai-keys",
+      "date": "2026-11-10",
+      "title": "Stolen AI keys ran up $740,000 after a Railway breach",
       "source": "BleepingComputer",
+      "also": [
+        "https://blog.railway.com/p/bulletin-compensation"
+      ],
+      "image": "/images/news/railway-keys.jpg",
+      "imageCredit": "Photo: Brett Sayles / Pexels",
       "sourceUrl": "https://www.bleepingcomputer.com/news/apple/railway-breach-leads-to-740-000-in-fraudulent-ai-charges/",
-      "date": "2026-11-10",
-      "takeaway": "If you hosted AI keys on Railway, rotate them and check your provider’s usage and billing.",
-      "image": "/images/news/railway-stolen-ai-keys.webp"
+      "takeaway": "If an app or host stores your AI key, rotate it and set a spending cap. A leaked key bills you, not the thief."
     },
     {
-      "title": "Intuit takes hands-on AI training to 30 U.S. cities",
-      "source": "Intuit",
-      "sourceUrl": "https://erp.intuit.com/blog/artificial-intelligence/activate-ai-tour-announcement/",
+      "id": "intuit-activate-ai",
       "date": "2026-11-10",
-      "takeaway": "If a stop is nearby, bring one task you already do every week and use the free session to try it.",
-      "image": "/images/news/intuit-activate-ai.webp"
+      "title": "Intuit starts a free 30-city AI tour for small businesses",
+      "source": "Intuit",
+      "also": [],
+      "image": "/images/news/intuit-activate.jpg",
+      "imageCredit": "Photo: Caleb Oquendo / Pexels",
+      "sourceUrl": "https://erp.intuit.com/blog/artificial-intelligence/activate-ai-tour-announcement/",
+      "takeaway": "Free hands-on time with ChatGPT, Claude and Gemini. Expect a QuickBooks pitch alongside the training."
     }
   ]
 }

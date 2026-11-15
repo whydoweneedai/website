@@ -73,7 +73,7 @@
       "metaTitle": "Turn a bank statement into a budget with ChatGPT",
       "metaDescription": "Use a redacted bank statement to build a budget with ChatGPT. Check transfers, irregular expenses and the math before relying on its suggestions.",
       "takeaway": "In our test it caught a double charge and two bank fees, but got one percentage wrong.",
-      "cardImage": "/images/posts/chatgpt-budget-from-bank-statement.jpg"
+      "cardImage": "/images/posts/cards/chatgpt-budget-from-bank-statement.jpg"
     },
     {
       "slug": "thanksgiving-plan-chatgpt-menu-timeline-grocery-list",
@@ -88,7 +88,7 @@
       "format": "Guide",
       "metaTitle": "Plan Thanksgiving with ChatGPT: menu, timing and groceries",
       "takeaway": "Four facts about your kitchen get you a menu, an hour-by-hour plan and one grocery list.",
-      "cardImage": "/images/posts/thanksgiving-plan-chatgpt-menu-timeline-grocery-list.jpg"
+      "cardImage": "/images/posts/cards/thanksgiving-plan-chatgpt-menu-timeline-grocery-list.jpg"
     },
     {
       "slug": "chatgpt-vs-claude-vs-gemini-vs-copilot",
@@ -102,7 +102,7 @@
       "searchDek": "Our picks, job by job: Claude for long documents, ChatGPT for numbers and images, Gemini or Copilot for everyday office work. Researched, not tested.",
       "format": "Comparison",
       "takeaway": "Claude for long documents, ChatGPT for numbers and images, Gemini or Copilot for office work.",
-      "cardImage": "/images/editorial/choose.svg"
+      "cardImage": "/images/posts/cards/chatgpt-vs-claude-vs-gemini-vs-copilot.jpg"
     },
     {
       "slug": "can-ai-enter-invoices-spreadsheet-test",
@@ -117,7 +117,7 @@
       "format": "Our experiment",
       "metaTitle": "Can AI do your invoice data entry? A 24-invoice test",
       "takeaway": "AI read messy scans better than rules, but missed a $12.20 math error.",
-      "cardImage": "/images/editorial/invoice.svg"
+      "cardImage": "/images/posts/cards/can-ai-enter-invoices-spreadsheet-test.jpg"
     },
     {
       "slug": "ai-vs-rules-appointment-payment-reminders",
@@ -131,7 +131,7 @@
       "searchDek": "We ran 30 made-up reminder records through a rules script and an AI model three times each. Rules got every routine case right.",
       "format": "Our experiment",
       "takeaway": "Rules got all 30 routine reminders right. Save AI for customer notes, with a person reviewing.",
-      "cardImage": "/images/editorial/reminders.svg"
+      "cardImage": "/images/posts/cards/ai-vs-rules-appointment-payment-reminders.jpg"
     },
     {
       "slug": "ai-lead-follow-up-test",
@@ -145,7 +145,7 @@
       "searchDek": "A 30-case synthetic test: stop checks passed, but one draft made unapproved promises.",
       "format": "Our experiment",
       "takeaway": "27 of 30 drafts were usable as-is, but one promised something the owner never approved.",
-      "cardImage": "/images/posts/ai-lead-follow-up-test.jpg"
+      "cardImage": "/images/posts/cards/ai-lead-follow-up-test.jpg"
     },
     {
       "slug": "ai-readiness-checklist-test",
@@ -159,7 +159,7 @@
       "searchDek": "We ran our readiness checklist on 12 invented workflows. It's a good brake and a poor compass.",
       "format": "Our experiment",
       "takeaway": "Our checklist is good at stopping a bad pilot and weak at picking a good one.",
-      "cardImage": "/images/posts/ai-readiness-checklist-test.jpg"
+      "cardImage": "/images/posts/cards/ai-readiness-checklist-test.jpg"
     },
     {
       "slug": "lead-follow-up-automation",
@@ -173,7 +173,7 @@
       "searchDek": "A lifecycle map for capture, handoff, follow-up, and closure, with exceptions and stop conditions to write first.",
       "format": "Guide",
       "takeaway": "Map capture, handoff, follow-up and closure, and write the stop rules first.",
-      "cardImage": "/images/posts/lead-follow-up-automation.jpg"
+      "cardImage": "/images/posts/cards/lead-follow-up-automation.jpg"
     },
     {
       "slug": "what-to-automate-first",
@@ -187,7 +187,7 @@
       "searchDek": "Use a five-question scorecard, simple ROI math, and a worked example to identify repetitive work worth automating.",
       "format": "Guide",
       "takeaway": "Score five chores on frequency, time, clarity, reviewability and safety, then start with the winner.",
-      "cardImage": "/images/posts/what-to-automate-first.jpg"
+      "cardImage": "/images/posts/cards/what-to-automate-first.jpg"
     },
     {
       "slug": "ai-readiness-checklist",
@@ -201,7 +201,7 @@
       "searchDek": "Score one workflow with a 20-point readiness check and turn the result into a one-page pilot brief.",
       "format": "Guide",
       "takeaway": "Score one workflow out of 20 and turn it into a one-page pilot brief.",
-      "cardImage": "/images/posts/ai-readiness-checklist.jpg"
+      "cardImage": "/images/posts/cards/ai-readiness-checklist.jpg"
     },
     {
       "slug": "choose-first-ai-tool",
@@ -215,7 +215,7 @@
       "searchDek": "Compare tools with the same real work, a 35-point scorecard, total-cost math, and a 30-day pilot.",
       "format": "Guide",
       "takeaway": "Test tools on the same real work with a 35-point scorecard, then run a 30-day pilot.",
-      "cardImage": "/images/posts/choose-first-ai-tool.jpg"
+      "cardImage": "/images/posts/cards/choose-first-ai-tool.jpg"
     },
     {
       "slug": "ai-vs-automation",
@@ -229,7 +229,7 @@
       "searchDek": "Use the Minimum Intelligence Principle and a four-question decision test to choose between rules, AI, and human judgment.",
       "format": "Guide",
       "takeaway": "Use rules where the steps repeat, AI where the input is messy, and people for judgment.",
-      "cardImage": "/images/posts/ai-vs-automation.jpg"
+      "cardImage": "/images/posts/cards/ai-vs-automation.jpg"
     },
     {
       "slug": "ai-automation-roi",
@@ -244,7 +244,7 @@
       "format": "Guide",
       "metaDescription": "Calculate AI automation ROI with review time, errors and total costs included. Use a worked example to decide whether a small-business pilot is worth keeping.",
       "takeaway": "Five conservative numbers give you net monthly value, break-even and payback.",
-      "cardImage": "/images/posts/ai-automation-roi.jpg"
+      "cardImage": "/images/posts/cards/ai-automation-roi.jpg"
     },
     {
       "slug": "data-ai-tools",
@@ -258,7 +258,7 @@
       "searchDek": "Use a green-yellow-red data framework and a pre-upload checklist before business information enters an AI workflow.",
       "format": "Guide",
       "takeaway": "Sort data green, yellow or red before any of it goes into an AI tool.",
-      "cardImage": "/images/posts/data-ai-tools.jpg"
+      "cardImage": "/images/posts/cards/data-ai-tools.jpg"
     },
     {
       "slug": "evaluate-ai-pilot",
@@ -272,7 +272,7 @@
       "searchDek": "Use a pilot evidence sheet, quality buckets, net-time math, and a worked example to decide whether an AI workflow deserves to continue.",
       "format": "Guide",
       "takeaway": "Count time saved after review, sort the output by quality, then keep, fix or stop.",
-      "cardImage": "/images/posts/evaluate-ai-pilot.jpg"
+      "cardImage": "/images/posts/cards/evaluate-ai-pilot.jpg"
     },
     {
       "slug": "ai-agents-business-app-permissions",
@@ -287,7 +287,7 @@
       "format": "Guide",
       "metaTitle": "AI agents in business apps: a permissions guide",
       "takeaway": "Decide what an assistant may read, draft and change before it touches your apps.",
-      "cardImage": "/images/editorial/permissions.svg"
+      "cardImage": "/images/posts/cards/ai-agents-business-app-permissions.jpg"
     },
     {
       "slug": "how-customers-find-small-business-chatgpt",
@@ -301,7 +301,7 @@
       "format": "Guide",
       "metaDescription": "Help customers find your business in ChatGPT with clear service pages, consistent details and useful evidence. No placement or ranking guarantees.",
       "takeaway": "Clear service pages and open crawler access help ChatGPT describe you correctly. Nobody can guarantee a mention.",
-      "cardImage": "/images/posts/how-customers-find-small-business-chatgpt.jpg"
+      "cardImage": "/images/posts/cards/how-customers-find-small-business-chatgpt.jpg"
     },
     {
       "slug": "avoid-ai-workslop",
@@ -317,7 +317,7 @@
       "metaTitle": "How to avoid AI workslop that wastes your reader’s time",
       "metaDescription": "AI can make unfinished thinking look finished. Before sending a draft, check whether your reader has the facts, decisions and next steps they need.",
       "takeaway": "Before you send an AI draft, check the reader gets the facts, the decision and the next step.",
-      "cardImage": "/images/posts/avoid-ai-workslop.jpg"
+      "cardImage": "/images/posts/cards/avoid-ai-workslop.jpg"
     }
   ],
   "legacyTopicRedirects": {
