@@ -1231,6 +1231,8 @@ figure.article-figure figcaption { margin-top: var(--space-2); font-size: var(--
 .editorial-home .lead-front { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(250px, 1fr); gap: 2.5rem; }
 .editorial-home .lead-story--front { padding: 0; background: none; border: 0; }
 .editorial-image { display: block; width: 100%; height: auto; aspect-ratio: 5/3; object-fit: cover; }
+.editorial-photo { aspect-ratio: 16/9; border-radius: 14px; }
+.editorial-article-cover figcaption a { color: inherit; }
 .editorial-cover-link { display: block; margin-bottom: 1.3rem; overflow: hidden; border-radius: 4px; }
 .editorial-home .lead-story-headline { font-size: clamp(1.8rem, 3vw, 2.7rem); line-height: 1.1; margin: .6rem 0 .8rem; max-width: 24ch; }
 .editorial-home .lead-dek { font-size: 1.06rem; max-width: 62ch; }
