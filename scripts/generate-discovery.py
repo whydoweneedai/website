@@ -62,6 +62,13 @@ def main():
     articles = site['by_slug']
     sitemap = ET.parse(ROOT / 'sitemap.xml')
     ns = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+    # Drop sitemap entries whose page is no longer published (retired posts live under docs/).
+    for entry in list(sitemap.getroot()):
+        loc = entry.find('s:loc', ns)
+        rel = loc.text.removeprefix(ORIGIN).strip('/') if loc is not None else ''
+        legacy = rel.startswith('topics/') and rel.split('/')[1] in site['raw'].get('legacyTopicRedirects', {})
+        if loc is not None and (legacy or not (ROOT / rel / 'index.html').exists()):
+            sitemap.getroot().remove(entry)
     urls = [x.text for x in sitemap.findall('s:url/s:loc', ns)]
     if (ROOT / 'how-we-test/index.html').exists():
         urls.append(ORIGIN + '/how-we-test/')
@@ -148,14 +155,17 @@ def main():
         ET.SubElement(item, 'guid', isPermaLink='true').text = url
     ET.indent(rss, space='  ')
     ET.ElementTree(rss).write(ROOT / 'feed.xml', encoding='UTF-8', xml_declaration=True)
-    lines = ['# Why Do We Need AI', '', '> Practical AI and automation guidance for small-business owners, with documented experiments and explicit limits.', '', '## Start here', '', '- [About and editorial responsibility](' + ORIGIN + '/about/)', '- [How we test](' + ORIGIN + '/how-we-test/)', '- [Editorial policy](' + ORIGIN + '/editorial-policy/)', '- [All articles](' + ORIGIN + '/blog/)', '- [RSS feed](' + ORIGIN + '/feed.xml)', '', '## Reader sections', '']
+    lines = ['# Why Do We Need AI', '', '> Practical AI and automation guidance for small-business owners, with documented experiments and explicit limits.', '', '## Start here', '', '- [About and editorial responsibility](' + ORIGIN + '/about/)', '- [Editorial policy](' + ORIGIN + '/editorial-policy/)', '- [All articles](' + ORIGIN + '/blog/)', '- [RSS feed](' + ORIGIN + '/feed.xml)', '', '## Reader sections', '']
     for topic in site['raw']['topics']:
         lines.append(f"- [{topic['name']}]({ORIGIN}/topics/{topic['slug']}/): {topic['intro']}")
-    lines.extend(['', '## Documented experiments', ''])
-    for art in site['ordered']:
-        if art['format'] == 'Our experiment':
+    experiments = [art for art in site['ordered'] if art['format'] == 'Our experiment']
+    if experiments:
+        lines.extend(['', '## Documented experiments', ''])
+        for art in experiments:
             lines.append(f"- [{art['searchTitle']}]({ORIGIN}/blog/{art['slug']}/): {art['searchDek']}")
-    lines.extend(['', 'These small, task-specific experiments do not predict performance in other businesses. Read each method and its limits before using the result.', ''])
+        lines.extend(['', 'These small, task-specific experiments do not predict performance in other businesses. Read each method and its limits before using the result.', ''])
+    else:
+        lines.append('')
     (ROOT / 'llms.txt').write_text('\n'.join(lines))
     print(f'Discovery metadata, RSS and curated index: {len(urls)} pages')
 

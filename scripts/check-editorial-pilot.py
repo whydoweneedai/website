@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static regression checks for the homepage/invoice editorial pilot."""
+"""Static regression checks for the homepage (the invoice pilot post was retired on 2026-11-27)."""
 import re
 import subprocess
 from pathlib import Path
@@ -7,7 +7,6 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
-ARTICLE = 'blog/can-ai-enter-invoices-spreadsheet-test/index.html'
 class Page(HTMLParser):
     def __init__(self, text):
         super().__init__(); self.ids=[]; self.links=[]; self.images=[]; self.h1=0; self.feed(text)
@@ -17,7 +16,7 @@ class Page(HTMLParser):
         if tag=='h1': self.h1+=1
         if tag=='a' and 'href' in a: self.links.append(a['href'])
         if tag=='img': self.images.append(a)
-for rel in ['index.html', ARTICLE]:
+for rel in ['index.html']:
     text=(ROOT/rel).read_text(); page=Page(text)
     assert page.h1==1, (rel,'heading count')
     assert len(page.ids)==len(set(page.ids)), (rel,'duplicate IDs')
@@ -33,16 +32,5 @@ for rel in ['index.html', ARTICLE]:
         assert 'alt' in img, (rel,'missing alt')
         assert (ROOT/img['src'].lstrip('/')).is_file(), (rel,img['src'])
         assert 'width' in img and 'height' in img, (rel,'missing dimensions')
-old=subprocess.check_output(['git','show','origin/main:'+ARTICLE],cwd=ROOT,text=True)
-new=(ROOT/ARTICLE).read_text()
-assert set(Page(old).ids)<=set(Page(new).ids)
-old_body = re.search(r'<article class="article-body">(.*?)</article>', old, re.S).group(1)
-assert set(Page(old_body).links)<=set(Page(new).links)
-# Compare evidence inside the six expandable sections of the current baseline.
-for section in re.findall(r'<details class="test-detail">(.*?)</details>', old, re.S):
-    for fragment in re.findall(r'<p>.*?</p>|<li>.*?</li>|<table>.*?</table>', section, re.S):
-        assert fragment in new, ('evidence changed', fragment[:80])
-assert new.count('<details class="test-detail">')==6
-assert 'this is not a screenshot' in new
 for path in (ROOT/'images/editorial').glob('*.svg'): ET.parse(path)
-print('PASS: internal links, media, headings, IDs, original evidence detail, disclosures and SVG XML')
+print('PASS: homepage internal links, media, headings, IDs and SVG XML')

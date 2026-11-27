@@ -6,7 +6,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_data import load_site, topic_href
 
 ARCHIVE_MARK = """<img class="archive-mark" src="/images/brand/robot-head.png" width="262" height="174" alt="" aria-hidden="true" loading="lazy" decoding="async">"""
-from site_chrome import FONT, HEAD_ICONS, footer_html, head_scripts, header_nav, html_newsletter_attr, readyscore_module
+from site_chrome import FONT, HEAD_ICONS, footer_html, head_scripts, header_nav, html_newsletter_attr
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -70,7 +70,6 @@ def main():
     <div class="archive-list">
 {items}
     </div>
-    {readyscore_module("archive-readyscore", compact=True)}
   </main>
 {footer_html()}
 </body>

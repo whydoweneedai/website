@@ -5,9 +5,9 @@ from pathlib import Path
 from site_data import load_site
 from html.parser import HTMLParser
 ROOT=Path(__file__).resolve().parents[1]
-site=load_site(); categories=site['topic_pages']; assert len(categories)==4
-assert len(site['articles'])==18
-assert {c:sum(a['topic']==c for a in site['articles']) for c in categories}=={'getting-started':4,'using-ai-at-work':8,'tools-comparisons':2,'costs-results':2}
+site=load_site(); categories=site['topic_pages']; assert len(categories)==3
+assert len(site['articles'])==9
+assert {c:sum(a['topic']==c for a in site['articles']) for c in categories}=={'getting-started':2,'using-ai-at-work':3,'tools-comparisons':2}
 class Links(HTMLParser):
  def __init__(self,s):super().__init__();self.hrefs=[];self.feed(s)
  def handle_starttag(self,t,a):
@@ -34,14 +34,16 @@ for c in categories:
   assert (f'/blog/{a["slug"]}/' in links)==(a['topic']==c),(c,a['slug'])
 for p in [ROOT/'index.html',ROOT/'blog/index.html',ROOT/'search/index.html',*(ROOT/'topics'/c/'index.html' for c in categories)]:
  s=p.read_text(); nav=re.search(r'<nav class="publication-nav".*?</nav>',s,re.S).group()
- assert all(f'href="{href}"' in nav for href in ('/blog/', '/ai-readyscore/', 'https://x.com/whydoweneedai'))
+ assert all(f'href="{href}"' in nav for href in ('/blog/', 'https://x.com/whydoweneedai'))
+ # The ReadyScore quiz is kept but buried: footer only, not the main menu.
+ assert '/ai-readyscore/' not in nav
  assert not re.search(r'/topics/(tested|roi-planning|choosing-ai-tools)/',s)
 routes=tomllib.loads((ROOT/'netlify.toml').read_text())['redirects']
 for old,dest in site['raw']['legacyTopicRedirects'].items():
  for suffix in ['', '/', '/index.html']:
   assert any(x['from']==f'/topics/{old}{suffix}' and x['to']==dest and x['status']==301 for x in routes)
  assert dest in (ROOT/'topics'/old/'index.html').read_text()
-index=json.loads((ROOT/'search/search-index.json').read_text());assert len(index)==18
+index=json.loads((ROOT/'search/search-index.json').read_text());assert len(index)==9
 assert sum(not x['topic'] for x in index)==2
-assert {x['format'] for x in index}=={'Guide','Comparison','Our experiment'}
-print('PASS: four category hubs (4/8/2/2), all 18 articles (use --check-prose for baseline equality), uncategorized personal guides, navigation, search and 15 legacy redirects')
+assert {x['format'] for x in index}=={'Guide','Comparison'}
+print('PASS: three category hubs (2/3/2), all 9 articles (use --check-prose for baseline equality), uncategorized personal guides, navigation, search and 18 legacy redirects')

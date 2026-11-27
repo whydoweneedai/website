@@ -103,20 +103,17 @@ XSVG = '<svg class="xicon" aria-hidden="true" viewBox="0 0 24 24" fill="currentC
 
 def header_nav(current_path: str = "") -> str:
     blog_current = ' aria-current="page"' if current_path == "/blog/" else ""
-    score_current = ' aria-current="page"' if current_path == "/ai-readyscore/" else ""
     return f"""<header class="site-header">
   <nav class="publication-nav" aria-label="Primary navigation">
     <a class="publication-brand" href="/"><img src="/images/brand/robot-head.png" width="38" height="38" alt=""><span>whydoweneed<b>ai</b></span></a>
     <div class="publication-links">
       <a href="/blog/"{blog_current}>Blog</a>
-      <a href="/ai-readyscore/"{score_current}>ReadyScore</a>
     </div>
     <a class="publication-follow" href="{X_URL}">{XSVG} Follow on X</a>
     <details class="publication-menu">
       <summary aria-label="Menu"><span aria-hidden="true"></span></summary>
       <div>
         <a href="/blog/"{blog_current}>Blog</a>
-        <a href="/ai-readyscore/"{score_current}>ReadyScore</a>
         <a href="{X_URL}">{XSVG} Follow on X</a>
       </div>
     </details>

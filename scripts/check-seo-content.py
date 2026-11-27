@@ -28,9 +28,16 @@ def body(html):
         raise AssertionError('Missing article body')
     return match[1]
 
+# Links to posts retired on 2026-11-27 were unwrapped (text kept, link removed).
+RETIRED = re.compile(r'<a\b[^>]*href="/blog/(?:' + '|'.join(re.escape(x) for x in (
+    'can-ai-enter-invoices-spreadsheet-test', 'ai-vs-rules-appointment-payment-reminders',
+    'ai-lead-follow-up-test', 'ai-readiness-checklist-test', 'lead-follow-up-automation',
+    'ai-agents-business-app-permissions', 'evaluate-ai-pilot', 'ai-automation-roi',
+    'ai-readiness-checklist')) + r')/[^"]*"[^>]*>(.*?)</a>', re.S)
+
 def blocks(html, slug):
     out = []
-    for match in BLOCKS.finditer(body(html).replace(QUALIFICATION, '')):
+    for match in BLOCKS.finditer(RETIRED.sub(r'\1', body(html)).replace(QUALIFICATION, '')):
         block = match[0]
         if slug in REPLACED_PREAMBLES and block.startswith('<p>' + REPLACED_PREAMBLES[slug]):
             continue
@@ -50,9 +57,14 @@ for path in sorted((ROOT / 'blog').glob('*/index.html')):
         raise AssertionError(f'{rel}: original content changed or missing: {list(missing)[:2]}')
     count += 1
 
-method = (ROOT / 'how-we-test/index.html').read_text()
-for slug in ('can-ai-enter-invoices-spreadsheet-test', 'ai-lead-follow-up-test',
-             'ai-readiness-checklist-test', 'ai-vs-rules-appointment-payment-reminders'):
-    assert f'/blog/{slug}/' in method, slug
-    assert 'href="/how-we-test/"' in (ROOT / 'blog' / slug / 'index.html').read_text(), slug
-print(f'PASS: original content and evidence retained across {count} articles; four methodology links verified.')
+# Retired posts keep their files under docs/ and redirect from their old address.
+import tomllib, json
+site = json.loads((ROOT / 'data/site.json').read_text())
+routes = tomllib.loads((ROOT / 'netlify.toml').read_text())['redirects']
+for r in site['retiredArticles']:
+    assert (ROOT / 'docs/retired-posts' / r['slug'] / 'index.html').exists(), r['slug']
+    assert not (ROOT / 'blog' / r['slug']).exists(), r['slug']
+    for suffix in ('', '/', '/index.html', '/*'):
+        assert any(x['from'] == f"/blog/{r['slug']}{suffix}" and x['to'] == r['redirectTo'] and x['status'] == 301 for x in routes), r['slug']
+assert any(x['from'] == '/how-we-test/' and x['to'] == '/editorial-policy/' for x in routes)
+print(f'PASS: original content retained across {count} articles; {len(site["retiredArticles"])} retired posts kept and redirected.')
