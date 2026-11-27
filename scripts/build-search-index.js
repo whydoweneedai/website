@@ -16,7 +16,13 @@ function formatDisplayDate(iso) {
   return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 }
 
+// Same rule as scripts/site_data.py: a post is live from its date in America/New_York.
+const today =
+  process.env.SITE_TODAY ||
+  new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(new Date());
+
 const index = site.articles
+  .filter((a) => a.date <= today)
   .map((a) => ({
     title: a.searchTitle,
     dek: a.searchDek,

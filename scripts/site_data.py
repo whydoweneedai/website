@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Load data/site.json and derived editorial helpers."""
 import json
-from datetime import datetime
+import os
+from datetime import date, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_PATH = ROOT / "data/site.json"
+# Posts waiting for their publish date. docs/* is never served (netlify.toml).
+SCHEDULED_DIR = ROOT / "docs/scheduled-posts"
+TIMEZONE = "America/New_York"
 
 HERO_CAPTION = "Illustration: WhyDoWeNeedAI"
 LOGO_OG = "https://whydoweneedai.com/website_logo.png"
@@ -52,10 +56,35 @@ def masthead_dateline(articles) -> str:
     return f"{format_display_date(iso)} · Practical AI for small business"
 
 
+def site_today() -> date:
+    """The publication's calendar day. SITE_TODAY=YYYY-MM-DD overrides it for previews and tests."""
+    from zoneinfo import ZoneInfo
+
+    override = os.environ.get("SITE_TODAY")
+    if override:
+        return date.fromisoformat(override)
+    return datetime.now(ZoneInfo(TIMEZONE)).date()
+
+
+def is_published(article, today=None) -> bool:
+    """A post is live from its `date` (publication day, America/New_York) onward."""
+    return date.fromisoformat(article["date"]) <= (today or site_today())
+
+
+def split_articles(articles, today=None):
+    """Return (live, scheduled) article lists."""
+    today = today or site_today()
+    live = [a for a in articles if is_published(a, today)]
+    scheduled = [a for a in articles if not is_published(a, today)]
+    return live, scheduled
+
+
 def load_site():
     data = json.loads(SITE_PATH.read_text())
     topics_by_slug = {t["slug"]: t for t in data["topics"]}
-    articles = data["articles"]
+    # Future-dated posts are scheduled: every generated page, feed, sitemap and
+    # search index is built from live posts only.
+    articles, scheduled = split_articles(data["articles"])
     for a in articles:
         t = topics_by_slug.get(a["topic"])
         a["topicLabel"] = t["name"] if t else a["format"]
@@ -74,6 +103,7 @@ def load_site():
         "raw": data,
         "topics_by_slug": topics_by_slug,
         "articles": articles,
+        "scheduled": scheduled,
         "by_slug": by_slug,
         "ordered": ordered,
         "topic_counts": counts,
@@ -94,10 +124,7 @@ def enrich_article(a, topic_pages):
 
 def recent_feed_date(iso, today=None):
     """Use the publication's calendar day and an inclusive 21-day window."""
-    from datetime import date
-    from zoneinfo import ZoneInfo
-
-    today = today or datetime.now(ZoneInfo("America/New_York")).date()
+    today = today or site_today()
     return 0 <= (today - date.fromisoformat(iso)).days <= 21
 
 

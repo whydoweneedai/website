@@ -85,8 +85,12 @@ def main():
     site = load_site()
     posts = site["ordered"]
     config = site["raw"]["homepage"]
-    featured = featured_card(site["by_slug"][config["leadSlug"]], lead=True)
-    featured += "".join(featured_card(site["by_slug"][slug]) for slug in config["featuredSlugs"])
+    # A scheduled post may already be named here; it appears on its publish day.
+    picks = [site["by_slug"][slug] for slug in config["featuredSlugs"] if slug in site["by_slug"]]
+    lead = site["by_slug"].get(config["leadSlug"]) or posts[0]
+    picks = [article for article in picks if article["slug"] != lead["slug"]]
+    featured = featured_card(lead, lead=True)
+    featured += "".join(featured_card(article) for article in picks)
 
     feed = [{**item, "source": f'via {item["source"]}', "kind": "news"} for item in load_recent_news()]
     feed.extend({

@@ -187,7 +187,8 @@ def _dedupe_head_tags(head: str) -> str:
 def clean_article_head(head: str) -> str:
     """Strip chrome duplicates; keep page metadata and schema."""
     head = _dedupe_head_tags(head)
-    head = head.strip()
+    # Drop blank lines so a rebuild leaves an unchanged page unchanged.
+    head = re.sub(r"\n\s*\n", "\n", head.strip())
     return f"{head}\n{FONT.strip()}"
 
 

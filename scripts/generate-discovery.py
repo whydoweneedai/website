@@ -72,6 +72,9 @@ def main():
     urls = [x.text for x in sitemap.findall('s:url/s:loc', ns)]
     if (ROOT / 'how-we-test/index.html').exists():
         urls.append(ORIGIN + '/how-we-test/')
+    # Every live post belongs in the sitemap, including one released today.
+    urls += [ORIGIN + '/blog/' + a['slug'] + '/' for a in site['ordered']
+             if (ROOT / 'blog' / a['slug'] / 'index.html').exists()]
     urls = list(dict.fromkeys(urls))
     for url in urls:
         rel = url.removeprefix(ORIGIN).strip('/')
