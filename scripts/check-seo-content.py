@@ -35,9 +35,26 @@ RETIRED = re.compile(r'<a\b[^>]*href="/blog/(?:' + '|'.join(re.escape(x) for x i
     'ai-agents-business-app-permissions', 'evaluate-ai-pilot', 'ai-automation-roi',
     'ai-readiness-checklist')) + r')/[^"]*"[^>]*>(.*?)</a>', re.S)
 
-def blocks(html, slug):
+# 2026-11-27 AdSense cleanup: mentions of retired pages dropped, Thanksgiving made date-free.
+INTENDED_EDITS = {
+    'ai-vs-automation': [(' For a full lifecycle design—including when to pause or stop automated follow-up—see our lead follow-up blueprint.', '')],
+    'what-to-automate-first': [('<p>For the full lifecycle after the first reply—including handoff, follow-up, exceptions, and stop conditions—see our lead follow-up blueprint.</p>', '')],
+    'choose-first-ai-tool': [('success measure yet, use the AI readiness scorecard first.', 'success measure yet, pin those down first.')],
+    'data-ai-tools': [('Use the AI readiness scorecard before live deployment and the <a', 'Settle it before live deployment, and use the <a')],
+    'thanksgiving-plan-chatgpt-menu-timeline-grocery-list': [
+        (' Thanksgiving is Thursday, November 26. Start now and you can have a plan before you buy anything.', ' Start a week or so out and you can have a plan before you buy anything.'),
+        ('so a 16-pounder needs to be in the fridge by Sunday, November 22.', 'so a 16-pounder needs to be in the fridge by the Sunday before a Thursday dinner.'),
+        ('Run the prompt this weekend, check the thaw date', 'Run the prompt a week or so ahead, check the thaw date'),
+    ],
+}
+
+
+def blocks(html, slug, base=False):
     out = []
-    for match in BLOCKS.finditer(RETIRED.sub(r'\1', body(html)).replace(QUALIFICATION, '')):
+    text = RETIRED.sub(r'\1', body(html)).replace(QUALIFICATION, '')
+    for old, new in INTENDED_EDITS.get(slug, []) if base else []:
+        text = text.replace(old, new)
+    for match in BLOCKS.finditer(text):
         block = match[0]
         if slug in REPLACED_PREAMBLES and block.startswith('<p>' + REPLACED_PREAMBLES[slug]):
             continue
@@ -52,7 +69,7 @@ for path in sorted((ROOT / 'blog').glob('*/index.html')):
         continue
     old = subprocess.check_output(['git', 'show', f'{BASE}:{rel}'], cwd=ROOT, text=True)
     new = path.read_text()
-    missing = blocks(old, path.parent.name) - blocks(new, path.parent.name)
+    missing = blocks(old, path.parent.name, base=True) - blocks(new, path.parent.name)
     if missing:
         raise AssertionError(f'{rel}: original content changed or missing: {list(missing)[:2]}')
     count += 1

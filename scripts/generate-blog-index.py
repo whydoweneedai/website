@@ -44,7 +44,7 @@ def main():
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-3631010450044967">
   <title>Archive | Why Do We Need AI?</title>
-  <meta name="description" content="Full archive of practical AI guides and documented tests for small-business owners.">
+  <meta name="description" content="Every plain-English AI guide and tested walkthrough, for work and everyday life.">
   <link rel="canonical" href="https://whydoweneedai.com/blog/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Archive | Why Do We Need AI?">

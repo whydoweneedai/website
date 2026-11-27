@@ -21,7 +21,7 @@ IDENTITY = {
          'sameAs': ['https://x.com/whydoweneedai']},
         {'@type': 'Person', '@id': PERSON, 'name': 'Ross C', 'url': PERSON,
          'jobTitle': 'Editor', 'worksFor': {'@id': ORG},
-         'description': 'Editor of Why Do We Need AI, a publication about practical AI and automation decisions for small-business owners.'}
+         'description': 'Editor of Why Do We Need AI, a plain-English publication about what AI is actually good for at work and at home.'}
     ]}
 
 
@@ -57,6 +57,11 @@ def itemlist(articles):
         for i, a in enumerate(articles, 1)]}
 
 
+def noindexed(path):
+    """A page that asks search engines not to index it stays out of the sitemap."""
+    return path.exists() and re.search(r'<meta name="robots" content="noindex', path.read_text()) is not None
+
+
 def main():
     site = load_site()
     articles = site['by_slug']
@@ -67,11 +72,16 @@ def main():
         loc = entry.find('s:loc', ns)
         rel = loc.text.removeprefix(ORIGIN).strip('/') if loc is not None else ''
         legacy = rel.startswith('topics/') and rel.split('/')[1] in site['raw'].get('legacyTopicRedirects', {})
-        if loc is not None and (legacy or not (ROOT / rel / 'index.html').exists()):
+        page = ROOT / rel / 'index.html'
+        if loc is not None and (legacy or not page.exists() or noindexed(page)):
             sitemap.getroot().remove(entry)
     urls = [x.text for x in sitemap.findall('s:url/s:loc', ns)]
     if (ROOT / 'how-we-test/index.html').exists():
         urls.append(ORIGIN + '/how-we-test/')
+    # A topic hub joins the sitemap once it has enough posts to be indexed.
+    urls += [ORIGIN + '/topics/' + slug + '/' for slug in sorted(site['topic_pages'])
+             if (ROOT / 'topics' / slug / 'index.html').exists()
+             and not noindexed(ROOT / 'topics' / slug / 'index.html')]
     # Every live post belongs in the sitemap, including one released today.
     urls += [ORIGIN + '/blog/' + a['slug'] + '/' for a in site['ordered']
              if (ROOT / 'blog' / a['slug'] / 'index.html').exists()]
@@ -148,7 +158,7 @@ def main():
     sitemap.write(ROOT / 'sitemap.xml', encoding='UTF-8', xml_declaration=True)
     rss = ET.Element('rss', version='2.0')
     channel = ET.SubElement(rss, 'channel')
-    for tag, value in [('title', 'Why Do We Need AI'), ('link', ORIGIN + '/'), ('description', 'Practical AI guides and documented experiments for small-business owners.'), ('language', 'en')]:
+    for tag, value in [('title', 'Why Do We Need AI'), ('link', ORIGIN + '/'), ('description', 'Plain-English AI guides and tested walkthroughs for work and everyday life.'), ('language', 'en')]:
         ET.SubElement(channel, tag).text = value
     for art in site['ordered']:
         item = ET.SubElement(channel, 'item')
@@ -158,7 +168,7 @@ def main():
         ET.SubElement(item, 'guid', isPermaLink='true').text = url
     ET.indent(rss, space='  ')
     ET.ElementTree(rss).write(ROOT / 'feed.xml', encoding='UTF-8', xml_declaration=True)
-    lines = ['# Why Do We Need AI', '', '> Practical AI and automation guidance for small-business owners, with documented experiments and explicit limits.', '', '## Start here', '', '- [About and editorial responsibility](' + ORIGIN + '/about/)', '- [Editorial policy](' + ORIGIN + '/editorial-policy/)', '- [All articles](' + ORIGIN + '/blog/)', '- [RSS feed](' + ORIGIN + '/feed.xml)', '', '## Reader sections', '']
+    lines = ['# Why Do We Need AI', '', '> Plain-English guidance on what AI is actually good for at work and at home, with tested walkthroughs and explicit limits.', '', '## Start here', '', '- [About and editorial responsibility](' + ORIGIN + '/about/)', '- [Editorial policy](' + ORIGIN + '/editorial-policy/)', '- [All articles](' + ORIGIN + '/blog/)', '- [RSS feed](' + ORIGIN + '/feed.xml)', '', '## Reader sections', '']
     for topic in site['raw']['topics']:
         lines.append(f"- [{topic['name']}]({ORIGIN}/topics/{topic['slug']}/): {topic['intro']}")
     experiments = [art for art in site['ordered'] if art['format'] == 'Our experiment']

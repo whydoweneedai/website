@@ -54,6 +54,9 @@ def card_html(a):
 </article>"""
 
 
+MIN_INDEXED_TOPIC_POSTS = 5
+
+
 def topic_page(slug, topic, articles, nl_attr):
     cards = "\n".join(card_html(a) for a in articles)
     url = f"https://whydoweneedai.com/topics/{slug}/"
@@ -74,6 +77,8 @@ def topic_page(slug, topic, articles, nl_attr):
         },
     }
     nav = header_nav(f"/topics/{slug}/")
+    # A hub with only a few posts is thin content: keep it for readers, out of search.
+    robots = '\n  <meta name="robots" content="noindex,follow">' if len(articles) < MIN_INDEXED_TOPIC_POSTS else ""
     return f"""<!DOCTYPE html>
 <html lang="en"{nl_attr}>
 <head>
@@ -84,7 +89,7 @@ def topic_page(slug, topic, articles, nl_attr):
   <meta name="google-adsense-account" content="ca-pub-3631010450044967">
   <title>{title} | Why Do We Need AI?</title>
   <meta name="description" content="{intro}">
-  <link rel="canonical" href="{url}">
+  <link rel="canonical" href="{url}">{robots}
   <meta property="og:type" content="website">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{intro}">

@@ -5,7 +5,7 @@ from html import escape
 from hero_markup import LOGO_OG, og_image_url
 from editorial_media import MEDIA
 from site_chrome import FONT, HEAD_ICONS, X_URL, XSVG, footer_html, header_nav, head_scripts
-from site_data import ROOT, load_site, load_recent_news, recent_feed_date, format_display_date
+from site_data import ROOT, load_site, format_display_date
 
 
 def article_url(article):
@@ -53,19 +53,6 @@ def featured_card(article, lead=False):
 </a>'''
 
 
-def feed_card(item, index):
-    label_class = "lab ours" if item["kind"] == "ours" else "lab"
-    credit = f'<span class="photo-credit">{escape(item["imageCredit"])}</span>' if item.get("imageCredit") else ""
-    hidden = " hidden" if index >= 8 else ""
-    return f'''<a class="item" data-kind="{item["kind"]}" href="{escape(item["sourceUrl"])}"{hidden}>
-  <div class="ph">{image_markup(item["image"])}</div>
-  <div><div class="{label_class}">{escape(item["source"])}</div>
-  <h3>{escape(item["title"])}</h3>
-  <p><b>Why it matters:</b> {escape(item["takeaway"])}</p>
-  <span class="meta">{date_markup(item["date"])}</span>{credit}</div>
-</a>'''
-
-
 def tags(article):
     primary = article["topic"] or "everyday"
     return [primary, "tests"] if is_test(article) else [primary]
@@ -92,15 +79,6 @@ def main():
     featured = featured_card(lead, lead=True)
     featured += "".join(featured_card(article) for article in picks)
 
-    feed = [{**item, "source": f'via {item["source"]}', "kind": "news"} for item in load_recent_news()]
-    feed.extend({
-        "kind": "ours", "date": article["date"], "title": article["searchTitle"],
-        "source": "WhyDoWeNeedAI", "sourceUrl": article_url(article),
-        "takeaway": takeaway(article), "image": card_image(article),
-    } for article in posts if recent_feed_date(article["date"]))
-    feed.sort(key=lambda item: item["date"], reverse=True)
-    feed_html = "".join(feed_card(item, index) for index, item in enumerate(feed))
-
     topics = {topic["slug"]: topic["name"] for topic in site["raw"]["topics"]}
     topics.update(tests="Our tests", everyday="Everyday ChatGPT")
     chips = f'<button class="on" aria-pressed="true" data-f="all">All <small>{len(posts)}</small></button>'
@@ -120,22 +98,22 @@ def main():
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-adsense-account" content="ca-pub-3631010450044967">
-  <title>Why Do We Need AI? | Practical AI for small business</title>
-  <meta name="description" content="Which AI is worth it for your business—researched and plainly answered. Practical guides, documented tests, and decision tools for small-business owners.">
+  <title>Why Do We Need AI? | Plain-English AI for work and everyday life</title>
+  <meta name="description" content="What AI is actually good for at work and at home. Plain-English guides and tested walkthroughs that show what worked, what didn’t, and how to try it yourself.">
   <meta name="author" content="whydoweneedai.com">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0f1d30">
   <link rel="canonical" href="https://whydoweneedai.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Why Do We Need AI">
-  <meta property="og:title" content="Why Do We Need AI? | Practical AI for small business">
-  <meta property="og:description" content="Which AI is worth it for your business—researched and plainly answered.">
+  <meta property="og:title" content="Why Do We Need AI? | Plain-English AI for work and everyday life">
+  <meta property="og:description" content="What AI is actually good for at work and at home, tested and plainly explained.">
   <meta property="og:url" content="https://whydoweneedai.com/">
   <meta property="og:image" content="{og_image}">
   <meta name="twitter:site" content="@whydoweneedai">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Why Do We Need AI?">
-  <meta name="twitter:description" content="Practical AI for small business—researched and plainly answered.">
+  <meta name="twitter:description" content="What AI is actually good for at work and at home, tested and plainly explained.">
   <meta name="twitter:image" content="{og_image}">
   <script type="application/ld+json">
   {{
@@ -143,7 +121,7 @@ def main():
     "@type": "WebSite",
     "name": "Why Do We Need AI?",
     "url": "https://whydoweneedai.com/",
-    "description": "A practical AI publication for small-business owners with documented tests and plain-English guides.",
+    "description": "A plain-English AI publication for working people, with tested walkthroughs and practical guides.",
     "publisher": {{
       "@type": "Organization",
       "name": "Why Do We Need AI",
@@ -160,20 +138,14 @@ def main():
 {header_nav("/")}
 <main id="main-content">
 <div class="top"><div class="wrap">
-<section class="hero"><h1>Honest, <em>tested</em> AI for<br> small-business owners.</h1>
-<p>We try AI on real small-business tasks, publish what worked and what didn’t, and explain the week’s AI news in plain English.</p>
+<section class="hero"><h1>Honest, <em>tested</em> AI for<br> work and everyday life.</h1>
+<p>We try AI on real tasks, from a household budget to a busy workweek, and publish what worked, what didn’t, and how to do it yourself.</p>
 <div class="cta"><a class="btn btn-white" href="/blog/">Read the blog →</a><a class="btn btn-ghost" href="{X_URL}">{XSVG} Follow @whydoweneedai</a></div>
 <p class="proof">{tests_proof}<b>{len(posts)}</b> guides · corrections shown in the open</p></section>
 </div></div>
 <div class="sheet"><div class="wrap">
 <section class="sec"><div class="head"><h2>Latest posts</h2><p>Plain-English guides to getting real use out of AI.</p></div>
 <div class="feat">{featured}</div><div class="more"><a class="btn btn-outline" href="/blog/">View all posts →</a></div></section>
-
-<section class="sec" id="latest"><div class="head"><h2>Latest</h2><p>This week’s AI news, and what it means for a small business.</p>
-<div class="tabs" data-for="feed"><button class="on" aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="news">News</button><button aria-pressed="false" data-f="ours">Our posts</button></div></div>
-<div class="feed">{feed_html}</div><p class="feed-empty" hidden>No recent items in this view.</p>
-<div class="more"><a class="btn btn-outline" id="view-news" href="#latest">View all news →</a></div>
-</section>
 
 <section class="sec" id="guides"><div class="head"><h2>Guides</h2><p>Step-by-step playbooks from our tests and research.</p>
 <div class="chips">{chips}</div></div>

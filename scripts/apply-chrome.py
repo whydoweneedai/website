@@ -93,7 +93,19 @@ def main():
     for rel, current in (("ai-readyscore/index.html", "/ai-readyscore/"), ("assessment.html", "")):
         path = ROOT / rel
         html = HEADER_OLD.sub(lambda _: header_nav(current), path.read_text())
-        path.write_text(FOOTER_OLD.sub(lambda _: footer_html(), html))
+        html = FOOTER_OLD.sub(lambda _: footer_html(), html)
+        if rel == "ai-readyscore/index.html":
+            html = quiet_quiz(html)
+        path.write_text(html)
+
+
+def quiet_quiz(html: str) -> str:
+    """The quiz stays live for people who find it, with no ads and out of search."""
+    html = strip_adsense(html)
+    html = re.sub(r'<meta name="robots" content="[^"]*">', '<meta name="robots" content="noindex,follow">', html, count=1)
+    if 'name="robots"' not in html:
+        html = html.replace("</title>", '</title>\n<meta name="robots" content="noindex,follow">', 1)
+    return html
 
 
 if __name__ == "__main__":

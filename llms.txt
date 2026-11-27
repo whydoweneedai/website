@@ -1,6 +1,6 @@
 # Why Do We Need AI
 
-> Practical AI and automation guidance for small-business owners, with documented experiments and explicit limits.
+> Plain-English guidance on what AI is actually good for at work and at home, with tested walkthroughs and explicit limits.
 
 ## Start here
 
