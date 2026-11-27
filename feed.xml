@@ -41,67 +41,11 @@
       <guid isPermaLink="true">https://whydoweneedai.com/blog/thanksgiving-plan-chatgpt-menu-timeline-grocery-list/</guid>
     </item>
     <item>
-      <title>Can AI type your invoices into a spreadsheet?</title>
-      <link>https://whydoweneedai.com/blog/can-ai-enter-invoices-spreadsheet-test/</link>
-      <description>We ran 24 invented invoices, including scans and handwriting, through an AI model and a rules script. AI read messy ones better but missed a bad total.</description>
-      <pubDate>Sat, 24 Oct 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://whydoweneedai.com/blog/can-ai-enter-invoices-spreadsheet-test/</guid>
-    </item>
-    <item>
-      <title>AI vs. simple rules for appointment and payment reminders</title>
-      <link>https://whydoweneedai.com/blog/ai-vs-rules-appointment-payment-reminders/</link>
-      <description>We ran 30 made-up reminder records through a rules script and an AI model three times each. Rules got every routine case right.</description>
-      <pubDate>Fri, 23 Oct 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://whydoweneedai.com/blog/ai-vs-rules-appointment-payment-reminders/</guid>
-    </item>
-    <item>
-      <title>We ran 30 invented customer inquiries through an AI follow-up assistant</title>
-      <link>https://whydoweneedai.com/blog/ai-lead-follow-up-test/</link>
-      <description>A 30-case synthetic test: stop checks passed, but one draft made unapproved promises.</description>
-      <pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://whydoweneedai.com/blog/ai-lead-follow-up-test/</guid>
-    </item>
-    <item>
-      <title>We tested our AI readiness checklist on 12 made-up workflows</title>
-      <link>https://whydoweneedai.com/blog/ai-readiness-checklist-test/</link>
-      <description>We ran our readiness checklist on 12 invented workflows. It's a good brake and a poor compass.</description>
-      <pubDate>Mon, 19 Oct 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://whydoweneedai.com/blog/ai-readiness-checklist-test/</guid>
-    </item>
-    <item>
-      <title>Small-business lead follow-up automation: a blueprint</title>
-      <link>https://whydoweneedai.com/blog/lead-follow-up-automation/</link>
-      <description>A lifecycle map for capture, handoff, follow-up, and closure, with exceptions and stop conditions to write first.</description>
-      <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://whydoweneedai.com/blog/lead-follow-up-automation/</guid>
-    </item>
-    <item>
-      <title>AI agents are moving into your business apps</title>
-      <link>https://whydoweneedai.com/blog/ai-agents-business-app-permissions/</link>
-      <description>Use an Agent Action Contract and a contractor test plan to decide what an assistant may read, draft, propose, and change.</description>
-      <pubDate>Fri, 09 Oct 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://whydoweneedai.com/blog/ai-agents-business-app-permissions/</guid>
-    </item>
-    <item>
-      <title>How to evaluate an AI pilot: keep, fix, or stop</title>
-      <link>https://whydoweneedai.com/blog/evaluate-ai-pilot/</link>
-      <description>Use a pilot evidence sheet, quality buckets, net-time math, and a worked example to decide whether an AI workflow deserves to continue.</description>
-      <pubDate>Wed, 07 Oct 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://whydoweneedai.com/blog/evaluate-ai-pilot/</guid>
-    </item>
-    <item>
       <title>What data should you put into an AI tool?</title>
       <link>https://whydoweneedai.com/blog/data-ai-tools/</link>
       <description>Use a green-yellow-red data framework and a pre-upload checklist before business information enters an AI workflow.</description>
       <pubDate>Sun, 04 Oct 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://whydoweneedai.com/blog/data-ai-tools/</guid>
-    </item>
-    <item>
-      <title>How to calculate the ROI of AI automation</title>
-      <link>https://whydoweneedai.com/blog/ai-automation-roi/</link>
-      <description>Use a conservative five-number model to calculate net monthly value, break-even volume, and payback period.</description>
-      <pubDate>Fri, 02 Oct 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://whydoweneedai.com/blog/ai-automation-roi/</guid>
     </item>
     <item>
       <title>AI vs. automation: when your small business actually needs AI</title>
@@ -116,13 +60,6 @@
       <description>Use a five-question scorecard, simple ROI math, and a worked example to identify repetitive work worth automating.</description>
       <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">https://whydoweneedai.com/blog/what-to-automate-first/</guid>
-    </item>
-    <item>
-      <title>The small-business AI readiness checklist</title>
-      <link>https://whydoweneedai.com/blog/ai-readiness-checklist/</link>
-      <description>Score one workflow with a 20-point readiness check and turn the result into a one-page pilot brief.</description>
-      <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">https://whydoweneedai.com/blog/ai-readiness-checklist/</guid>
     </item>
     <item>
       <title>How to choose your first AI tool without wasting money</title>

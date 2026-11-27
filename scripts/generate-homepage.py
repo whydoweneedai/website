@@ -106,6 +106,7 @@ def main():
             chips += f'<button aria-pressed="false" data-f="{escape(slug)}">{escape(label)} <small>{count}</small></button>'
     guides = "".join(guide_card(article, index) for index, article in enumerate(posts))
     n_tests = sum(is_test(article) for article in posts)
+    tests_proof = f"<b>{n_tests}</b> published tests · " if n_tests else ""
     og_image = og_image_url(slug="home")
     page = f'''<!DOCTYPE html>
 <html lang="en">
@@ -157,23 +158,18 @@ def main():
 <div class="top"><div class="wrap">
 <section class="hero"><h1>Honest, <em>tested</em> AI for<br> small-business owners.</h1>
 <p>We try AI on real small-business tasks, publish what worked and what didn’t, and explain the week’s AI news in plain English.</p>
-<div class="cta"><a class="btn btn-white" href="/ai-readyscore/">Get your ReadyScore →</a><a class="btn btn-ghost" href="{X_URL}">{XSVG} Follow @whydoweneedai</a></div>
-<p class="proof"><b>{n_tests}</b> published tests · <b>{len(posts)}</b> guides · corrections shown in the open</p></section>
+<div class="cta"><a class="btn btn-white" href="/blog/">Read the blog →</a><a class="btn btn-ghost" href="{X_URL}">{XSVG} Follow @whydoweneedai</a></div>
+<p class="proof">{tests_proof}<b>{len(posts)}</b> guides · corrections shown in the open</p></section>
 </div></div>
 <div class="sheet"><div class="wrap">
-<section class="sec"><div class="head"><h2>Latest from our tests</h2><p>Real tasks, invented data, and the results, good or bad.</p></div>
+<section class="sec"><div class="head"><h2>Latest posts</h2><p>Plain-English guides to getting real use out of AI.</p></div>
 <div class="feat">{featured}</div><div class="more"><a class="btn btn-outline" href="/blog/">View all posts →</a></div></section>
 
 <section class="sec" id="latest"><div class="head"><h2>Latest</h2><p>This week’s AI news, and what it means for a small business.</p>
 <div class="tabs" data-for="feed"><button class="on" aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="news">News</button><button aria-pressed="false" data-f="ours">Our posts</button></div></div>
 <div class="feed">{feed_html}</div><p class="feed-empty" hidden>No recent items in this view.</p>
 <div class="more"><a class="btn btn-outline" id="view-news" href="#latest">View all news →</a></div>
-
-<aside class="ready"><div class="txt"><div class="eyebrow">AI ReadyScore · Free</div>
-<h2>Find out where AI fits<br>your business.</h2><p>Answer 8 quick questions about how you work today. Get a score and one practical first step to test.</p>
-<div class="facts"><span><i></i>8 questions</span><span><i></i>About 2 minutes</span><span><i></i>No tool to buy</span></div>
-<a class="btn btn-gold" href="/ai-readyscore/">Get your ReadyScore →</a></div>
-<div class="art"><img src="/images/brand/logo-mascot.png" alt="" width="531" height="522"></div></aside></section>
+</section>
 
 <section class="sec" id="guides"><div class="head"><h2>Guides</h2><p>Step-by-step playbooks from our tests and research.</p>
 <div class="chips">{chips}</div></div>

@@ -19,7 +19,6 @@ from site_chrome import (
     header_nav,
     html_newsletter_attr,
     newsletter_article_block,
-    readyscore_module,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -72,7 +71,6 @@ def article_extras(slug: str, site):
   </div>
 {more_topic}</section>
 <div class="article-end-modules">
-{readyscore_module(f"rs-{slug}", compact=True)}
 {newsletter_article_block(slug)}
 </div>"""
 

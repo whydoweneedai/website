@@ -66,6 +66,242 @@
   status = 301
   force = true
 
+# Posts and pages retired on 2026-11-27. Their files are kept under docs/,
+# which is never served. Each old address goes to the closest live page.
+[[redirects]]
+  from = "/blog/can-ai-enter-invoices-spreadsheet-test"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/can-ai-enter-invoices-spreadsheet-test/"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/can-ai-enter-invoices-spreadsheet-test/index.html"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/can-ai-enter-invoices-spreadsheet-test/*"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-vs-rules-appointment-payment-reminders"
+  to = "/blog/ai-vs-automation/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-vs-rules-appointment-payment-reminders/"
+  to = "/blog/ai-vs-automation/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-vs-rules-appointment-payment-reminders/index.html"
+  to = "/blog/ai-vs-automation/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-vs-rules-appointment-payment-reminders/*"
+  to = "/blog/ai-vs-automation/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-lead-follow-up-test"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-lead-follow-up-test/"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-lead-follow-up-test/index.html"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-lead-follow-up-test/*"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-readiness-checklist-test"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-readiness-checklist-test/"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-readiness-checklist-test/index.html"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-readiness-checklist-test/*"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/lead-follow-up-automation"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/lead-follow-up-automation/"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/lead-follow-up-automation/index.html"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/lead-follow-up-automation/*"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-readiness-checklist"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-readiness-checklist/"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-readiness-checklist/index.html"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-readiness-checklist/*"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-automation-roi"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-automation-roi/"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-automation-roi/index.html"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-automation-roi/*"
+  to = "/blog/what-to-automate-first/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/evaluate-ai-pilot"
+  to = "/blog/choose-first-ai-tool/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/evaluate-ai-pilot/"
+  to = "/blog/choose-first-ai-tool/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/evaluate-ai-pilot/index.html"
+  to = "/blog/choose-first-ai-tool/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/evaluate-ai-pilot/*"
+  to = "/blog/choose-first-ai-tool/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-agents-business-app-permissions"
+  to = "/blog/data-ai-tools/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-agents-business-app-permissions/"
+  to = "/blog/data-ai-tools/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-agents-business-app-permissions/index.html"
+  to = "/blog/data-ai-tools/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/ai-agents-business-app-permissions/*"
+  to = "/blog/data-ai-tools/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/how-we-test"
+  to = "/editorial-policy/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/how-we-test/"
+  to = "/editorial-policy/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/how-we-test/index.html"
+  to = "/editorial-policy/"
+  status = 301
+  force = true
+
 # Editorial / internal docs (root)
 [[redirects]]
   from = "/EDITORIAL_PLAYBOOK.md"
@@ -179,6 +415,24 @@
 
 # Legacy sections remain reachable after the reader-first navigation update.
 [[redirects]]
+  from = "/topics/costs-results"
+  to = "/blog/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/costs-results/"
+  to = "/blog/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/topics/costs-results/index.html"
+  to = "/blog/"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/topics/tested"
   to = "/blog/"
   status = 301
@@ -216,19 +470,19 @@
 
 [[redirects]]
   from = "/topics/roi-planning"
-  to = "/topics/costs-results/"
+  to = "/blog/"
   status = 301
   force = true
 
 [[redirects]]
   from = "/topics/roi-planning/"
-  to = "/topics/costs-results/"
+  to = "/blog/"
   status = 301
   force = true
 
 [[redirects]]
   from = "/topics/roi-planning/index.html"
-  to = "/topics/costs-results/"
+  to = "/blog/"
   status = 301
   force = true
 
